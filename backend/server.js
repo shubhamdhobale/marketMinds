@@ -1,16 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import mongoose from 'mongoose';
+import connectDB from './db/index.js';
 
 const app = express();
 dotenv.config();
 
-app.get('/' , (req , res) =>{
-  res.send('TradeMitra Backend');
-})
+connectDB();
 
-mongoose.connect(process.env.MONGO_URL)
-.then(() => console.log('Connected to MongoDB'))
-.catch((err) => console.log('error', err));
-
-app.listen(5000 , () => console.log('server is running on port 5000'));
+app.listen(process.env.PORT , () => console.log('server is running on port 5000'));
