@@ -10,7 +10,7 @@ export const registerUser = asyncHandler(async(req , res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const {name , username , email , password } = req.body;
+  const { username , email , password } = req.body;
 
   //Check if user already exists
   const userExists = await User.findOne({email});
@@ -20,11 +20,10 @@ export const registerUser = asyncHandler(async(req , res) => {
   }
 
   //create new user
-  const user = await User.create({name , username , email , password});
+  const user = await User.create({ username , email , password});
   if(user){
     res.status(201).json({
       _id: user._id,
-      name: user.name,
       username: user.username,
       email: user.email,
       token : generateToken(user._id),
@@ -42,7 +41,6 @@ export const authUser = asyncHandler(async(req , res) => {
   if(user && (await user.matchPassword(password))){
     res.json({
       _id: user._id,
-      name: user.name,
       username: user.username,
       email: user.email,
       token : generateToken(user._id),

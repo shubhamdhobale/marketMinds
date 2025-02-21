@@ -3,4 +3,6 @@ import app from './src/app.js';
 
 connectDB();
 
-app.listen(process.env.PORT , () => console.log('server is running on port 5000'));
+const PORT = 5000 || process.env.PORT;
+
+app.listen(PORT , () => console.log('server is running on port 5000'));
