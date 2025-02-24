@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUserProfile, logout } from "../redux/authSlice";
+import { fetchUserProfile, logout } from "../redux/authSlice.js";
 
 const Profile = () => {
   const navigate = useNavigate();
