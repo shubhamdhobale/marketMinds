@@ -1,18 +1,40 @@
-
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUserProfile, logout } from "../redux/authSlice";
 
 const Profile = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user, loading, error } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(fetchUserProfile());
+  }, [dispatch]);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/signin");
+  };
+
+  if (loading) return <p>Loading user details...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white p-6 rounded-lg shadow-lg text-center w-80">
-        <h2 className="text-xl font-bold text-gray-800">Welcome,  !</h2>
-        <p className="text-gray-600 mt-2">Email: </p>
-        <p className="text-gray-500 text-sm mt-1">Joined: </p>
-        <button
-          className="bg-red-500 text-white py-2 px-4 rounded-lg mt-4 hover:bg-red-600 transition"
-        >
-          Logout
-        </button>
+    <div className="flex items-center justify-center h-screen">
+      <div className="border border-black p-8 w-96 rounded-md shadow-2xl flex flex-col items-center">
+        <h1 className="text-2xl font-bold text-[#0A192F]">User Profile</h1>
+        {user ? (
+          <div className="mt-4 text-center">
+            <p><strong>Username:</strong> {user.username}</p>
+            <p><strong>Email:</strong> {user.email}</p>
+            <button onClick={handleLogout} className="mt-4 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700">
+              Logout
+            </button>
+          </div>
+        ) : (
+          <p>User not found.</p>
+        )}
       </div>
     </div>
   );

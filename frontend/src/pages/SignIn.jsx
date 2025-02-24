@@ -2,10 +2,13 @@ import { Link , useNavigate} from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useState } from "react";
+// import { useDispatch } from "react-redux";
+// import { loginSuccess } from "../redux/authSlice";
 
 const SignIn = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
+  // const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData((prevData) => ({
@@ -22,12 +25,14 @@ const SignIn = () => {
         formData
       );
 
+
       const token = response.data.token;
       if (!token) {
         throw new Error("Token not received");
       }
 
       localStorage.setItem("token", token);
+      // dispatch(loginSuccess({ user: response.data.user, token: response.data.token }));
       toast.success("Sign In Successful");
       navigate("/profile");
     } catch (error) {
@@ -44,6 +49,7 @@ const SignIn = () => {
           <h1 className="text-2xl font-bold text-[#0A192F] tracking-wide">
             Welcome to MarketMinds
           </h1>
+          <p className="text-[#0A192F] tracking-wide py-2 text-sm">📈 Trade Smart, Track Better.</p>
         </div>
         <form
           onSubmit={handleSubmit}
