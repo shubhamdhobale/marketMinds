@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 import authRoutes from './routes/auth.route.js'
+import userRoute from './routes/user.route.js'
 import { errorHandler, notFound } from './middleware/error.middleware.js';
 
 
@@ -22,6 +23,7 @@ if(process.env.NODE_ENV === 'development'){
 
 //Routes
 app.use('/api/auth' , authRoutes);
+app.use('/api/user' , userRoute);
 
 //Error Handling Middleware
 app.use(notFound);
