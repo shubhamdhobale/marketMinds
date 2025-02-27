@@ -39,6 +39,7 @@ const SignUp = () => {
         <div className="text-center flex items-center justify-center flex-col">
           <img src="../../public/images/logo-removebg-preview.png" alt="" className="h-40"/>
           <h1 className="text-2xl font-bold text-[#0A192F] tracking-wide">Welcome to MarketMinds</h1>
+          <p className="text-[#0A192F] tracking-wide py-2 text-sm">📈 Trade Smart, Track Better.</p>
         </div>
         <div>
           <form onSubmit={handleSubmit} className="flex flex-col items-center justify-center gap-4 p-4">

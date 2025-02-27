@@ -19,11 +19,21 @@ export const fetchUserProfile = createAsyncThunk("auth/fetchUserProfile", async 
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: { user: null, loading: false, error: null },
+  initialState: {
+    isAuthenticated: !!localStorage.getItem("token"), // Set based on token
+    user: null,
+    loading: false,
+    error: null,
+  },
   reducers: {
+    login: (state, action) => {
+      state.isAuthenticated = true;
+      state.user = action.payload;
+    },
     logout: (state) => {
+      state.isAuthenticated = false;
       state.user = null;
-      localStorage.removeItem("token");
+      localStorage.removeItem("token"); 
     },
   },
   extraReducers: (builder) => {
@@ -33,14 +43,16 @@ const authSlice = createSlice({
       })
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
         state.user = action.payload;
+        state.isAuthenticated = true;
         state.loading = false;
       })
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.error = action.payload;
+        state.isAuthenticated = false;
         state.loading = false;
       });
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { login , logout } = authSlice.actions;
 export default authSlice.reducer;

@@ -2,13 +2,13 @@ import { Link , useNavigate} from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useState } from "react";
-// import { useDispatch } from "react-redux";
-// import { loginSuccess } from "../redux/authSlice";
+import { useDispatch } from "react-redux";
+import { fetchUserProfile, login } from "../redux/authSlice.js";
 
 const SignIn = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData((prevData) => ({
@@ -32,7 +32,8 @@ const SignIn = () => {
       }
 
       localStorage.setItem("token", token);
-      // dispatch(loginSuccess({ user: response.data.user, token: response.data.token }));
+      dispatch(login({}));
+      dispatch(fetchUserProfile());
       toast.success("Sign In Successful");
       navigate("/profile");
     } catch (error) {
