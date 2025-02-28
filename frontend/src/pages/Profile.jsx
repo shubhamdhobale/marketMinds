@@ -21,7 +21,7 @@ const Profile = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center h-screen mt-40">
       <div className="border border-black p-8 w-96 rounded-md shadow-2xl flex flex-col items-center">
         <h1 className="text-2xl font-bold text-[#0A192F]">User Profile</h1>
         {user ? (

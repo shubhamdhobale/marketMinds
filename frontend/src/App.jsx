@@ -8,6 +8,8 @@ import Layout from './components/Layout';
 import EmptyPage from './components/EmptyPage';
 import { ToastContainer } from 'react-toastify';
 import PrivateRoute from './components/PrivateRoute';
+import Feature from './pages/Feature.jsx';
+import Pricing from './pages/Pricing.jsx';
 
 
 const router = createBrowserRouter(
@@ -15,6 +17,8 @@ const router = createBrowserRouter(
     <Route path='/' element={<Layout/>}>
       <Route index element={<Home/>}/>
       <Route path='/*' element={<EmptyPage/>}/>
+      <Route path='/features' element={<Feature/>}/>
+      <Route path='/pricing' element={<Pricing/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='/signin' element={<SignIn/>}/>
       <Route path='/signup' element={<SignUp/>}/>

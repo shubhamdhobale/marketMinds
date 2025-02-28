@@ -43,7 +43,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center min-h-screen mt-12 bg-gradient-to-tl from-[#4ecca229] to-[#00c3ff0d]">
       <div className="border border-black p-8 w-96 rounded-md shadow-2xl flex flex-col items-center justify-center">
         <div className="text-center flex items-center justify-center flex-col">
           <img src="/images/logo-removebg-preview.png" alt="Logo" className="h-40" />
