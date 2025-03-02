@@ -9,21 +9,21 @@ const testimonials = [
     feedback:
       "MarketMinds transformed my trading strategy! The AI insights helped me improve my risk management and increase my profits.",
     rating: 5,
-    image: "../../public/images/testimonial photo/mayur photo.jpeg",
+    image: "/images/testimonial photo/mayur photo.jpeg",
   },
   {
     name: "Rohan Khaire",
     feedback:
       "I love how easy it is to log my trades and analyze my performance. MarketMinds keeps me disciplined and consistent.",
     rating: 4.5,
-    image: "../../public/images/testimonial photo/rohan photo.jpeg",
+    image: "/images/testimonial photo/rohan photo.jpeg",
   },
   {
     name: "Shashi Kapur",
     feedback:
       "The 3D visualization and trading journal features are simply amazing. Highly recommend for traders of all levels!",
     rating: 5,
-    image: "../../public/images/testimonial photo/shashi photo.jpeg",
+    image: "/images/testimonial photo/shashi photo.jpeg",
   },
 ];
 

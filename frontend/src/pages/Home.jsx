@@ -41,7 +41,7 @@ export default function Home() {
           }}/>
 
           <motion.img 
-          src="../../public/images/company logo/binance-removebg-preview.png"  
+          src="/images/company logo/binance-removebg-preview.png"  
           className='w-20 left-1/4 absolute bottom-32 glow-effect opacity-70'
           initial={{ x: Math.random() * 50 - 15, y: 0 }}
           animate={{
@@ -71,7 +71,7 @@ export default function Home() {
           }}/>
 
           <motion.img 
-          src="../../public/images/company logo/meta-removebg-preview.png"  
+          src="/images/company logo/meta-removebg-preview.png"  
           className='w-26 absolute bottom-48 right-68 glow-effect opacity-70'
           initial={{ x: Math.random() * 50 - 15, y: 0 }}
           animate={{
@@ -86,7 +86,7 @@ export default function Home() {
           }}/>
 
           <motion.img 
-          src="../../public/images/company logo/coinbase-new4201-removebg-preview.png"  
+          src="/images/company logo/coinbase-new4201-removebg-preview.png"  
           className='w-16 absolute left-1/2 top-32 glow-effect opacity-70'
           initial={{ x: Math.random() * 50 - 15, y: 0 }}
           animate={{
