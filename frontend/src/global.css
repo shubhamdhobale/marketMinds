@@ -1,0 +1,6 @@
+.glow-effect {
+  filter: drop-shadow(0px 0px 15px rgba(78, 204, 162, 0.464)) 
+          drop-shadow(0px 0px 25px rgba(78, 204, 162, 0.534)) 
+          drop-shadow(0px 0px 35px rgba(78, 204, 162, 0.473));
+  animation: glow-pulse 1.5s infinite alternate ease-in-out;
+}

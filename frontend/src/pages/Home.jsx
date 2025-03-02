@@ -6,6 +6,7 @@ import { TimelineDemo } from '../components/TimelineDemo.jsx';
 import Testimonials from '../components/Testimonials.jsx';
 import FAQSection from '../components/FAQSection.jsx';
 import CTA from '../components/CTA.jsx';
+import '.././global.css';
 // import ContactUs from '../components/ContactUs.jsx';
 
 
@@ -19,55 +20,102 @@ const benefits = [
   { icon: <FaSync size={50} className="text-[#FFD700]" />, title: "Seamless Integration", description: "Sync across devices with cloud-based storage and auto-backups." }
 ];
 
-const leftLogos = [
-  "https://www.trade-copier.com/images/oneui/brokers/tradingview_rectangle.png",
-  "https://thumbs.dreamstime.com/b/print-347511194.jpg",
-];
+// const leftLogos = [
+//   "https://www.trade-copier.com/images/oneui/brokers/tradingview_rectangle.png",
+//   "https://thumbs.dreamstime.com/b/print-347511194.jpg",
+//   "https://images.seeklogo.com/logo-png/48/2/zerodha-kite-logo-png_seeklogo-487028.png",
+// ];
 
-const rightLogos = [
-  "https://www.bestbrokers.com/wp-content/uploads/2024/12/mt4-logo-1x1-1.jpg",
-  "https://logowik.com/content/uploads/images/coinbase-new4201.jpg",
-];
+// const rightLogos = [
+//   "https://www.bestbrokers.com/wp-content/uploads/2024/12/mt4-logo-1x1-1.jpg",
+//   "https://logowik.com/content/uploads/images/coinbase-new4201.jpg",
+// ];
 
-const FloatingLogos = ({ logos, side }) => {
+
+
+export default function Home() {
   return (
-    <div className={`absolute top-1/2 -translate-y-1/2 ${side === "left" ? "left-4" : "right-4"} w-[120px] flex flex-col gap-64`}>
-      {logos.map((logo, index) => (
-        <motion.img
-          key={index}
-          src={logo}
-          alt="Company Logo"
-          className="w-14 opacity-70 flex gap-96"
-          initial={{ y: Math.random() * 30 - 15, x: 0 }}
+    <div className="min-h-screen flex flex-col items-center justify-center">
+      <div className='mt-28 flex'>
+          <motion.img 
+          src="https://www.trade-copier.com/images/oneui/brokers/tradingview_rectangle.png" 
+          className='w-16 left-68 absolute top-60 glow-effect opacity-70' 
+          initial={{ x: Math.random() * 50 - 15, y: 0 }}
           animate={{
             y: [Math.random() * -20, Math.random() * 20, Math.random() * -20],
             x: [Math.random() * -10, Math.random() * 10, Math.random() * -10],
           }}
           transition={{
-            duration: 3 + Math.random() * 2,
+            duration: 5 + Math.random() * 2,
             repeat: Infinity,
             repeatType: "mirror",
             ease: "easeInOut",
+          }}/>
+
+          <motion.img 
+          src="../../public/images/company logo/binance-removebg-preview.png"  
+          className='w-20 left-1/4 absolute bottom-32 glow-effect opacity-70'
+          initial={{ x: Math.random() * 50 - 15, y: 0 }}
+          animate={{
+            y: [Math.random() * -20, Math.random() * 20, Math.random() * -20],
+            x: [Math.random() * -10, Math.random() * 10, Math.random() * -10],
           }}
-        />
-      ))}
-    </div>
-  );
-};
+          transition={{
+            duration: 5 + Math.random() * 2,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut",
+          }}/>
 
+          <motion.img 
+          src="https://images.seeklogo.com/logo-png/48/2/zerodha-kite-logo-png_seeklogo-487028.png"  
+          className='w-12 absolute top-40 right-40 glow-effect opacity-70'
+          initial={{ x: Math.random() * 50 - 15, y: 0 }}
+          animate={{
+            y: [Math.random() * -20, Math.random() * 20, Math.random() * -20],
+            x: [Math.random() * -10, Math.random() * 10, Math.random() * -10],
+          }}
+          transition={{
+            duration: 5 + Math.random() * 2,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut",
+          }}/>
 
-export default function Home() {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center max-w-screen">
+          <motion.img 
+          src="../../public/images/company logo/meta-removebg-preview.png"  
+          className='w-26 absolute bottom-48 right-68 glow-effect opacity-70'
+          initial={{ x: Math.random() * 50 - 15, y: 0 }}
+          animate={{
+            y: [Math.random() * -20, Math.random() * 20, Math.random() * -20],
+            x: [Math.random() * -10, Math.random() * 10, Math.random() * -10],
+          }}
+          transition={{
+            duration: 5 + Math.random() * 2,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut",
+          }}/>
 
+          <motion.img 
+          src="../../public/images/company logo/coinbase-new4201-removebg-preview.png"  
+          className='w-16 absolute left-1/2 top-32 glow-effect opacity-70'
+          initial={{ x: Math.random() * 50 - 15, y: 0 }}
+          animate={{
+            y: [Math.random() * -20, Math.random() * 20, Math.random() * -20],
+            x: [Math.random() * -10, Math.random() * 10, Math.random() * -10],
+          }}
+          transition={{
+            duration: 5 + Math.random() * 2,
+            repeat: Infinity,
+            repeatType: "mirror",
+            ease: "easeInOut",
+          }}/>
+
+        </div>
       {/* Hero Section */}
-      <div className="relative text-center mt-48 overflow-hidden max-w-full">
-      {/* Floating Logos - Left & Right */}
-      <div className=''>
-        <FloatingLogos logos={leftLogos} side="left"/>
-        <FloatingLogos logos={rightLogos} side="right" />
-      </div>
-
+      <div className="text-center mt-36">
+        
       <div className="max-w-3xl mx-auto px-12 relative z-10">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
