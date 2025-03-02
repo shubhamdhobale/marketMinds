@@ -83,7 +83,7 @@ const SignUp = () => {
             <p className="tracking-wider">OR</p>
           </div>
           <div className="flex flex-row gap-3 items-center justify-center border border-black px-4 py-2 rounded-lg shadow-lg hover:scale-105 transition duration-700 cursor-pointer">
-            <img src="../../public/images/google.png" alt="" className="h-6"/>
+            <img src="/images/google.png" alt="" className="h-6"/>
             <p className="text-md tracking-wider font-semibold">Continue with Google</p>
           </div>
         </div>
