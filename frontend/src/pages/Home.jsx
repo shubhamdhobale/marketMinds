@@ -20,18 +20,6 @@ const benefits = [
   { icon: <FaSync size={50} className="text-[#FFD700]" />, title: "Seamless Integration", description: "Sync across devices with cloud-based storage and auto-backups." }
 ];
 
-// const leftLogos = [
-//   "https://www.trade-copier.com/images/oneui/brokers/tradingview_rectangle.png",
-//   "https://thumbs.dreamstime.com/b/print-347511194.jpg",
-//   "https://images.seeklogo.com/logo-png/48/2/zerodha-kite-logo-png_seeklogo-487028.png",
-// ];
-
-// const rightLogos = [
-//   "https://www.bestbrokers.com/wp-content/uploads/2024/12/mt4-logo-1x1-1.jpg",
-//   "https://logowik.com/content/uploads/images/coinbase-new4201.jpg",
-// ];
-
-
 
 export default function Home() {
   return (
