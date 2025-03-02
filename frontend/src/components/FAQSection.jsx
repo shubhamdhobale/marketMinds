@@ -3,22 +3,11 @@ import { motion } from "framer-motion";
 import { FaPlus, FaMinus } from "react-icons/fa";
 
 const faqs = [
-  {
-    question: "How does MarketMinds help traders?",
-    answer: "MarketMinds provides a trading journal, AI-driven insights, and analytics to help traders refine their strategies and improve consistency.",
-  },
-  {
-    question: "Is MarketMinds suitable for beginners?",
-    answer: "Absolutely! Our platform is designed to be user-friendly, offering educational insights along with trade logging and performance tracking.",
-  },
-  {
-    question: "Can I use MarketMinds for free?",
-    answer: "Yes! We offer a free plan with essential features. For advanced analytics and AI-driven insights, we have premium plans.",
-  },
-  {
-    question: "How secure is my trading data?",
-    answer: "Your data is encrypted and stored securely. We prioritize user privacy and ensure top-level security protocols are followed.",
-  },
+  { question: "What is MarketMinds?", answer: "MarketMinds is a trading journal platform that helps traders track and analyze their trades with AI insights." },
+  { question: "How can I sign up?", answer: "You can sign up by clicking on the 'Get Started' button on the homepage and following the registration steps." },
+  { question: "Is MarketMinds free to use?", answer: "We offer a free plan with basic features and premium plans for advanced analytics and AI-powered insights." },
+  { question: "Can I access my data on multiple devices?", answer: "Yes, your data is securely stored in the cloud, allowing you to access it from anywhere." },
+  { question: "How do I contact support?", answer: "You can reach us via the live chat, contact form, or email at support@marketminds.com." },
 ];
 
 export default function FAQSection() {

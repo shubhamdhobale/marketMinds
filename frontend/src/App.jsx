@@ -10,6 +10,8 @@ import { ToastContainer } from 'react-toastify';
 import PrivateRoute from './components/PrivateRoute';
 import Feature from './pages/Feature.jsx';
 import Pricing from './pages/Pricing.jsx';
+import BrokerSupport from './pages/BrokerSupport.jsx';
+import Resources from './pages/Resources.jsx';
 
 
 const router = createBrowserRouter(
@@ -19,6 +21,8 @@ const router = createBrowserRouter(
       <Route path='/*' element={<EmptyPage/>}/>
       <Route path='/features' element={<Feature/>}/>
       <Route path='/pricing' element={<Pricing/>}/>
+      <Route path='/brokerSupport' element={<BrokerSupport/>}/>
+      <Route path='/resources' element={<Resources/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='/signin' element={<SignIn/>}/>
       <Route path='/signup' element={<SignUp/>}/>

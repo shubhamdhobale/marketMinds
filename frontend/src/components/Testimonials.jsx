@@ -5,25 +5,25 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const testimonials = [
   {
-    name: "John Doe",
+    name: "Mayur Jathar",
     feedback:
       "MarketMinds transformed my trading strategy! The AI insights helped me improve my risk management and increase my profits.",
     rating: 5,
-    image: "https://randomuser.me/api/portraits/men/1.jpg",
+    image: "../../public/images/testimonial photo/mayur photo.jpeg",
   },
   {
-    name: "Sarah Lee",
+    name: "Rohan Khaire",
     feedback:
       "I love how easy it is to log my trades and analyze my performance. MarketMinds keeps me disciplined and consistent.",
     rating: 4.5,
-    image: "https://randomuser.me/api/portraits/women/2.jpg",
+    image: "../../public/images/testimonial photo/rohan photo.jpeg",
   },
   {
-    name: "David Smith",
+    name: "Shashi Kapur",
     feedback:
       "The 3D visualization and trading journal features are simply amazing. Highly recommend for traders of all levels!",
     rating: 5,
-    image: "https://randomuser.me/api/portraits/men/3.jpg",
+    image: "../../public/images/testimonial photo/shashi photo.jpeg",
   },
 ];
 

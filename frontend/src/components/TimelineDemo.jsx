@@ -135,7 +135,7 @@ export function TimelineDemo() {
   ];
 
   return (
-    (<div className="w-full">
+    (<div className="w-full max-w-5xl">
       <Timeline data={data} />
     </div>)
   );

@@ -5,7 +5,7 @@ import { fetchUserProfile, logout } from "../redux/authSlice.js";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react"; // Importing icons
 
-import logo from "../../public/images/logo-removebg-preview.png";
+import logo from "../../public/images/logo.png";
 import userIcon from "../../public/images/user.png";
 import arrowDown from "../../public/images/dashboard.webp";
 
