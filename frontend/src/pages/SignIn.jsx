@@ -46,7 +46,7 @@ const SignIn = () => {
     <div className="flex items-center justify-center min-h-screen mt-12">
       <div className="border border-black p-8 w-96 rounded-md shadow-2xl flex flex-col items-center justify-center">
         <div className="text-center flex items-center justify-center flex-col">
-          <img src="../../public/images/logo.png" alt="Logo" className="h-40" />
+          <img src="/images/logo.png" alt="Logo" className="h-40" />
           <h1 className="text-2xl font-bold text-[#0A192F] tracking-wide">
             Welcome to MarketMinds
           </h1>
