@@ -13,6 +13,7 @@ const AddTradeEntry = () => {
   const [trade, setTrade] = useState({
     ticker: "",
     type: "Buy",
+    entryTime : "",
     entryPrice: "",
     exitPrice: "",
     stopLoss: "",
@@ -72,16 +73,29 @@ const AddTradeEntry = () => {
       <form onSubmit={handleSubmit} className="space-y-4 w-full mt-8">
         <Input name="ticker" placeholder="Ticker Symbol (e.g., AAPL)" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
 
-        {/* Select for Trade Type */}
-        <Select onValueChange={(value) => handleChange("type", value)}>
-          <SelectTrigger className='font-semibold'>
-            <SelectValue placeholder="Select Trade Type"/>
-          </SelectTrigger>
-          <SelectContent className='font-bold'>
-            <SelectItem value="Buy" className='text-green-700'>Buy</SelectItem>
-            <SelectItem value="Sell" className='text-red-700'>Sell</SelectItem>
-          </SelectContent>
-        </Select>
+        <div className="flex gap-8 justify-start items-center">
+          {/* Select for Trade Type */}
+          <Select onValueChange={(value) => handleChange("type", value)}>
+            <SelectTrigger className='font-semibold'>
+              <SelectValue placeholder="Select Trade Type"/>
+            </SelectTrigger>
+            <SelectContent className='font-bold'>
+              <SelectItem value="Buy" className='text-green-700'>Buy</SelectItem>
+              <SelectItem value="Sell" className='text-red-700'>Sell</SelectItem>
+            </SelectContent>
+          </Select>
+          <div className="flex justify-center items-center gap-3">
+          <label htmlFor="entryTime" className="text-gray-600 text-md">Entry Time:</label>
+          <input
+            name="entryTime"
+            id="entryTime"
+            type="time"
+            onChange={(e) => handleChange(e.target.name, e.target.value)}
+            required
+            className="border p-2 rounded-md"
+          />
+          </div>
+        </div>
         
         <div className="flex gap-2">
           <Input name="entryPrice" type="number" placeholder="Entry Price" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
