@@ -13,7 +13,7 @@ export const addNewTrade = asyncHandler(async (req, res) => {
     }
 
     const trade = new Trade({
-      user: req.user._id,  // Ensure user is correctly set
+      user: req.user._id,  
       ticker,
       type,
       entryTime,
@@ -34,6 +34,22 @@ export const addNewTrade = asyncHandler(async (req, res) => {
     res.status(201).json(savedTrade);
   } catch (error) {
     console.error("Trade Entry Error:", error);
+    res.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
+});
+
+export const getUserTrades = asyncHandler(async (req, res) => {
+  try {
+    console.log("Fetching trades for user:", req.user._id);
+    const trades = await Trade.find({ user: req.user._id }).sort({ date: -1 }); // Sort by date (latest first)
+    
+    if (!trades || trades.length === 0) {
+      return res.status(404).json({ message: "No trades found" });
+    }
+
+    res.status(200).json(trades);
+  } catch (error) {
+    console.error("Error fetching trades:", error);
     res.status(500).json({ message: "Internal Server Error", error: error.message });
   }
 });
