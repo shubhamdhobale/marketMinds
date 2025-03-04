@@ -2,13 +2,19 @@ import { Link , useNavigate} from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { fetchUserProfile, login } from "../redux/authSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserProfile, login, signInWithGoogle } from "../redux/authSlice.js";
 
 const SignIn = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.auth);
+
+  const handleGoogleSignIn = () => {
+    dispatch(signInWithGoogle());
+    navigate('/profile');
+  };
 
   const handleChange = (e) => {
     setFormData((prevData) => ({
@@ -93,10 +99,12 @@ const SignIn = () => {
 
         <div className="flex flex-col items-center justify-center gap-2 mt-4">
           <p className="tracking-wider">OR</p>
-          <div className="flex flex-row gap-3 items-center justify-center border border-black px-4 py-2 rounded-lg shadow-lg hover:scale-105 transition duration-700 cursor-pointer">
+          <button className="flex flex-row gap-3 items-center justify-center border border-black px-4 py-2 rounded-lg shadow-lg hover:scale-105 transition duration-700 cursor-pointer" onClick={handleGoogleSignIn}>
             <img src="/images/google.png" alt="Google Logo" className="h-6" />
             <p className="text-md tracking-wider font-semibold">Continue with Google</p>
-          </div>
+          </button>
+          {loading && <p>Signing in...</p>}
+          {error && <p className="text-red-500">{error}</p>}
         </div>
       </div>
     </div>
