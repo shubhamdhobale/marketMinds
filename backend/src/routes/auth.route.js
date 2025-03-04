@@ -1,5 +1,5 @@
 import express from 'express';
-import { registerUser, authUser } from '../controllers/auth.controller.js';
+import { registerUser, authUser, googleSignIn } from '../controllers/auth.controller.js';
 import { body } from 'express-validator';
 
 const router = express.Router();
@@ -16,5 +16,6 @@ router.post(
 );
 
 router.post('/signin', authUser);
+router.post('/google', googleSignIn);
 
 export default router;

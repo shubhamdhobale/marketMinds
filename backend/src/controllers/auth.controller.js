@@ -2,7 +2,7 @@ import asyncHandler from 'express-async-handler'
 import User from '../models/user.model.js';
 import generateToken from '../utils/generateToken.js';
 import { validationResult } from 'express-validator';
-
+import jwt from 'jsonwebtoken';
 
 export const registerUser = asyncHandler(async(req , res) => {
   // Check for validation errors
@@ -51,3 +51,33 @@ export const authUser = asyncHandler(async(req , res) => {
   }
 });
 
+export const googleSignIn = asyncHandler(async (req, res) => {
+  try {
+    console.log("Google Auth Request Body:", req.body);
+
+    const { username, email, uid, photoURL } = req.body;  // Include photoURL
+
+    if (!email || !uid) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      user = new User({
+        username,
+        email,
+        googleId: uid,  // ✅ Save Google UID
+        photoURL,       // ✅ Save profile picture
+      });
+
+      await user.save();
+    }
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "30d" });
+    res.json({ user, token });
+  } catch (error) {
+    console.error("Google Auth Error:", error);
+    res.status(500).json({ message: "Server error during Google authentication" });
+  }
+});
