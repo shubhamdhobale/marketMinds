@@ -72,7 +72,7 @@ const AddTradeEntry = () => {
   
       if (response.ok) {
         toast.success("Trade entry added successfully!");
-        navigate("/dashboard");
+        navigate("/profile");
       } else {
         toast.error(data.message || "Failed to add trade.");
       }

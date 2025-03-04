@@ -17,13 +17,28 @@ export const fetchUserProfile = createAsyncThunk("auth/fetchUserProfile", async 
   }
 });
 
+// Fetch user's trades
+export const fetchUserTrades = createAsyncThunk("auth/fetchUserTrades", async (_, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem("token");
+    const config = { headers: { Authorization: `Bearer ${token}` } };
+    const response = await axios.get('http://localhost:5000/api/trade/mytrades', config);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response?.data?.message || "Failed to fetch trades");
+  }
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    isAuthenticated: !!localStorage.getItem("token"), // Set based on token
+    isAuthenticated: !!localStorage.getItem("token"),
     user: null,
+    trades: [],
     loading: false,
+    tradeLoading: false,
     error: null,
+    tradeError: null,
   },
   reducers: {
     login: (state, action) => {
@@ -33,6 +48,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.isAuthenticated = false;
       state.user = null;
+      state.trades = [];
       localStorage.removeItem("token"); 
     },
   },
@@ -50,7 +66,17 @@ const authSlice = createSlice({
         state.error = action.payload;
         state.isAuthenticated = false;
         state.loading = false;
-      });
+      })
+      // Fetch user trades
+      .addCase(fetchUserTrades.pending, (state) => { state.tradeLoading = true; })
+      .addCase(fetchUserTrades.fulfilled, (state, action) => {
+        state.tradeLoading = false;
+        state.trades = action.payload;
+      })
+      .addCase(fetchUserTrades.rejected, (state, action) => {
+        state.tradeLoading = false;
+        state.tradeError = action.payload;
+      })
   },
 });
 
