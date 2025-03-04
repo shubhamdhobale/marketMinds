@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserProfile, logout } from "../redux/authSlice.js";
 
@@ -28,6 +28,9 @@ const Profile = () => {
           <div className="mt-4 text-center">
             <p><strong>Username:</strong> {user.username}</p>
             <p><strong>Email:</strong> {user.email}</p>
+            <Link to='/newtrade'>
+              <button className="mt-4 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-green-700">Add new Trade</button>
+            </Link>
             <button onClick={handleLogout} className="mt-4 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700">
               Logout
             </button>
