@@ -212,6 +212,7 @@ export default function Home() {
 
       <div>
         <CTA/>
+        <Link to='/newtrade'>Add new Trade</Link>
       </div>
 
       {/* <div>
