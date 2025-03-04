@@ -7,7 +7,7 @@ import { Menu, X } from "lucide-react"; // Importing icons
 
 import logo from "../../public/images/logo.png";
 import userIcon from "../../public/images/user.png";
-import arrowDown from "../../public/images/dashboard.webp";
+import arrowDown from "../../public/images/arrow down.png";
 
 const Header = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);

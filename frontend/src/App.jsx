@@ -12,6 +12,7 @@ import Feature from './pages/Feature.jsx';
 import Pricing from './pages/Pricing.jsx';
 import BrokerSupport from './pages/BrokerSupport.jsx';
 import Resources from './pages/Resources.jsx';
+import AddTradeEntry from './components/AddTradeEntry.jsx';
 
 
 const router = createBrowserRouter(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route path='/pricing' element={<Pricing/>}/>
       <Route path='/brokerSupport' element={<BrokerSupport/>}/>
       <Route path='/resources' element={<Resources/>}/>
+      <Route path='/newtrade' element={<AddTradeEntry/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='/signin' element={<SignIn/>}/>
       <Route path='/signup' element={<SignUp/>}/>
