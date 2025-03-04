@@ -29,41 +29,59 @@ const AddTradeEntry = () => {
     setTrade({ ...trade, [name]: value });
   };
 
-   // Calculate PnL when Entry Price, Exit Price, or Quantity changes
-   useEffect(() => {
+  useEffect(() => {
     const { entryPrice, exitPrice, quantity } = trade;
     if (entryPrice && exitPrice && quantity) {
       const pnl = (parseFloat(exitPrice) - parseFloat(entryPrice)) * parseInt(quantity);
       setTrade((prev) => ({
         ...prev,
-        pnl: isNaN(pnl) ? "" : pnl.toFixed(2), // Keep 2 decimal places
+        pnl: isNaN(pnl) ? "" : pnl.toFixed(2), 
       }));
     }
   }, [trade.entryPrice, trade.exitPrice, trade.quantity]);
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted");
-
-    if(!user){
-      toast.error("You have to logged in first");
+    if (!user) {
+      toast.error("You have to log in first");
       navigate("/signin");
       return;
     }
-
+  
+    const token = localStorage.getItem("token");
+    console.log("Token being sent:", token);
+  
+    if (!token) {
+      toast.error("Authentication token missing. Please log in again.");
+      navigate("/signin");
+      return;
+    }
+  
     try {
-      const response = await fetch("http://localhost:5000/api/trades", {
+      const response = await fetch("http://localhost:5000/api/trade/newtrade", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, 
+        },
         body: JSON.stringify(trade),
       });
+  
+      const data = await response.json();
+  
       if (response.ok) {
+        toast.success("Trade entry added successfully!");
         navigate("/dashboard");
+      } else {
+        toast.error(data.message || "Failed to add trade.");
       }
     } catch (error) {
       console.error("Error adding trade:", error);
+      toast.error("Something went wrong. Please try again.");
     }
   };
+  
 
   return (
     <div className="max-w-7xl w-xl mx-auto p-10 mt-32 bg-white shadow-2xl rounded-lg mb-10">
@@ -124,7 +142,7 @@ const AddTradeEntry = () => {
         </Select>
 
         <div className="flex space-x-4">
-          <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white">Submit</Button>
+          <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white cursor-pointer">Submit</Button>
           <Button type="button" className="bg-gray-400 hover:bg-gray-500 text-white" onClick={() => navigate("/dashboard")}>Cancel</Button>
         </div>
       </form>
