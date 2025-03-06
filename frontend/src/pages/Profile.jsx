@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserProfile, fetchUserTrades, logout } from "../redux/authSlice.js";
+import Dashboard from "../components/Dashboard.jsx";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -13,38 +14,33 @@ const Profile = () => {
   useEffect(() => {
     dispatch(fetchUserProfile());
     dispatch(fetchUserTrades()); // Fetch user's trades
-  }, [dispatch]);
+  }, [dispatch ]);
 
   const handleLogout = () => {
-    dispatch(logout());
-    navigate("/signin");
+    if (window.confirm("Are you sure you want to logout?")) {
+      dispatch(logout());
+      navigate("/signin");
+    }
   };
 
   if (loading) return <p>Loading user details...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen ">
-      <div className="border border-black p-8 w-96 rounded-md shadow-2xl flex flex-col items-center">
-        <h1 className="text-2xl font-bold text-[#0A192F]">User Profile</h1>
-        {user ? (
-          <div className="mt-4 text-center">
-            <p><strong>Username:</strong> {user.username}</p>
-            <p><strong>Email:</strong> {user.email}</p>
-            <Link to="/newtrade">
-              <button className="mt-4 bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-700">Add new Trade</button>
-            </Link>
-            <button onClick={handleLogout} className="mt-4 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700">
-              Logout
-            </button>
-          </div>
-        ) : (
-          <p>User not found.</p>
-        )}
-      </div>
+    <div className="flex min-h-screen">
+      {/* Sidebar */}
+      <aside className="w-64 bg-gray-800 text-white p-6">
+        <div className="mt-24">
+          <h2 className="text-2xl font-bold">Dashboard</h2>
+          <ul className="mt-6">
+            <li className="py-2"><Link to="/newtrade">Add New Trade</Link></li>
+            <li className="py-2 cursor-pointer" onClick={handleLogout}>Logout</li>
+          </ul>
+        </div>
+      </aside>
 
       {/* User's Trades Section */}
-      <div className="mt-10 w-3/4">
+      {/* <div className="mt-10 w-3/4">
         <h2 className="text-xl font-bold mb-4 text-center">My Trades</h2>
         {tradeLoading && <p>Loading trades...</p>}
         {tradeError && <p className="text-red-500">{tradeError}</p>}
@@ -60,12 +56,16 @@ const Profile = () => {
               <p className="text-gray-600">Type: {trade.type}</p>
               <p>Entry: ${trade.entryPrice}</p>
               <p>Exit: ${trade.exitPrice}</p>
-              <p>PNL: ${trade.pnl}</p>
+              <p className={trade.pnl >= 0 ? "text-green-500" : "text-red-500"}>
+                PNL: ${trade.pnl}
+              </p>
+
               <p className="text-gray-500 text-sm">Date: {new Date(trade.date).toLocaleDateString()}</p>
             </div>
           ))}
         </div>
-      </div>
+      </div>  */}
+      <Dashboard/>
     </div>
   );
 };

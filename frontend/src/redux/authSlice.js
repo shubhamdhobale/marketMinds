@@ -33,6 +33,17 @@ export const fetchUserTrades = createAsyncThunk("auth/fetchUserTrades", async (_
   }
 });
 
+// Delete trade
+export const deleteTrade = createAsyncThunk("auth/deleteTrade", async (tradeId, { rejectWithValue, dispatch }) => {
+  try {
+    await axios.delete(`http://localhost:5000/api/trade/${tradeId}`); // Fix "trades"
+    dispatch(fetchUserTrades()); // Refresh trade list after deletion
+    return tradeId;
+  } catch (error) {
+    return rejectWithValue(error.response?.data || "Failed to delete trade");
+  }
+});
+
 // Google Sign-in
 export const signInWithGoogle = createAsyncThunk(
   "auth/signInWithGoogle",
@@ -120,6 +131,9 @@ const authSlice = createSlice({
       .addCase(signInWithGoogle.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(deleteTrade.fulfilled, (state, action) => {
+        state.trades = state.trades.filter((trade) => trade._id !== action.payload);
       });
   },
 });

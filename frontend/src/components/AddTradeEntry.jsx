@@ -3,13 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { logout } from "../redux/authSlice";
 
 const AddTradeEntry = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user)
+  const dispatch = useDispatch();
   const [trade, setTrade] = useState({
     ticker: "",
     type: "Buy",
@@ -81,71 +83,91 @@ const AddTradeEntry = () => {
       toast.error("Something went wrong. Please try again.");
     }
   };
+
+  const handleLogout = () => {
+      if (window.confirm("Are you sure you want to logout?")) {
+        dispatch(logout());
+        navigate("/signin");
+      }
+    };
   
 
   return (
-    <div className="max-w-7xl w-xl mx-auto p-10 mt-32 bg-white shadow-2xl rounded-lg mb-10">
-      <img src="/images/logo.png" alt="" className="h-40 mx-auto"/>
-      <h2 className="text-3xl font-extrabold mb-2 text-center tracking-wider">Add New Trade Entry</h2>
-      <p className="text-center text-md tracking-widest">📈 Trade Smart, Track Better.</p>
-      <form onSubmit={handleSubmit} className="space-y-4 w-full mt-8">
-        <Input name="ticker" placeholder="Ticker Symbol (e.g., AAPL)" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
+    <div className="flex max-w-7xl ">
+      {/* Sidebar */}
+      <aside className="w-64 bg-gray-800 text-white p-6">
+        <div className="mt-24">
+          <h2 className="text-2xl font-bold">Dashboard</h2>
+          <ul className="mt-6">
+            <li className="py-2"><Link to="/newtrade">Add New Trade</Link></li>
+            <li className="py-2 cursor-pointer" onClick={handleLogout}>Logout</li>
+          </ul>
+        </div>
+      </aside>
 
-        <div className="flex gap-8 justify-start items-center">
-          {/* Select for Trade Type */}
-          <Select onValueChange={(value) => handleChange("type", value)}>
-            <SelectTrigger className='font-semibold'>
-              <SelectValue placeholder="Select Trade Type"/>
+      <div className=" bg-white shadow-2xl mx-auto rounded-lg mb-10 mt-32 w-xl p-10">
+        <img src="/images/logo.png" alt="" className="h-40 mx-auto"/>
+        <h2 className="text-3xl font-extrabold mb-2 text-center tracking-wider">Add New Trade Entry</h2>
+        <p className="text-center text-md tracking-widest">📈 Trade Smart, Track Better.</p>
+        <form onSubmit={handleSubmit} className="space-y-4 w-full mt-8">
+          <Input name="ticker" placeholder="Ticker Symbol (e.g., AAPL)" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
+
+          <div className="flex gap-8 justify-start items-center">
+            {/* Select for Trade Type */}
+            <Select onValueChange={(value) => handleChange("type", value)}>
+              <SelectTrigger className='font-semibold'>
+                <SelectValue placeholder="Select Trade Type"/>
+              </SelectTrigger>
+              <SelectContent className='font-bold'>
+                <SelectItem value="Buy" className='text-green-700'>Buy</SelectItem>
+                <SelectItem value="Sell" className='text-red-700'>Sell</SelectItem>
+              </SelectContent>
+            </Select>
+            <div className="flex justify-center items-center gap-3">
+            <label htmlFor="entryTime" className="text-gray-600 text-md">Entry Time:</label>
+            <input
+              name="entryTime"
+              id="entryTime"
+              type="time"
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
+              required
+              className="border p-2 rounded-md"
+            />
+            </div>
+          </div>
+          
+          <div className="flex gap-2">
+            <Input name="entryPrice" type="number" placeholder="Entry Price" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
+            <Input name="exitPrice" type="number" placeholder="Exit Price" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
+          </div>
+
+          <div className="flex gap-2">
+            <Input name="stopLoss" type="number" placeholder="Stop-Loss Price" onChange={(e) => handleChange(e.target.name, e.target.value)} />
+            <Input name="quantity" type="number" placeholder="Quantity" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
+          </div>
+          <Input name="pnl" type="number" placeholder="Total PnL" value={trade.pnl} onChange={(e) => handleChange(e.target.name, e.target.value)} />
+          <Input name="date" type="date" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
+          <Input name="strategy" placeholder="Strategy Used" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
+          <Textarea name="reason" placeholder="Reason for Trade" onChange={(e) => handleChange(e.target.name, e.target.value)} />
+
+          {/* Select for Market Condition */}
+          <Select onValueChange={(value) => handleChange("marketCondition", value)}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select Market Condition" />
             </SelectTrigger>
-            <SelectContent className='font-bold'>
-              <SelectItem value="Buy" className='text-green-700'>Buy</SelectItem>
-              <SelectItem value="Sell" className='text-red-700'>Sell</SelectItem>
+            <SelectContent>
+              <SelectItem value="Bullish">Bullish</SelectItem>
+              <SelectItem value="Bearish">Bearish</SelectItem>
+              <SelectItem value="Sideways">Sideways</SelectItem>
             </SelectContent>
           </Select>
-          <div className="flex justify-center items-center gap-3">
-          <label htmlFor="entryTime" className="text-gray-600 text-md">Entry Time:</label>
-          <input
-            name="entryTime"
-            id="entryTime"
-            type="time"
-            onChange={(e) => handleChange(e.target.name, e.target.value)}
-            required
-            className="border p-2 rounded-md"
-          />
+
+          <div className="flex space-x-4">
+            <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white cursor-pointer">Submit</Button>
+            <Button type="button" className="bg-gray-400 hover:bg-gray-500 text-white" onClick={() => navigate("/dashboard")}>Cancel</Button>
           </div>
-        </div>
-        
-        <div className="flex gap-2">
-          <Input name="entryPrice" type="number" placeholder="Entry Price" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
-          <Input name="exitPrice" type="number" placeholder="Exit Price" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
-        </div>
-
-        <div className="flex gap-2">
-          <Input name="stopLoss" type="number" placeholder="Stop-Loss Price" onChange={(e) => handleChange(e.target.name, e.target.value)} />
-          <Input name="quantity" type="number" placeholder="Quantity" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
-        </div>
-        <Input name="pnl" type="number" placeholder="Total PnL" value={trade.pnl} onChange={(e) => handleChange(e.target.name, e.target.value)} />
-        <Input name="date" type="date" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
-        <Input name="strategy" placeholder="Strategy Used" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
-        <Textarea name="reason" placeholder="Reason for Trade" onChange={(e) => handleChange(e.target.name, e.target.value)} />
-
-        {/* Select for Market Condition */}
-        <Select onValueChange={(value) => handleChange("marketCondition", value)}>
-          <SelectTrigger>
-            <SelectValue placeholder="Select Market Condition" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Bullish">Bullish</SelectItem>
-            <SelectItem value="Bearish">Bearish</SelectItem>
-            <SelectItem value="Sideways">Sideways</SelectItem>
-          </SelectContent>
-        </Select>
-
-        <div className="flex space-x-4">
-          <Button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white cursor-pointer">Submit</Button>
-          <Button type="button" className="bg-gray-400 hover:bg-gray-500 text-white" onClick={() => navigate("/dashboard")}>Cancel</Button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };
