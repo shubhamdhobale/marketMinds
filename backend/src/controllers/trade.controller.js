@@ -53,3 +53,18 @@ export const getUserTrades = asyncHandler(async (req, res) => {
     res.status(500).json({ message: "Internal Server Error", error: error.message });
   }
 });
+
+export const deleteTrade = asyncHandler(async (req , res) => {
+  try {
+    const tradeId = req.params.id;
+    const deletedTrade = await Trade.findByIdAndDelete(tradeId);
+
+    if (!deletedTrade) {
+      return res.status(404).json({ message: "Trade not found" });
+    }
+
+    res.json({ message: "Trade deleted successfully", tradeId });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+})
