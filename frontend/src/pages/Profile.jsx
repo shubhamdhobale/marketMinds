@@ -33,7 +33,8 @@ const Profile = () => {
         <div className="mt-24">
           <h2 className="text-2xl font-bold">Dashboard</h2>
           <ul className="mt-6">
-            <li className="py-2"><Link to="/newtrade">Add New Trade</Link></li>
+            <li className="py-2 cursor-pointer"><Link to="/newtrade">Add New Trade</Link></li>
+            <li className="py-2 cursor-pointer"><Link to="/tradehistory">Trade History</Link></li>
             <li className="py-2 cursor-pointer" onClick={handleLogout}>Logout</li>
           </ul>
         </div>

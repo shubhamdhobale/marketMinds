@@ -59,7 +59,7 @@ const SignUp = () => {
               value={formData.username} 
               onChange={handleChange} 
               className="border border-black rounded-lg p-2 outline-none w-68" 
-              placeholder="Username"
+              placeholder="Name"
               required
             />
             <input 
