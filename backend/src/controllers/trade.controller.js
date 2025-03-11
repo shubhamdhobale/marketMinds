@@ -6,7 +6,7 @@ export const addNewTrade = asyncHandler(async (req, res) => {
     console.log("Request Body:", req.body);
     console.log("Authenticated User:", req.user);
 
-    const { ticker, type, entryTime, entryPrice, exitPrice, stopLoss, quantity, pnl, date, strategy, reason, marketCondition } = req.body;
+    const { ticker, type, entryTime, exitTime , entryPrice, exitPrice, stopLoss, quantity, pnl, date, strategy, reason, marketCondition } = req.body;
 
     if (!ticker || !entryPrice || !exitPrice || !quantity || !date) {
       return res.status(400).json({ message: "Missing required fields" });
@@ -17,6 +17,7 @@ export const addNewTrade = asyncHandler(async (req, res) => {
       ticker,
       type,
       entryTime,
+      exitTime,
       entryPrice,
       exitPrice,
       stopLoss,
@@ -55,16 +56,45 @@ export const getUserTrades = asyncHandler(async (req, res) => {
 });
 
 export const deleteTrade = asyncHandler(async (req , res) => {
-  try {
-    const tradeId = req.params.id;
-    const deletedTrade = await Trade.findByIdAndDelete(tradeId);
+  const tradeId = req.params.id;
+  const userId = req.user.id; // Ensure user ID is extracted properly
 
-    if (!deletedTrade) {
+  try {
+    const trade = await Trade.findOne({ _id: tradeId, user: userId });
+    if (!trade) {
       return res.status(404).json({ message: "Trade not found" });
     }
 
-    res.json({ message: "Trade deleted successfully", tradeId });
+    await Trade.findByIdAndDelete(tradeId);
+    res.json({ message: "Trade deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
 })
+
+export const equityCurve = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.user.id || req.user._id;
+    const trades = await Trade.find({ user: userId }).sort({ date: 1 }); 
+
+    if (!trades.length) {
+      console.log("No trades found for user:", userId);
+      return res.status(200).json([]); 
+    }
+
+    let cumulativePnL = 0;
+    const formattedData = trades.map((trade) => {
+      cumulativePnL += trade.pnl;
+      return {
+        date: trade.date.toISOString().split("T")[0],
+        cumulativePnL,
+      };
+    });
+
+    // console.log("🔹 Equity Curve Response:", formattedData);
+    res.status(200).json(formattedData);
+  } catch (error) {
+    console.error("Error fetching equity curve:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
