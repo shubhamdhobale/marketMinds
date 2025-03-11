@@ -34,13 +34,12 @@ export const fetchUserTrades = createAsyncThunk("auth/fetchUserTrades", async (_
 });
 
 // Delete trade
-export const deleteTrade = createAsyncThunk("auth/deleteTrade", async (tradeId, { rejectWithValue, dispatch }) => {
+export const deleteTrade = createAsyncThunk("auth/deleteTrade", async (tradeId, { rejectWithValue }) => {
   try {
-    await axios.delete(`http://localhost:5000/api/trade/${tradeId}`); // Fix "trades"
-    dispatch(fetchUserTrades()); // Refresh trade list after deletion
-    return tradeId;
+    await axios.delete(`/api/trades/${tradeId}`);
+    return tradeId; // Returning tradeId to remove from the state
   } catch (error) {
-    return rejectWithValue(error.response?.data || "Failed to delete trade");
+    return rejectWithValue(error.response.data);
   }
 });
 
@@ -133,7 +132,10 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(deleteTrade.fulfilled, (state, action) => {
-        state.trades = state.trades.filter((trade) => trade._id !== action.payload);
+        state.trades = state.trades.filter(trade => trade.id !== action.payload);
+      })
+      .addCase(deleteTrade.rejected, (state, action) => {
+        state.tradeError = action.payload;
       });
   },
 });

@@ -14,6 +14,8 @@ import BrokerSupport from './pages/BrokerSupport.jsx';
 import Resources from './pages/Resources.jsx';
 import AddTradeEntry from './components/AddTradeEntry.jsx';
 import TradeHistory from './components/TradeHistory.jsx';
+import TradeSummary from './components/TradeSummary.jsx';
+import EquityCurveChart from './components/EquityCurveChart.jsx';
 
 
 const router = createBrowserRouter(
@@ -27,6 +29,8 @@ const router = createBrowserRouter(
       <Route path='/resources' element={<Resources/>}/>
       <Route path='/newtrade' element={<AddTradeEntry/>}/>
       <Route path='/tradehistory' element={<TradeHistory/>}/>
+      <Route path='/tradesummary' element={<TradeSummary/>}/>
+      <Route path='/equitychart' element={<EquityCurveChart/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='/signin' element={<SignIn/>}/>
       <Route path='/signup' element={<SignUp/>}/>

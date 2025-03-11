@@ -1,18 +1,58 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUserProfile, fetchUserTrades } from "../redux/authSlice.js";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { deleteTrade, fetchUserProfile, fetchUserTrades } from "../redux/authSlice.js";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell ,LineChart, Line, CartesianGrid } from 'recharts';
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import "react-datepicker/dist/react-datepicker.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { user, trades = [], loading, tradeLoading, error, tradeError } = useSelector((state) => state.auth);
   const [selectedDate, setSelectedDate] = useState(null);
   const [filteredTrades, setFilteredTrades] = useState([]);
+  const [data, setData] = useState([]);
+  const [lineColor, setLineColor] = useState("#FF0000"); 
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No authentication token found");
+        }
+  
+          const response = await axios.get("http://localhost:5000/api/trade/equity-curve", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Cache-Control": "no-cache",
+              Pragma: "no-cache",
+              Expires: "0",
+            },
+          });
+  
+          const formattedData = response.data.map((trade) => ({
+            date: trade.date, 
+            balance: trade.cumulativePnL, 
+          }));
+  
+          setData(formattedData);
+  
+          const lastBalance = formattedData[formattedData.length - 1].balance;
+          setLineColor(lastBalance < 0 ? "#FF0000" : "#4CAF50"); 
+  
+        } catch (error) {
+          console.error("Error fetching equity curve data:", error);
+          toast.error("Failed to load equity curve. Please login again.");
+        }
+      };
+  
+      fetchData();
+    }, []);
 
   useEffect(() => {
     if (!user) dispatch(fetchUserProfile());
@@ -76,6 +116,12 @@ const Dashboard = () => {
     return 0;
   });
 
+  const handleDeleteTrade = (tradeId) => {
+      if (window.confirm("Are you sure you want to delete this trade?")) {
+        dispatch(deleteTrade(tradeId));
+      }
+    };
+
   const paginatedTrades = sortedTrades.slice((currentPage - 1) * tradesPerPage, currentPage * tradesPerPage);
 
   if (loading || tradeLoading) return <p className="text-center">Loading dashboard...</p>;
@@ -83,11 +129,30 @@ const Dashboard = () => {
 
   return (
     <div className="flex min-h-screen mt-24">
-      <main className="flex-1 p-6 w-7xl">
+      <main className="flex-1 p-6 ">
         <h1 className="text-3xl font-bold mb-4 tracking-wider">Welcome, {user?.username}</h1>
         <p className="text-lg">Total PnL: <span className={totalPnL >= 0 ? "text-green-500 font-bold" : "text-red-500 font-bold"}>${totalPnL}</span></p>
 
         <div>
+          <div className="w-full p-4 bg-white rounded-md shadow-md mx-4 my-4">
+                  <h2 className="text-lg font-semibold mb-3">Cumulative Profit/Loss</h2>
+                  {error ? (
+                    <p className="text-red-500">{error}</p>
+                  ) : (
+                    <ResponsiveContainer width="100%" height={300}>
+                      <LineChart data={data}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="date" tick={{ fontSize: 12 }} />
+                        <YAxis tick={{ fontSize: 12 }} />
+                        <Tooltip />
+                        <Line type="monotone" dataKey="balance" stroke={lineColor} strokeWidth={2} dot={true} />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  )}
+                </div>
+        </div>
+
+        <div className="mt-4">
         <h1 className="text-3xl font-bold mb-4">Trade Calendar</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -132,21 +197,6 @@ const Dashboard = () => {
             ) : (
               <p>No trades on this day.</p>
             )}
-
-            {/* Pie Chart for Selected Date */}
-            {/* <div className="mt-4">
-              <h2 className="text-xl font-bold mb-2">PnL Breakdown</h2>
-              <ResponsiveContainer width="100%" height={200}>
-                <PieChart>
-                  <Pie data={selectedDatePnL} cx="50%" cy="50%" innerRadius={50} outerRadius={80} fill="#8884d8" dataKey="value">
-                    {pieData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </div> */}
           </div>
         )}
       </div>
@@ -210,9 +260,11 @@ const Dashboard = () => {
                   <td className="border p-2">{trade.strategy}</td>
                   <td className="border p-2">{trade.reason}</td>
                   <td className="border p-2">{trade.marketCondition}</td>
-                  {/* <td className="px-4 py-2"> */}
-                    {/* <button onClick={() => handleDelete(trade._id)} className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700">Delete</button>
-                  </td> */}
+                  <td className="border p-2 text-center">
+                  <button onClick={() => handleDeleteTrade(trade.id)} className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-700">
+                    Delete
+                  </button>
+                </td> 
                 </tr>
               ))}
             </tbody>
@@ -225,9 +277,9 @@ const Dashboard = () => {
             <button disabled={currentPage === Math.ceil(trades.length / tradesPerPage)} onClick={() => setCurrentPage(currentPage + 1)} className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50">Next</button>
           </div>
         </div>
-
+        
       </main>
-    </div>
+    </div>  
   );
 };
 

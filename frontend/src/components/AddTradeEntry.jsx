@@ -3,19 +3,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { logout } from "../redux/authSlice";
+import SideBar from "./SideBar.jsx";
 
 const AddTradeEntry = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user)
-  const dispatch = useDispatch();
   const [trade, setTrade] = useState({
     ticker: "",
     type: "Buy",
     entryTime : "",
+    exitTime : "",
     entryPrice: "",
     exitPrice: "",
     stopLoss: "",
@@ -84,26 +84,10 @@ const AddTradeEntry = () => {
     }
   };
 
-  const handleLogout = () => {
-      if (window.confirm("Are you sure you want to logout?")) {
-        dispatch(logout());
-        navigate("/signin");
-      }
-    };
-  
-
   return (
     <div className="flex max-w-7xl ">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-800 text-white p-6">
-        <div className="mt-24">
-          <h2 className="text-2xl font-bold">Dashboard</h2>
-          <ul className="mt-6">
-            <li className="py-2"><Link to="/newtrade">Add New Trade</Link></li>
-            <li className="py-2 cursor-pointer" onClick={handleLogout}>Logout</li>
-          </ul>
-        </div>
-      </aside>
+      <SideBar/>
 
       <div className=" bg-white shadow-2xl mx-auto rounded-lg mb-10 mt-32 w-xl p-10">
         <img src="/images/logo.png" alt="" className="h-40 mx-auto"/>
@@ -112,7 +96,7 @@ const AddTradeEntry = () => {
         <form onSubmit={handleSubmit} className="space-y-4 w-full mt-8">
           <Input name="ticker" placeholder="Ticker Symbol (e.g., AAPL)" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
 
-          <div className="flex gap-8 justify-start items-center">
+          <div className="flex gap-4 justify-start items-center">
             {/* Select for Trade Type */}
             <Select onValueChange={(value) => handleChange("type", value)}>
               <SelectTrigger className='font-semibold'>
@@ -123,11 +107,20 @@ const AddTradeEntry = () => {
                 <SelectItem value="Sell" className='text-red-700'>Sell</SelectItem>
               </SelectContent>
             </Select>
-            <div className="flex justify-center items-center gap-3">
-            <label htmlFor="entryTime" className="text-gray-600 text-md">Entry Time:</label>
+            <div className="flex justify-center items-center gap-2">
+            <label htmlFor="entryTime" className="text-gray-600 text-sm">Entry Time:</label>
             <input
               name="entryTime"
               id="entryTime"
+              type="time"
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
+              required
+              className="border p-2 rounded-md"
+            />
+            <label htmlFor="exitTime" className="text-gray-600 text-sm">Exit Time:</label>
+            <input
+              name="exitTime"
+              id="exitTime"
               type="time"
               onChange={(e) => handleChange(e.target.name, e.target.value)}
               required
