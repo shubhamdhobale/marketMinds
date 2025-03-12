@@ -38,7 +38,7 @@ const Header = () => {
   };
 
   return (
-    <nav className="fixed top-0 w-full h-20 bg-gradient-to-r from-[#0A192F] via-[#112240] to-[#233554] flex items-center justify-between px-6 md:px-8 border-b border-[#4ECCA3] shadow-md backdrop-blur-3xl z-50">
+    <nav className="fixed top-0 w-full h-20 bg-gradient-to-r from-[#0A192F] via-[#112240] to-[#233554] flex items-center justify-between px-6 md:px-6 border-b border-[#4ECCA3] shadow-md backdrop-blur-3xl z-50">
       
       {/* Logo */}
       <Link to="/" className="flex items-center">
