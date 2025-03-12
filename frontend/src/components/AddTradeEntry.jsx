@@ -95,7 +95,6 @@ const AddTradeEntry = () => {
         <p className="text-center text-md tracking-widest">📈 Trade Smart, Track Better.</p>
         <form onSubmit={handleSubmit} className="space-y-4 w-full mt-8">
           <Input name="ticker" placeholder="Ticker Symbol (e.g., AAPL)" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
-
           <div className="flex gap-4 justify-start items-center">
             {/* Select for Trade Type */}
             <Select onValueChange={(value) => handleChange("type", value)}>

@@ -42,7 +42,7 @@ export default function Home() {
 
           <motion.img 
           src="/images/company logo/binance-removebg-preview.png"  
-          className='w-20 left-1/4 absolute bottom-32 glow-effect opacity-70'
+          className='w-20 left-80 absolute bottom-32 glow-effect opacity-70'
           initial={{ x: Math.random() * 50 - 15, y: 0 }}
           animate={{
             y: [Math.random() * -20, Math.random() * 20, Math.random() * -20],
