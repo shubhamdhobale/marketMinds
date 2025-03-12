@@ -49,7 +49,7 @@ const Header = () => {
       </Link>
 
       {/* Desktop Menu */}
-      <div className="hidden md:flex gap-6 lg:gap-8 text-[#E2E8F0]">
+      <div className="hidden md:flex gap-6 lg:gap-8 text-[#E2E8F0] text-sm tracking-wider">
         {['features', 'resources', 'about', 'pricing', 'brokerSupport'].map(item => (
           <Link key={item} to={`/${item}`} className="hover:text-[#4ECCA3] transition-all duration-300 transform hover:scale-110">
             {item.charAt(0).toUpperCase() + item.slice(1)}
