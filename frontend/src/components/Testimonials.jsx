@@ -9,21 +9,21 @@ const testimonials = [
     feedback:
       "MarketMinds transformed my trading strategy! The AI insights helped me improve my risk management and increase my profits.",
     rating: 5,
-    image: "/images/testimonial photo/mayur photo.jpeg",
+    image: "/assets/testimonial photo/mayur photo.jpeg",
   },
   {
     name: "Rohan Khaire",
     feedback:
       "I love how easy it is to log my trades and analyze my performance. MarketMinds keeps me disciplined and consistent.",
     rating: 4.5,
-    image: "/images/testimonial photo/rohan photo.jpeg",
+    image: "/assets/testimonial photo/rohan photo.jpeg",
   },
   {
     name: "Shashi Kapur",
     feedback:
       "The 3D visualization and trading journal features are simply amazing. Highly recommend for traders of all levels!",
     rating: 5,
-    image: "/images/testimonial photo/shashi photo.jpeg",
+    image: "/assets/testimonial photo/shashi photo.jpeg",
   },
 ];
 
@@ -49,8 +49,8 @@ export default function Testimonials() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center py-12 px-6 ">
-      <h2 className="text-5xl font-extrabold text-center text-gray-800 mb-12">
-        What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff]">Traders</span> Say
+      <h2 className="text-5xl font-extrabold text-center text-gray-800 mb-12 tracking-wider">
+        What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff] tracking-wider">Traders</span> Say
       </h2>
       <div className="relative w-full max-w-2xl">
         <AnimatePresence mode="wait">

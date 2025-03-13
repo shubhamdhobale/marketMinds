@@ -19,8 +19,8 @@ export default function FAQSection() {
 
   return (
     <div className="min-h-screen flex flex-col items-center py-12 px-6">
-      <h2 className="text-5xl font-extrabold text-center text-gray-800 mb-8">
-        Frequently Asked <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff]">Questions</span>
+      <h2 className="text-5xl font-extrabold text-center text-gray-800 mb-8 tracking-wider">
+        Frequently Asked <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff] tracking-wider">Questions</span>
       </h2>
       <div className="w-full max-w-3xl">
         {faqs.map((faq, index) => (

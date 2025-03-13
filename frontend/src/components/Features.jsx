@@ -16,9 +16,9 @@ const Features = () => {
         initial={{ opacity: 0, y: -20 }} 
         animate={{ opacity: 1, y: 0 }} 
         transition={{ duration: 0.8 }}
-        className="text-4xl font-extrabold text-gray-900"
+        className="text-4xl font-extrabold text-gray-900 tracking-wider"
       >
-        Powerful Features to Elevate Your Trading
+        Powerful Features to Elevate Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff] tracking-wider">Trading</span> 
       </motion.h2>
       
       <motion.p 

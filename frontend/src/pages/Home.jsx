@@ -7,6 +7,9 @@ import Testimonials from '../components/Testimonials.jsx';
 import FAQSection from '../components/FAQSection.jsx';
 import CTA from '../components/CTA.jsx';
 import '.././global.css';
+import binanceLogo from "../assets/images/company logo/binance-removebg-preview.png";
+import metaLogo from "../assets/images/company logo/meta-removebg-preview.png";
+import coinbaseLogo from "../assets/images/company logo/coinbase-new4201-removebg-preview.png";
 // import ContactUs from '../components/ContactUs.jsx';
 
 
@@ -22,83 +25,49 @@ const benefits = [
 
 
 export default function Home() {
+
+  const animationProps = {
+    initial: { x: Math.random() * 50 - 15, y: 0 },
+    animate: {
+      y: [Math.random() * -20, Math.random() * 20, Math.random() * -20],
+      x: [Math.random() * -10, Math.random() * 10, Math.random() * -10],
+    },
+    transition: {
+      duration: 5 + Math.random() * 2,
+      repeat: Infinity,
+      repeatType: "mirror",
+      ease: "easeInOut",
+    },
+  };
+
+  
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <div className='mt-28 flex'>
           <motion.img 
           src="https://www.trade-copier.com/images/oneui/brokers/tradingview_rectangle.png" 
-          className='w-16 left-68 absolute top-60 glow-effect opacity-70' 
-          initial={{ x: Math.random() * 50 - 15, y: 0 }}
-          animate={{
-            y: [Math.random() * -20, Math.random() * 20, Math.random() * -20],
-            x: [Math.random() * -10, Math.random() * 10, Math.random() * -10],
-          }}
-          transition={{
-            duration: 5 + Math.random() * 2,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-          }}/>
+          className='w-16 left-8 absolute top-60 glow-effect opacity-70 md:left-68' 
+          {...animationProps}/>
 
           <motion.img 
-          src="/images/company logo/binance-removebg-preview.png"  
-          className='w-20 left-80 absolute bottom-32 glow-effect opacity-70'
-          initial={{ x: Math.random() * 50 - 15, y: 0 }}
-          animate={{
-            y: [Math.random() * -20, Math.random() * 20, Math.random() * -20],
-            x: [Math.random() * -10, Math.random() * 10, Math.random() * -10],
-          }}
-          transition={{
-            duration: 5 + Math.random() * 2,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-          }}/>
+          src={binanceLogo}
+          className='w-20 md:left-80 left-4 absolute bottom-32 glow-effect opacity-70'
+          {...animationProps}/>
 
           <motion.img 
           src="https://images.seeklogo.com/logo-png/48/2/zerodha-kite-logo-png_seeklogo-487028.png"  
-          className='w-12 absolute top-40 right-40 glow-effect opacity-70'
-          initial={{ x: Math.random() * 50 - 15, y: 0 }}
-          animate={{
-            y: [Math.random() * -20, Math.random() * 20, Math.random() * -20],
-            x: [Math.random() * -10, Math.random() * 10, Math.random() * -10],
-          }}
-          transition={{
-            duration: 5 + Math.random() * 2,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-          }}/>
+          className='w-12 absolute md:top-40 md:right-40 glow-effect opacity-70 right-12 top-44'
+          {...animationProps}/>
 
           <motion.img 
-          src="/images/company logo/meta-removebg-preview.png"  
-          className='w-26 absolute bottom-48 right-68 glow-effect opacity-70'
-          initial={{ x: Math.random() * 50 - 15, y: 0 }}
-          animate={{
-            y: [Math.random() * -20, Math.random() * 20, Math.random() * -20],
-            x: [Math.random() * -10, Math.random() * 10, Math.random() * -10],
-          }}
-          transition={{
-            duration: 5 + Math.random() * 2,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-          }}/>
+          src={metaLogo} 
+          className='w-26 absolute md:bottom-48 bottom-56 md:right-68 right-4 glow-effect opacity-70'
+          {...animationProps}/>
 
           <motion.img 
-          src="/images/company logo/coinbase-new4201-removebg-preview.png"  
+          src={coinbaseLogo}
           className='w-16 absolute left-1/2 top-32 glow-effect opacity-70'
-          initial={{ x: Math.random() * 50 - 15, y: 0 }}
-          animate={{
-            y: [Math.random() * -20, Math.random() * 20, Math.random() * -20],
-            x: [Math.random() * -10, Math.random() * 10, Math.random() * -10],
-          }}
-          transition={{
-            duration: 5 + Math.random() * 2,
-            repeat: Infinity,
-            repeatType: "mirror",
-            ease: "easeInOut",
-          }}/>
+          {...animationProps}/>
 
         </div>
       {/* Hero Section */}
@@ -160,35 +129,34 @@ export default function Home() {
         initial={{ opacity: 0, y: -20 }} 
         animate={{ opacity: 1, y: 0 }} 
         transition={{ duration: 0.8 }}
-        className="text-5xl font-extrabold text-gray-900 tracking-wide"
+        className="text-5xl font-extrabold text-gray-900 tracking-widest"
       >
-        Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff]">MarketMinds</span>?
+        Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff] tracking-widest pt-4">MarketMinds</span>?
       </motion.h2>
       
       <motion.p 
         initial={{ opacity: 0, y: 20 }} 
         animate={{ opacity: 1, y: 0 }} 
         transition={{ duration: 1, delay: 0.2 }}
-        className="text-xl text-gray-700 mt-6 leading-relaxed max-w-4xl mx-auto"
+        className="text-xl text-gray-700 mt-6 leading-relaxed max-w-4xl mx-auto tracking-wider"
       >
         Discover how MarketMinds revolutionizes trading with cutting-edge tools, expert insights, and seamless user experience.
       </motion.p>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-16">
-        {benefits.map((benefit, index) => (
-          <motion.div 
-            key={index} 
-            initial={{ opacity: 0, scale: 0.9 }} 
-            animate={{ opacity: 1, scale: 1 }} 
-            transition={{ duration: 0.5, delay: index * 0.2 }}
-            className="p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all flex flex-col items-center text-center"
-          >
-            <div className="mb-5">{benefit.icon}</div>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-16">
+      {benefits.map((benefit, index) => (
+        <motion.div key={index} 
+          initial={{ opacity: 0, scale: 0.9 }} 
+          animate={{ opacity: 1, scale: 1 }} 
+          transition={{ duration: 0.5, delay: index * 0.2 }} 
+          className="p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all flex flex-col items-center text-center">
+            <div className="mb-5" aria-hidden="true">{benefit.icon}</div>
             <h3 className="text-2xl font-bold text-gray-800">{benefit.title}</h3>
             <p className="text-gray-600 mt-3 text-lg leading-snug">{benefit.description}</p>
-          </motion.div>
-        ))}
-      </div>
+        </motion.div>
+      ))}
+</div>
+
     </div>
       </div>
 
@@ -212,7 +180,6 @@ export default function Home() {
 
       <div>
         <CTA/>
-        <Link to='/newtrade'>Add new Trade</Link>
       </div>
 
       {/* <div>
