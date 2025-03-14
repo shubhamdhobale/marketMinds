@@ -14,7 +14,7 @@ const SideBar = () => {
     };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex h-full">
       <aside className="w-64 bg-gray-800 text-white p-6">
         <div className="mt-24">
           <h2 className="text-2xl font-bold cursor-pointer"><Link to='/profile'>Dashboard</Link> </h2>

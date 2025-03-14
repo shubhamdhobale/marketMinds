@@ -128,78 +128,77 @@ const Dashboard = () => {
   if (error || tradeError) return <p className="text-red-500 text-center">Error loading data</p>; 
 
   return (
-    <div className="flex min-h-screen mt-24">
-      <main className="flex-1 p-6 ">
+    <div className="flex min-h-screen mt-4">
+      <main className="flex-1 p-6 md:w-full w-88">
         <h1 className="text-3xl font-bold mb-4 tracking-wider">Welcome, {user?.username}</h1>
         <p className="text-lg">Total PnL: <span className={totalPnL >= 0 ? "text-green-500 font-bold" : "text-red-500 font-bold"}>${totalPnL}</span></p>
 
-        <div>
-          <div className="w-full p-4 bg-white rounded-md shadow-md mx-4 my-4">
-                  <h2 className="text-lg font-semibold mb-3">Cumulative Profit/Loss</h2>
-                  {error ? (
-                    <p className="text-red-500">{error}</p>
-                  ) : (
-                    <ResponsiveContainer width="100%" height={300}>
-                      <LineChart data={data}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="date" tick={{ fontSize: 12 }} />
-                        <YAxis tick={{ fontSize: 12 }} />
-                        <Tooltip />
-                        <Line type="monotone" dataKey="balance" stroke={lineColor} strokeWidth={2} dot={true} />
-                      </LineChart>
-                    </ResponsiveContainer>
-                  )}
-                </div>
+        <div className="p-4 bg-white rounded-md shadow-md   my-4 md:mx-6 lg:mx-8">
+          <h2 className="text-lg font-semibold mb-3">Cumulative Profit/Loss</h2>
+          {error ? (
+            <p className="text-red-500">{error}</p>
+          ) : (
+            <div className="w-full overflow-x-auto">
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={data}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" tick={{ fontSize: 12 }} />
+                  <YAxis tick={{ fontSize: 12 }} />
+                  <Tooltip />
+                  <Line type="monotone" dataKey="balance" stroke={lineColor} strokeWidth={2} dot={true} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          )}
         </div>
 
-        <div className="mt-4">
-        <h1 className="text-3xl font-bold mb-4">Trade Calendar</h1>
+        <div className="mt-8">
+          <h1 className="text-3xl font-bold mb-4">Trade Calendar</h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Calendar with PnL Highlights */}
+            <div className="bg-white p-4 shadow-md rounded-lg">
+              <Calendar
+                onClickDay={handleDateClick}
+                tileContent={({ date }) => {
+                  const dateStr = date.toISOString().split("T")[0];
+                  const pnl = tradePnLMap[dateStr] || 0;
+                  if (pnl !== 0) {
+                    return (
+                      <div
+                        className={`relative w-6 h-6 flex items-center justify-center rounded-full ${
+                          pnl > 0 ? " bg-green-500 text-white" : "bg-red-500 text-white"
+                        }`}
+                        style={{ transform: `scale(${Math.min(1, Math.abs(pnl) / 1000)})` }}
+                      >
+                        {/* ₹{pnl} */}
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
+            </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Calendar with PnL Highlights */}
-        <div className="bg-white p-4 shadow-md rounded-lg ">
-          <Calendar
-            onClickDay={handleDateClick}
-            tileContent={({ date }) => {
-              const dateStr = date.toISOString().split("T")[0];
-              const pnl = tradePnLMap[dateStr] || 0;
-              if (pnl !== 0) {
-                return (
-                  <div
-                    className={`relative w-6 h-6 flex items-center justify-center rounded-full ${
-                      pnl > 0 ? " bg-green-500 text-white" : "bg-red-500 text-white"
-                    }`}
-                    style={{ transform: `scale(${Math.min(1, Math.abs(pnl) / 1000)})` }}
-                  >
-                    {/* ₹{pnl} */}
-                  </div>
-                );
-              }
-              return null;
-            }}
-          />
-        </div>
-
-        {/* Selected Date Trade Details */}
-        {selectedDate && (
-          <div className="bg-white p-4 shadow-md rounded-lg">
-            <h2 className="text-xl font-bold mb-2">Trades on {selectedDate}</h2>
-            {filteredTrades.length > 0 ? (
-              <ul>
-                {filteredTrades.map((trade) => (
-                  <li key={trade._id} className="border-b py-2">
-                    <span className="font-semibold">{trade.ticker}:</span> <span className={`font-bold p-2 rounded-xl ${
-                      trade.pnl > 0 ? "text-green-500" : "text-red-500 "
-                    }`}>₹{trade.pnl}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>No trades on this day.</p>
+            {/* Selected Date Trade Details */}
+            {selectedDate && (
+              <div className="bg-white p-4 shadow-md rounded-lg">
+                <h2 className="text-xl font-bold mb-2">Trades on {selectedDate}</h2>
+                {filteredTrades.length > 0 ? (
+                  <ul>
+                    {filteredTrades.map((trade) => (
+                      <li key={trade._id} className="border-b py-2">
+                        <span className="font-semibold">{trade.ticker}:</span> <span className={`font-bold p-2 rounded-xl ${
+                          trade.pnl > 0 ? "text-green-500" : "text-red-500 "
+                        }`}>₹{trade.pnl}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No trades on this day.</p>
+                )}
+              </div>
             )}
           </div>
-        )}
-      </div>
         </div>
       
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
@@ -231,52 +230,85 @@ const Dashboard = () => {
 
         {/* Trade Table */}
         <div className="mt-10 bg-white p-4 shadow-md rounded-lg">
-          <div className="flex justify-between items-center">
-            <h2 className="text-xl font-bold mb-4">Trade History</h2>
-            <button onClick={exportToExcel} className="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer mb-4"> 
-              Export to Excel
-            </button>
-          </div>
-          <table className="w-full border-collapse border border-gray-300">
-            <thead>
-              <tr className="bg-gray-200">
-                {['ticker', 'type', 'entry Price', 'exit Price', 'pnl', 'date' , 'Entry Time' , 'Strategy' , 'Reason' , 'market Condition'].map(col => (
-                  <th key={col} className="border p-2 cursor-pointer " onClick={() => sortTrades(col)}>
-                    {col.toUpperCase()} {sortConfig.key === col ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {paginatedTrades.map((trade, index) => (
-                <tr key={index} className="border hover:bg-gray-100">
-                  <td className="border p-2">{trade.ticker}</td>
-                  <td className="border p-2">{trade.type}</td>
-                  <td className="border p-2">${trade.entryPrice}</td>
-                  <td className="border p-2">${trade.exitPrice}</td>
-                  <td className={`border p-2 ${trade.pnl >= 0 ? "text-green-500" : "text-red-500"}`}>${trade.pnl}</td>
-                  <td className="border p-2">{new Date(trade.date).toLocaleDateString()}</td>
-                  <td className="border p-2">{trade.entryTime}</td>
-                  <td className="border p-2">{trade.strategy}</td>
-                  <td className="border p-2">{trade.reason}</td>
-                  <td className="border p-2">{trade.marketCondition}</td>
-                  <td className="border p-2 text-center">
-                  <button onClick={() => handleDeleteTrade(trade.id)} className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-700">
-                    Delete
-                  </button>
-                </td> 
-                </tr>
-              ))}
-            </tbody>
-          </table>
+  <div className="flex justify-between items-center flex-wrap">
+    <h2 className="text-xl font-bold mb-4">Trade History</h2>
+    <button 
+      onClick={exportToExcel} 
+      className="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer mb-4"
+    > 
+      Export to Excel
+    </button>
+  </div>
 
-          {/* Pagination */}
-          <div className="flex justify-between mt-4">
-            <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)} className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50">Previous</button>
-            <p>Page {currentPage} of {Math.ceil(trades.length / tradesPerPage)}</p>
-            <button disabled={currentPage === Math.ceil(trades.length / tradesPerPage)} onClick={() => setCurrentPage(currentPage + 1)} className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50">Next</button>
-          </div>
+  {/* Responsive Scrollable Table */}
+  <div className="overflow-x-auto">
+    <table className="w-full min-w-[800px] border-collapse border border-gray-300">
+      <thead>
+        <tr className="bg-gray-200">
+          {[
+            'ticker', 'type', 'entry Price', 'exit Price', 'pnl', 'date', 
+            'Entry Time', 'Strategy', 'Reason', 'market Condition'
+          ].map(col => (
+            <th 
+              key={col} 
+              className="border p-2 cursor-pointer text-xs md:text-sm"
+              onClick={() => sortTrades(col)}
+            >
+              {col.toUpperCase()} {sortConfig.key === col ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+            </th>
+          ))}
+          <th className="border p-2 text-xs md:text-sm">ACTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        {paginatedTrades.map((trade, index) => (
+          <tr key={index} className="border hover:bg-gray-100">
+            <td className="border p-2">{trade.ticker}</td>
+            <td className="border p-2">{trade.type}</td>
+            <td className="border p-2">${trade.entryPrice}</td>
+            <td className="border p-2">${trade.exitPrice}</td>
+            <td className={`border p-2 ${trade.pnl >= 0 ? "text-green-500" : "text-red-500"}`}>
+              ${trade.pnl}
+            </td>
+            <td className="border p-2">{new Date(trade.date).toLocaleDateString()}</td>
+            <td className="border p-2">{trade.entryTime}</td>
+            <td className="border p-2">{trade.strategy}</td>
+            <td className="border p-2">{trade.reason}</td>
+            <td className="border p-2">{trade.marketCondition}</td>
+            <td className="border p-2 text-center">
+              <button 
+                onClick={() => handleDeleteTrade(trade.id)} 
+                className="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-700"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  {/* Pagination Controls */}
+  <div className="flex flex-wrap justify-between mt-4 gap-2">
+    <button 
+      disabled={currentPage === 1} 
+      onClick={() => setCurrentPage(currentPage - 1)} 
+      className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50"
+    >
+      Previous
+    </button>
+    <p className="text-sm md:text-base">Page {currentPage} of {Math.ceil(trades.length / tradesPerPage)}</p>
+    <button 
+      disabled={currentPage === Math.ceil(trades.length / tradesPerPage)} 
+      onClick={() => setCurrentPage(currentPage + 1)} 
+      className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50"
+    >
+      Next
+    </button>
+  </div>
         </div>
+
         
       </main>
     </div>  
