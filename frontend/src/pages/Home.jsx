@@ -51,7 +51,7 @@ export default function Home() {
 
           <motion.img 
           src={binanceLogo}
-          className='w-20 md:left-80 left-4 absolute bottom-32 glow-effect opacity-70'
+          className='w-20 md:left-80 left-4 absolute md:bottom-32 bottom-20 glow-effect opacity-70'
           {...animationProps}/>
 
           <motion.img 
