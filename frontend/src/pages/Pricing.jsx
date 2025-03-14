@@ -18,9 +18,9 @@ export default function Pricing() {
   const [isYearly, setIsYearly] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center py-12 px-6 bg-gray-100">
-      <h2 className="text-5xl font-extrabold text-center text-gray-800 mb-6">
-        Choose Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff]">Plan</span>
+    <div className="min-h-screen flex flex-col items-center justify-center py-20 pt-30 px-6 bg-gray-100">
+      <h2 className="text-5xl font-extrabold text-center text-gray-800 mb-6 tracking-wider">
+        Choose Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff] tracking-wider">Plan</span>
       </h2>
       
       {/* Toggle Switch */}
@@ -42,11 +42,11 @@ export default function Pricing() {
       </div>
       
       {/* Pricing Cards */}
-      <div className="grid md:grid-cols-3 gap-6 w-full max-w-5xl">
+      <div className="grid md:grid-cols-3 gap-6 w-full max-w-5xl px-6 md:px-2">
         {pricingPlans[isYearly ? "yearly" : "monthly"].map((plan, index) => (
           <motion.div
             key={index}
-            className="bg-white rounded-lg shadow-lg p-6 text-center hover:scale-105 transition-transform duration-300"
+            className="bg-white rounded-lg shadow-2xl p-6 text-center hover:scale-105 transition-transform duration-300"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}

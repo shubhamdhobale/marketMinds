@@ -44,13 +44,13 @@ export default function Resources() {
       : blogPosts.filter((post) => post.category === selectedCategory);
 
   return (
-    <div className="min-h-screen mt-40">
+    <div className="min-h-screen mt-40 md:px-4 px-10">
       <h2 className="text-5xl font-extrabold text-center text-gray-800 mb-8">
         Explore Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff]">Blog & Resources</span>
       </h2>
       
       {/* Category Filters */}
-      <div className="flex justify-center gap-4 mb-8">
+      <div className="flex justify-center gap-2 mb-8 md:px-2 px-6">
         {["All", "Trading Tips", "Market Analysis", "Psychology"].map((category) => (
           <button
             key={category}

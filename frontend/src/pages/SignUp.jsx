@@ -4,6 +4,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { signInWithGoogle } from "../redux/authSlice.js";
+import logo from '../assets/images/logo.png'
+import GoogleLogo from '../assets/images/google.png'
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -21,7 +23,6 @@ const SignUp = () => {
     navigate('/profile');
   };
 
-  // Handle Input Change
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -29,13 +30,12 @@ const SignUp = () => {
     });
   };
 
-  // Handle Form Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post("http://localhost:5000/api/auth/signup", formData);
       console.log("User Registered -> ",response);
-      toast.success("Signup Successful!"); // Handle success message
+      toast.success("Signup Successful!");
       navigate('/signin')
     } catch (error) {
       console.error("Signup Error:", error);
@@ -47,7 +47,7 @@ const SignUp = () => {
     <div className="flex items-center justify-center min-h-screen mt-16">
       <div className="border border-black p-8 w-96 rounded-md shadow-2xl flex flex-col items-center justify-center">
         <div className="text-center flex items-center justify-center flex-col">
-          <img src="/images/logo.png" alt="" className="h-40"/>
+          <img src={logo} alt="" className="h-40"/>
           <h1 className="text-2xl font-bold text-[#0A192F] tracking-wide">Welcome to MarketMinds</h1>
           <p className="text-[#0A192F] tracking-wide py-2 text-sm">📈 Trade Smart, Track Better.</p>
         </div>
@@ -93,7 +93,7 @@ const SignUp = () => {
             <p className="tracking-wider">OR</p>
           </div>
           <button className="flex flex-row gap-3 items-center justify-center border border-black px-4 py-2 rounded-lg shadow-lg hover:scale-105 transition duration-700 cursor-pointer" onClick={handleGoogleSignIn}>
-            <img src="/images/google.png" alt="" className="h-6"/>
+            <img src={GoogleLogo} alt="" className="h-6"/>
             <p className="text-md tracking-wider font-semibold">Continue with Google</p>
           </button>
           {loading && <p>Signing in...</p>}
