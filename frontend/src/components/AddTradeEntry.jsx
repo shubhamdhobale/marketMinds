@@ -10,9 +10,13 @@ import SideBar from "./SideBar.jsx";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import logo from '../assets/images/logo.png'
+import marketData from "../MarketPairs.json"; 
 
 const AddTradeEntry = () => {
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [filteredTickers, setFilteredTickers] = useState([]);
   const user = useSelector((state) => state.auth.user)
   const [trade, setTrade] = useState({
     ticker: "",
@@ -92,6 +96,55 @@ const AddTradeEntry = () => {
     }
   };
 
+  const tickerList = [
+    ...marketData.crypto_pairs.fiat,
+    ...marketData.crypto_pairs.crypto_to_crypto,
+    ...marketData.crypto_pairs.stablecoin,
+    ...marketData.forex_pairs.major,
+    ...marketData.forex_pairs.minor,
+    ...marketData.us_stocks.tech,
+    ...marketData.us_stocks.finance,
+    ...marketData.us_stocks.healthcare,
+    ...marketData.us_stocks.consumer,
+    ...marketData.us_stocks.energy,
+    ...marketData.indian_stocks.it,
+    ...marketData.indian_stocks.banking,
+    ...marketData.indian_stocks.energy,
+    ...marketData.indian_stocks.auto,
+    ...marketData.indian_stocks.indian_indices,
+  ];
+
+  useEffect(() => {
+    setFilteredTickers(
+      tickerList.filter((ticker) =>
+        ticker.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }, [searchTerm, tickerList]);
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    // Filter ticker list
+    if (value.trim() !== "") {
+      setFilteredTickers(
+        tickerList.filter((ticker) =>
+          ticker.toLowerCase().includes(value.toLowerCase())
+        )
+      );
+      setShowDropdown(true);
+    } else {
+      setShowDropdown(false);
+    }
+  };
+
+  const handleSelectTicker = (ticker) => {
+    setSearchTerm(ticker);
+    handleChange("ticker", ticker);
+    setShowDropdown(false); 
+  };
+
   return (
     <div className="flex max-w-7xl min-h-screen md:flex-row flex-col">
       <button
@@ -122,7 +175,52 @@ const AddTradeEntry = () => {
   <p className="text-center text-sm sm:text-md tracking-widest">📈 Trade Smart, Track Better.</p>
 
   <form onSubmit={handleSubmit} className="space-y-4 w-full mt-6">
-    <Input name="ticker" placeholder="Ticker Symbol (e.g., AAPL)" onChange={(e) => handleChange(e.target.name, e.target.value)} required />
+  <div style={{ position: "relative" }} className="flex gap-4 items-center ">
+      <label htmlFor="ticker">Select Ticker:</label>
+      <input
+        type="text"
+        placeholder="Search ticker (e.g., AAPL)"
+        value={searchTerm}
+        onChange={handleSearchChange}
+        onFocus={() => setShowDropdown(true)}
+        style={{ width: "50%", padding: "6px", borderRadius: "4px", border: "1px solid #ccc" }}
+      />
+      
+      {/* Dropdown List (Auto appears when searching) */}
+      {showDropdown && filteredTickers.length > 0 && (
+        <ul
+          style={{
+            position: "absolute",
+            width: "50%",
+            maxHeight: "200px",
+            overflowY: "auto",
+            backgroundColor: "#fff",
+            border: "1px solid #ccc",
+            borderRadius: "4px",
+            marginTop: "80px",
+            padding: "0",
+            listStyle: "none",
+            zIndex: 1000,
+          }}
+        >
+          {filteredTickers.map((ticker, index) => (
+            <li
+              key={index}
+              onClick={() => handleSelectTicker(ticker)}
+              style={{
+                padding: "8px",
+                cursor: "pointer",
+                borderBottom: "1px solid #eee",
+              }}
+              onMouseEnter={(e) => (e.target.style.backgroundColor = "#f0f0f0")}
+              onMouseLeave={(e) => (e.target.style.backgroundColor = "white")}
+            >
+              {ticker}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
     
     <div className="flex flex-wrap gap-2 md:gap-4">
       <Select onValueChange={(value) => handleChange("type", value)}>

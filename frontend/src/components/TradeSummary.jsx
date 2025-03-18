@@ -31,11 +31,20 @@ const TradeSummary = () => {
   const avgProfit = trades.filter(t => t.pnl > 0).reduce((acc, t) => acc + t.pnl, 0) / (winningTrades || 1);
   const avgLoss = trades.filter(t => t.pnl < 0).reduce((acc, t) => acc + Math.abs(t.pnl), 0) / (totalTrades - winningTrades || 1);
   const riskToRewardRatio = avgLoss > 0 ? (avgProfit / avgLoss).toFixed(2) : "-";
-  const tradesWithHoldingTime = trades.map(trade => ({
-    ...trade, 
-    holdingTime: (trade.exitTime - trade.entryTime) / (1000 * 60 * 60) 
-}));
-  const avgHoldingTime = (tradesWithHoldingTime.reduce((acc, trade) => acc + trade.holdingTime, 0) / totalTrades || 0).toFixed(2);
+  const tradesWithHoldingTime = trades.map(trade => {
+    if (!trade.entryTime || !trade.exitTime) return { ...trade, holdingTime: 0 };
+  
+    return {
+      ...trade,
+      holdingTime: (new Date(trade.exitTime) - new Date(trade.entryTime)) / (1000 * 60) 
+    };
+  });
+
+  const avgHoldingTime = tradesWithHoldingTime.length > 0
+  ? (tradesWithHoldingTime.reduce((acc, trade) => acc + trade.holdingTime, 0) / tradesWithHoldingTime.length).toFixed(2)
+  : "0";
+
+
 
   return (
     <div className="flex min-h-screen md:flex-row flex-col px-6 md:px-0">   

@@ -25,7 +25,6 @@ const Dashboard = () => {
         if (!token) {
           throw new Error("No authentication token found");
         }
-  
           const response = await axios.get("http://localhost:5000/api/trade/equity-curve", {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -34,17 +33,13 @@ const Dashboard = () => {
               Expires: "0",
             },
           });
-  
           const formattedData = response.data.map((trade) => ({
             date: trade.date, 
             balance: trade.cumulativePnL, 
           }));
-  
           setData(formattedData);
-  
           const lastBalance = formattedData[formattedData.length - 1].balance;
           setLineColor(lastBalance < 0 ? "#FF0000" : "#4CAF50"); 
-  
         } catch (error) {
           console.error("Error fetching equity curve data:", error);
           toast.error("Failed to load equity curve. Please login again.");
@@ -85,14 +80,26 @@ const Dashboard = () => {
     return acc;
   }, {});
 
+  const aggregatedData = tradeData.reduce((acc, trade) => {
+    if (acc[trade.name]) {
+      acc[trade.name] += trade.PNL; // Add PNL if ticker already exists
+    } else {
+      acc[trade.name] = trade.PNL; // Initialize PNL for new ticker
+    }
+    return acc;
+  }, {});
+
+  const processedTradeData = Object.keys(aggregatedData).map((ticker) => ({
+    name: ticker,
+    PNL: aggregatedData[ticker],
+  }));
+
   // Handle date click to filter trades
   const handleDateClick = (date) => {
     const formattedDate = date.toISOString().split("T")[0];
     setSelectedDate(formattedDate);
     setFilteredTrades(trades.filter(trade => trade.date.startsWith(formattedDate)));
   };
-
-  // const selectedDatePnL = filteredTrades.reduce((acc, trade) => acc + trade.pnl, 0);
 
   const pieData = [
     { name: "Profitable Trades", value: profitableTrades },
@@ -128,7 +135,7 @@ const Dashboard = () => {
   if (error || tradeError) return <p className="text-red-500 text-center">Error loading data</p>; 
 
   return (
-    <div className="flex min-h-screen mt-4">
+    <div className="flex min-h-screen mt-20">
       <main className="flex-1 p-6 md:w-full w-88">
         <h1 className="text-3xl font-bold mb-4 tracking-wider">Welcome, {user?.username}</h1>
         <p className="text-lg">Total PnL: <span className={totalPnL >= 0 ? "text-green-500 font-bold" : "text-red-500 font-bold"}>${totalPnL}</span></p>
@@ -199,20 +206,22 @@ const Dashboard = () => {
               </div>
             )}
           </div>
-        </div>
+        </div>  
       
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          <div className="bg-white p-4 shadow-md rounded-lg">
-            <h2 className="text-xl font-bold mb-2">Trade Performance</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={tradeData}>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="PNL" fill="#3498db" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+        <div className="bg-white p-4 shadow-md rounded-lg">
+          <h2 className="text-xl font-bold mb-2">Trade Performance</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={processedTradeData}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="PNL" fill="#3498db" />
+            </BarChart>
+          </ResponsiveContainer>
+    </div>
+
+
           <div className="bg-white p-4 shadow-md rounded-lg">
             <h2 className="text-xl font-bold mb-2">Win/Loss Ratio</h2>
             <ResponsiveContainer width="100%" height={300}>

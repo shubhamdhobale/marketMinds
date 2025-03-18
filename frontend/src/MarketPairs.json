@@ -1,0 +1,42 @@
+{
+  "forex_pairs": {
+    "major": ["EUR/USD", "USD/JPY", "GBP/USD", "USD/CHF", "AUD/USD", "USD/CAD", "NZD/USD"],
+    "minor": [
+      "EUR/GBP", "EUR/AUD", "EUR/CHF", "EUR/CAD", "EUR/NZD", "EUR/JPY",
+      "GBP/AUD", "GBP/JPY", "GBP/CHF", "GBP/CAD", "GBP/NZD",
+      "AUD/JPY", "AUD/NZD", "AUD/CHF", "CAD/JPY", "CAD/CHF", "NZD/JPY"
+    ],
+    "exotic": [
+      "USD/SEK", "USD/NOK", "USD/DKK", "USD/HKD", "USD/SGD", "USD/TRY",
+      "USD/ZAR", "USD/MXN", "USD/CNH", "USD/INR", "USD/THB", "USD/RUB",
+      "EUR/TRY", "EUR/ZAR", "EUR/SGD", "GBP/ZAR", "GBP/SGD", "AUD/SGD"
+    ]
+  },
+  "us_market": {
+    "forex": ["USD/EUR", "USD/JPY", "USD/GBP", "USD/CHF", "USD/CAD", "USD/AUD", "USD/NZD"],
+    "commodities": ["XAU/USD", "XAG/USD", "WTI/USD", "Brent/USD", "NG/USD"]
+  },
+  "crypto_pairs": {
+    "fiat": ["BTC/USD", "ETH/USD", "XRP/USD", "LTC/USD", "ADA/USD", "SOL/USD", "DOGE/USD"],
+    "stablecoin": ["BTC/USDT", "ETH/USDT", "SOL/USDT", "BNB/USDT", "DOT/USDT"],
+    "crypto_to_crypto": ["ETH/BTC", "BNB/BTC", "XRP/BTC", "SOL/ETH", "LTC/BTC"]
+  },
+  "us_stocks": {
+    "tech": ["AAPL", "MSFT", "AMZN", "GOOGL", "META", "NVDA", "TSLA"],
+    "finance": ["JPM", "BAC", "GS", "BRK.A", "BRK.B"],
+    "healthcare": ["JNJ", "PFE", "MRNA", "UNH"],
+    "consumer": ["WMT", "MCD", "KO", "NKE"],
+    "energy": ["XOM", "CVX", "GE", "BA"]
+  },
+  "indian_stocks": {
+    "it": ["TCS", "INFY", "WIPRO", "HCLTECH", "TECHM"],
+    "banking": ["HDFCBANK", "ICICIBANK", "SBIN", "KOTAKBANK", "AXISBANK"],
+    "energy": ["RELIANCE", "ONGC", "IOC", "BPCL"],
+    "auto": ["MARUTI", "TATAMOTORS", "M&M", "BAJAJ-AUTO"],
+    "pharma": ["SUNPHARMA", "DRREDDY", "CIPLA"],
+    "indian_indices": [
+    "NIFTY 50", "SENSEX", "NIFTY BANK", "NIFTY IT",
+    "NIFTY MIDCAP 100", "NIFTY SMALLCAP 100", "INDIA VIX"
+  ]
+  }
+}
