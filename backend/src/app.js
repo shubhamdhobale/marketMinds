@@ -27,6 +27,11 @@ app.use('/api/auth' , authRoutes);
 app.use('/api/user' , userRoute);
 app.use('/api/trade' , tradeRouter);
 
+app.get("/", (req, res) => {
+  res.send("MarketMinds API is running...");
+});
+
+
 //Error Handling Middleware
 app.use(notFound);
 app.use(errorHandler);
