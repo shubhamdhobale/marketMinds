@@ -11,7 +11,7 @@ export const fetchUserProfile = createAsyncThunk("auth/fetchUserProfile", async 
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token found");
 
-    const response = await axios.get("http://localhost:5000/api/user/profile", {
+    const response = await axios.get("https://trade-mitra-backend.onrender.com/api/user/profile", {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -26,7 +26,7 @@ export const fetchUserTrades = createAsyncThunk("auth/fetchUserTrades", async (_
   try {
     const token = localStorage.getItem("token");
     const config = { headers: { Authorization: `Bearer ${token}` } };
-    const response = await axios.get('http://localhost:5000/api/trade/mytrades', config);
+    const response = await axios.get('https://trade-mitra-backend.onrender.com/api/trade/mytrades', config);
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response?.data?.message || "Failed to fetch trades");
@@ -53,7 +53,7 @@ export const signInWithGoogle = createAsyncThunk(
 
       // Send user info to backend for token
       const response = await axios.post(
-        "http://localhost:5000/api/auth/google",
+        "https://trade-mitra-backend.onrender.com/api/auth/google",
         {
           username: user.displayName,
           email: user.email,

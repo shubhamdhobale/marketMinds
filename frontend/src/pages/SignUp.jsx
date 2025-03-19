@@ -33,7 +33,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/signup", formData);
+      const response = await axios.post("https://trade-mitra-backend.onrender.com/api/auth/signup", formData);
       console.log("User Registered -> ",response);
       toast.success("Signup Successful!");
       navigate('/signin')

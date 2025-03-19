@@ -23,7 +23,7 @@ const EquityCurveChart = () => {
         if (!token) {
           throw new Error("No authentication token found");
         }
-        const response = await axios.get("http://localhost:5000/api/trade/equity-curve", {
+        const response = await axios.get("https://trade-mitra-backend.onrender.com/api/trade/equity-curve", {
           headers: {
             Authorization: `Bearer ${token}`,
             "Cache-Control": "no-cache",

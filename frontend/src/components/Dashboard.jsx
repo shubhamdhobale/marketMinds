@@ -10,6 +10,7 @@ import "react-calendar/dist/Calendar.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { user, trades = [], loading, tradeLoading, error, tradeError } = useSelector((state) => state.auth);
@@ -25,7 +26,7 @@ const Dashboard = () => {
         if (!token) {
           throw new Error("No authentication token found");
         }
-          const response = await axios.get("http://localhost:5000/api/trade/equity-curve", {
+          const response = await axios.get("https://trade-mitra-backend.onrender.com/api/trade/equity-curve", {
             headers: {
               Authorization: `Bearer ${token}`,
               "Cache-Control": "no-cache",
@@ -239,15 +240,15 @@ const Dashboard = () => {
 
         {/* Trade Table */}
         <div className="mt-10 bg-white p-4 shadow-md rounded-lg">
-  <div className="flex justify-between items-center flex-wrap">
-    <h2 className="text-xl font-bold mb-4">Trade History</h2>
-    <button 
-      onClick={exportToExcel} 
-      className="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer mb-4"
-    > 
-      Export to Excel
-    </button>
-  </div>
+          <div className="flex justify-between items-center flex-wrap">
+            <h2 className="text-xl font-bold mb-4">Trade History</h2>
+            <button 
+              onClick={exportToExcel} 
+              className="bg-blue-500 text-white px-4 py-2 rounded-md cursor-pointer mb-4"
+            > 
+              Export to Excel
+            </button>
+          </div>
 
   {/* Responsive Scrollable Table */}
   <div className="overflow-x-auto">

@@ -73,7 +73,7 @@ const AddTradeEntry = () => {
     }
   
     try {
-      const response = await fetch("http://localhost:5000/api/trade/newtrade", {
+      const response = await fetch("https://trade-mitra-backend.onrender.com/api/trade/newtrade", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
