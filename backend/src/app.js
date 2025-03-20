@@ -3,36 +3,37 @@ import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
-import authRoutes from './routes/auth.route.js'
-import userRoute from './routes/user.route.js'
+import authRoutes from './routes/auth.route.js';
+import userRoute from './routes/user.route.js';
 import tradeRouter from './routes/trade.route.js';
 import { errorHandler, notFound } from './middleware/error.middleware.js';
-
 
 dotenv.config();
 const app = express();
 
-//security and utility middlewares
+// Security and utility middlewares
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: '*', // Allow all origins
+  credentials: true
+}));
 app.use(express.json());
 
-//Logging
-if(process.env.NODE_ENV === 'development'){
+// Logging
+if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-//Routes
-app.use('/api/auth' , authRoutes);
-app.use('/api/user' , userRoute);
-app.use('/api/trade' , tradeRouter);
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoute);
+app.use('/api/trade', tradeRouter);
 
 app.get("/", (req, res) => {
   res.send("MarketMinds API is running...");
 });
 
-
-//Error Handling Middleware
+// Error Handling Middleware
 app.use(notFound);
 app.use(errorHandler);
 
