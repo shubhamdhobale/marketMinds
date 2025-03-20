@@ -14,9 +14,10 @@ const app = express();
 // Security and utility middlewares
 app.use(helmet());
 app.use(cors({
-  origin: '*', // Allow all origins
+  origin: "https://trade-mitra-frontend.onrender.com", // Replace with your frontend URL
   credentials: true
 }));
+
 app.use(express.json());
 
 // Logging
