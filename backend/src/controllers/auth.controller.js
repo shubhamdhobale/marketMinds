@@ -35,6 +35,7 @@ export const registerUser = asyncHandler(async(req , res) => {
 });
 
 export const authUser = asyncHandler(async(req , res) => {
+  console.log("I am  here in Login route")
   const {email , password} = req.body;
   const user = await User.findOne({ email });
 
