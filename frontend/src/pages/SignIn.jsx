@@ -27,21 +27,23 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     try {
       const response = await axios.post(
-        'https://trade-mitra-backend.onrender.com/api/auth/signin',
-        formData
+        "https://trade-mitra-backend.onrender.com/api/auth/signin",
+        formData,
+        { withCredentials: true } // Required if using cookies for auth
       );
-
-
+  
       const token = response.data.token;
       if (!token) {
         throw new Error("Token not received");
       }
-
+  
       localStorage.setItem("token", token);
-      dispatch(login({}));
-      dispatch(fetchUserProfile());
+      dispatch(login({ token })); // Store token in Redux if needed
+      dispatch(fetchUserProfile()); // Fetch user details after login
+  
       toast.success("Sign In Successful");
       navigate("/profile");
     } catch (error) {
@@ -49,6 +51,7 @@ const SignIn = () => {
       toast.error(error.response?.data?.message || "Signin Failed. Try Again.");
     }
   };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen mt-12">
