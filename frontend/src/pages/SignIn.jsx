@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile, login, signInWithGoogle } from "../redux/authSlice.js";
 import logo from '../assets/images/logo.png'
 import GoogleLogo from '../assets/images/google.png'
+import { VITE_API_BASE_URL } from "../components/index.js";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -30,9 +31,9 @@ const SignIn = () => {
   
     try {
       const response = await axios.post(
-        "https://trade-mitra-backend.onrender.com/api/auth/signin",
+        `${VITE_API_BASE_URL}auth/signin`,
         formData,
-        { withCredentials: true } // Required if using cookies for auth
+        { withCredentials: true } 
       );
   
       const token = response.data.token;
@@ -41,8 +42,8 @@ const SignIn = () => {
       }
   
       localStorage.setItem("token", token);
-      dispatch(login({ token })); // Store token in Redux if needed
-      dispatch(fetchUserProfile()); // Fetch user details after login
+      dispatch(login({ token })); 
+      dispatch(fetchUserProfile()); 
   
       toast.success("Sign In Successful");
       navigate("/profile");

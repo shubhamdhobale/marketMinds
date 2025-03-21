@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import logo from '../assets/images/logo.png'
 import marketData from "../MarketPairs.json"; 
+import { VITE_API_BASE_URL } from "./index.js";
 
 const AddTradeEntry = () => {
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ const AddTradeEntry = () => {
     }
   
     try {
-      const response = await fetch("https://trade-mitra-backend.onrender.com/api/trade/newtrade", {
+      const response = await fetch(`${VITE_API_BASE_URL}trade/newtrade`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

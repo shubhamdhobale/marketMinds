@@ -5,6 +5,7 @@ import SideBar from "./SideBar.jsx";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
+import { VITE_API_BASE_URL } from "./index.js";
 
 const EquityCurveChart = () => {
   const [data, setData] = useState([]);
@@ -23,7 +24,7 @@ const EquityCurveChart = () => {
         if (!token) {
           throw new Error("No authentication token found");
         }
-        const response = await axios.get("https://trade-mitra-backend.onrender.com/api/trade/equity-curve", {
+        const response = await axios.get(`${VITE_API_BASE_URL}trade/equity-curve`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Cache-Control": "no-cache",

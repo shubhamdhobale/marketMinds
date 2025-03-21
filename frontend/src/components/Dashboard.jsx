@@ -9,6 +9,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { VITE_API_BASE_URL } from "./index.js";
 
 
 const Dashboard = () => {
@@ -26,7 +27,7 @@ const Dashboard = () => {
         if (!token) {
           throw new Error("No authentication token found");
         }
-          const response = await axios.get("https://trade-mitra-backend.onrender.com/api/trade/equity-curve", {
+          const response = await axios.get(`${VITE_API_BASE_URL}trade/equity-curve`, {
             headers: {
               Authorization: `Bearer ${token}`,
               "Cache-Control": "no-cache",

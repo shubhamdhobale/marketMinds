@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { signInWithGoogle } from "../redux/authSlice.js";
 import logo from '../assets/images/logo.png'
 import GoogleLogo from '../assets/images/google.png'
+import { VITE_API_BASE_URL } from "../components/index.js";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -33,7 +34,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://trade-mitra-backend.onrender.com/api/auth/signup", formData);
+      const response = await axios.post(`${VITE_API_BASE_URL}auth/signup`, formData);
       console.log("User Registered -> ",response);
       toast.success("Signup Successful!");
       navigate('/signin')

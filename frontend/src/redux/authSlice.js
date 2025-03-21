@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { auth, googleProvider, signInWithPopup } from "../firebase/firebase.js";
-
-// const VITE_API_BASE_URL= "http://localhost:5000/api"
+import { VITE_API_BASE_URL } from "../components/index.js";
 
 
 // Async action to fetch user profile
@@ -11,7 +10,7 @@ export const fetchUserProfile = createAsyncThunk("auth/fetchUserProfile", async 
     const token = localStorage.getItem("token");
     if (!token) throw new Error("No token found");
 
-    const response = await axios.get("https://trade-mitra-backend.onrender.com/api/user/profile", {
+    const response = await axios.get(`${VITE_API_BASE_URL}user/profile`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -22,11 +21,11 @@ export const fetchUserProfile = createAsyncThunk("auth/fetchUserProfile", async 
 });
 
 // Fetch user's trades
-export const fetchUserTrades = createAsyncThunk("auth/fetchUserTrades", async (_, { rejectWithValue }) => {
+export const fetchUserTrades = createAsyncThunk(`auth/fetchUserTrades`, async (_, { rejectWithValue }) => {
   try {
     const token = localStorage.getItem("token");
     const config = { headers: { Authorization: `Bearer ${token}` } };
-    const response = await axios.get('https://trade-mitra-backend.onrender.com/api/trade/mytrades', config);
+    const response = await axios.get(`${VITE_API_BASE_URL}trade/mytrades`, config);
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response?.data?.message || "Failed to fetch trades");
@@ -34,7 +33,7 @@ export const fetchUserTrades = createAsyncThunk("auth/fetchUserTrades", async (_
 });
 
 // Delete trade
-export const deleteTrade = createAsyncThunk("auth/deleteTrade", async (tradeId, { rejectWithValue }) => {
+export const deleteTrade = createAsyncThunk(`${VITE_API_BASE_URL}auth/deleteTrade`, async (tradeId, { rejectWithValue }) => {
   try {
     await axios.delete(`/api/trades/${tradeId}`);
     return tradeId; // Returning tradeId to remove from the state
@@ -53,7 +52,7 @@ export const signInWithGoogle = createAsyncThunk(
 
       // Send user info to backend for token
       const response = await axios.post(
-        "https://trade-mitra-backend.onrender.com/api/auth/google",
+        `${VITE_API_BASE_URL}auth/google`,
         {
           username: user.displayName,
           email: user.email,
