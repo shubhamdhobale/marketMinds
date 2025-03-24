@@ -60,7 +60,7 @@ export const signInWithGoogle = createAsyncThunk(
           uid: user.uid,
         },
         {
-          headers: { "Content-Type": "application/json" }, // ✅ Ensure JSON format
+          headers: { "Content-Type": "application/json" }, 
         }
       );
 

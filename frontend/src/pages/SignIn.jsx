@@ -1,6 +1,6 @@
 import { Link , useNavigate} from "react-router-dom";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile, login, signInWithGoogle } from "../redux/authSlice.js";

@@ -6,7 +6,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Layout from './components/Layout';
 import EmptyPage from './components/EmptyPage';
-import { ToastContainer } from 'react-toastify';
+import { Toaster } from 'react-hot-toast';
 import PrivateRoute from './components/PrivateRoute';
 import Feature from './pages/Feature.jsx';
 import Pricing from './pages/Pricing.jsx';
@@ -45,7 +45,7 @@ const App = () => {
   return (
     <div className='bg-[#E2E8F0] box-border min-h-screen flex flex-col'>
       <RouterProvider router={router} />
-      < ToastContainer />
+      < Toaster />
     </div>
   )
 }

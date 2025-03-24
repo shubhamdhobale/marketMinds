@@ -8,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { VITE_API_BASE_URL } from "./index.js";
 
 

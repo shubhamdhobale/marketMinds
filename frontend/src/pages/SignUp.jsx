@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"; 
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { signInWithGoogle } from "../redux/authSlice.js";
 import logo from '../assets/images/logo.png'
