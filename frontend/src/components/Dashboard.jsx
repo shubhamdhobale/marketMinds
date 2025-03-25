@@ -36,7 +36,7 @@ const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const tradesPerPage = 10;
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
-
+  
   const totalPnL = trades.reduce((acc, trade) => acc + trade.pnl, 0);
   const profitableTrades = trades.filter(trade => trade.pnl > 0).length;
   const lossTrades = trades.length - profitableTrades;
@@ -94,64 +94,69 @@ const Dashboard = () => {
 
   const sortedTrades = [...trades].sort((a, b) => {
     if (!sortConfig.key) return 0;
-    if (a[sortConfig.key] < b[sortConfig.key]) return sortConfig.direction === "asc" ? -1 : 1;
-    if (a[sortConfig.key] > b[sortConfig.key]) return sortConfig.direction === "asc" ? 1 : -1;
-    return 0;
-  });
-
-const handleDeleteTrade = (tradeId) => {
-  // Fetch token from Redux store
-
-  if (!token) {
-    console.error("🚨 User is not logged in! Token is missing.");
-    toast.error("You must be logged in to delete trades.");
-    return;
-  }
-
-  console.log("🛠 Token found:", token); // Debugging: Check if token exists
-
-  toast.warn(
-    <div>
-      <p>Are you sure you want to delete this trade?</p>
-      <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-        <button
-          onClick={() => {
-            dispatch(deleteTrade(tradeId))
-              .then((result) => {
-                if (result.meta.requestStatus === "fulfilled") {
-                  toast.success("Trade deleted successfully!");
-                } else {
-                  console.error("🚨 Delete Failed:", result);
-                  toast.error(result.payload || "Failed to delete trade. Try again.");
-                }
-                toast.dismiss();
-              });
-          }}
-          style={{ background: "red", color: "white", padding: "5px 10px", cursor: "pointer" }}
-        >
-          Yes
-        </button>
-        <button onClick={() => toast.dismiss()} style={{ background: "gray", color: "white", padding: "5px 10px", cursor: "pointer" }}>
-          No
-        </button>
-      </div>
-    </div>,
-    {
-      position: "top-center",
-      autoClose: false,
-      closeOnClick: false,
-      closeButton: false,
-      draggable: false,
+    if (typeof a[sortConfig.key] === "string") {
+      return sortConfig.direction === "asc"
+        ? a[sortConfig.key].localeCompare(b[sortConfig.key])
+        : b[sortConfig.key].localeCompare(a[sortConfig.key]);
     }
-  );
-};
+    return sortConfig.direction === "asc"
+      ? a[sortConfig.key] - b[sortConfig.key]
+      : b[sortConfig.key] - a[sortConfig.key];
+  });
+  
+
+  const handleDeleteTrade = (tradeId) => {
+    // Fetch token from Redux store
+
+    if (!token) {
+      console.error("🚨 User is not logged in! Token is missing.");
+      toast.error("You must be logged in to delete trades.");
+      return;
+    }
+
+    console.log("🛠 Token found:", token); // Debugging: Check if token exists
+
+    toast.warn(
+      <div>
+        <p>Are you sure you want to delete this trade?</p>
+        <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+          <button
+            onClick={() => {
+              dispatch(deleteTrade(tradeId))
+                .then((result) => {
+                  if (result.meta.requestStatus === "fulfilled") {
+                    toast.success("Trade deleted successfully!");
+                  } else {
+                    console.error("🚨 Delete Failed:", result);
+                    toast.error(result.payload || "Failed to delete trade. Try again.");
+                  }
+                  toast.dismiss();
+                });
+            }}
+            style={{ background: "red", color: "white", padding: "5px 10px", cursor: "pointer" }}
+          >
+            Yes
+          </button>
+          <button onClick={() => toast.dismiss()} style={{ background: "gray", color: "white", padding: "5px 10px", cursor: "pointer" }}>
+            No
+          </button>
+        </div>
+      </div>,
+      {
+        position: "top-center",
+        autoClose: false,
+        closeOnClick: false,
+        closeButton: false,
+        draggable: false,
+      }
+    );
+  };
 
 
   const paginatedTrades = sortedTrades.slice((currentPage - 1) * tradesPerPage, currentPage * tradesPerPage);
 
   if (loading) return <p>Loading...</p>;
   if (!trades.length) return <p>No trades found</p>;
-
   if (loading || tradeLoading) return <p className="text-center">Loading dashboard...</p>;
   if (error || tradeError) return <p className="text-red-500 text-center">Error loading data</p>; 
 
