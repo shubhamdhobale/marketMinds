@@ -1,8 +1,16 @@
 import express from 'express';
 import { registerUser, authUser, googleSignIn } from '../controllers/auth.controller.js';
 import { body } from 'express-validator';
+import cors from 'cors';
 
 const router = express.Router();
+
+
+router.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
+
 
 // Validation chain for signup
 router.post(

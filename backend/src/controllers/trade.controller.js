@@ -55,46 +55,27 @@ export const getUserTrades = asyncHandler(async (req, res) => {
   }
 });
 
-export const deleteTrade = asyncHandler(async (req , res) => {
+export const deleteTrade = asyncHandler(async (req, res) => {
+  console.log("🛠 Received DELETE request for Trade ID:", req.params.id);
+  console.log("🛠 Authenticated User ID:", req.user?.id);
+
+  if (!req.user) {
+    return res.status(401).json({ message: "Unauthorized: No user found" });
+  }
+
   const tradeId = req.params.id;
-  const userId = req.user.id; // Ensure user ID is extracted properly
+  const userId = req.user.id;
 
   try {
     const trade = await Trade.findOne({ _id: tradeId, user: userId });
     if (!trade) {
-      return res.status(404).json({ message: "Trade not found" });
+      return res.status(404).json({ message: "Trade not found or unauthorized access" });
     }
 
     await Trade.findByIdAndDelete(tradeId);
     res.json({ message: "Trade deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Server error" });
-  }
-})
-
-export const equityCurve = asyncHandler(async (req, res) => {
-  try {
-    const userId = req.user.id || req.user._id;
-    const trades = await Trade.find({ user: userId }).sort({ date: 1 }); 
-
-    if (!trades.length) {
-      console.log("No trades found for user:", userId);
-      return res.status(200).json([]); 
-    }
-
-    let cumulativePnL = 0;
-    const formattedData = trades.map((trade) => {
-      cumulativePnL += trade.pnl;
-      return {
-        date: trade.date.toISOString().split("T")[0],
-        cumulativePnL,
-      };
-    });
-
-    // console.log("🔹 Equity Curve Response:", formattedData);
-    res.status(200).json(formattedData);
-  } catch (error) {
-    console.error("Error fetching equity curve:", error);
+    console.error("❌ Server Error:", error);
     res.status(500).json({ message: "Server error" });
   }
 });
