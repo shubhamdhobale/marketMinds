@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUserProfile, fetchUserTrades , deleteTrade} from "../redux/authSlice.js";
+import { fetchUserProfile, fetchUserTrades} from "../redux/authSlice.js";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import SideBar from "./SideBar.jsx";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
+import { deleteTrade } from "../redux/tradeSlice.js";
+import {toast} from "react-toastify";
 
 const TradeHistory = () => {
     const dispatch = useDispatch();
@@ -54,10 +56,28 @@ const TradeHistory = () => {
   const paginatedTrades = sortedTrades.slice((currentPage - 1) * tradesPerPage, currentPage * tradesPerPage);
 
   const handleDeleteTrade = (tradeId) => {
-    if (window.confirm("Are you sure you want to delete this trade?")) {
-      dispatch(deleteTrade(tradeId));
-    }
-  };
+      toast.warn(
+        "Are you sure you want to delete this trade?",
+        {
+          position: "top-center",
+          autoClose: false,
+          closeOnClick: false,
+          pauseOnHover: false,
+          draggable: false,
+          closeButton: true,
+          onClose: () => {
+            dispatch(deleteTrade(tradeId))
+              .then((result) => {
+                if (result.meta.requestStatus === "fulfilled") {
+                  toast.success("Trade deleted successfully!");
+                } else {
+                  toast.error("Failed to delete trade. Try again.");
+                }
+              });
+          },
+        }
+      );
+    };
 
   if (loading || tradeLoading) return <p className="text-center">Loading dashboard...</p>;
   if (error || tradeError) return <p className="text-red-500 text-center">Error loading data</p>; 

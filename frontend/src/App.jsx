@@ -16,6 +16,7 @@ import AddTradeEntry from './components/AddTradeEntry.jsx';
 import TradeHistory from './components/TradeHistory.jsx';
 import TradeSummary from './components/TradeSummary.jsx';
 import EquityCurveChart from './components/EquityCurveChart.jsx';
+import { ToastContainer } from 'react-toastify';
 
 
 const router = createBrowserRouter(
@@ -46,6 +47,7 @@ const App = () => {
     <div className='bg-[#E2E8F0] box-border min-h-screen flex flex-col'>
       <RouterProvider router={router} />
       < Toaster />
+      <ToastContainer/>
     </div>
   )
 }

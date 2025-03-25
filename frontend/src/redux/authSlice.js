@@ -33,14 +33,17 @@ export const fetchUserTrades = createAsyncThunk(`auth/fetchUserTrades`, async (_
 });
 
 // Delete trade
-export const deleteTrade = createAsyncThunk(`${VITE_API_BASE_URL}auth/deleteTrade`, async (tradeId, { rejectWithValue }) => {
-  try {
-    await axios.delete(`/api/trades/${tradeId}`);
-    return tradeId; // Returning tradeId to remove from the state
-  } catch (error) {
-    return rejectWithValue(error.response.data);
-  }
-});
+// export const deleteTrade = createAsyncThunk(
+//   "trades/deleteTrade",
+//   async (tradeId, { rejectWithValue }) => {
+//     try {
+//       await axios.delete(`/api/trades/${tradeId}`);
+//       return tradeId; 
+//     } catch (error) {
+//       return rejectWithValue(error.response?.data || "Error deleting trade");
+//     }
+//   }
+// );
 
 // Google Sign-in
 export const signInWithGoogle = createAsyncThunk(
@@ -130,12 +133,6 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(deleteTrade.fulfilled, (state, action) => {
-        state.trades = state.trades.filter(trade => trade.id !== action.payload);
-      })
-      .addCase(deleteTrade.rejected, (state, action) => {
-        state.tradeError = action.payload;
-      });
   },
 });
 
