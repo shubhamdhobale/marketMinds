@@ -7,6 +7,9 @@ import { Menu, X } from "lucide-react";
 import logo from "../assets/images/logo.png";
 import userIcon from "../assets/images/user.png";
 import arrowDown from "../assets/images/arrow down.png"; 
+import toast from "react-hot-toast";
+import { Button } from "@/components/ui/button";
+
 
 const Header = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -33,8 +36,28 @@ const Header = () => {
 
   const toggleDropDown = () => setDropDownOpen(!dropDownOpen);
   const handleLogout = () => {
-    dispatch(logout());
-    navigate("/signin");
+    toast(
+      (t) => (
+        <div>
+          <p className="font-semibold">Are you sure you want to logout?</p>
+          <div className="flex gap-2 mt-2">
+            <Button variant="outline" onClick={() => toast.dismiss(t.id)}>Cancel</Button>
+            <Button
+              variant="destructive"
+              onClick={() => {
+                dispatch(logout());
+                navigate("/signin");
+                toast.dismiss(t.id);
+                toast.success("Logged out successfully!");
+              }}
+            >
+              Logout
+            </Button>
+          </div>
+        </div>
+      ),
+      { duration: 5000, position: "top-center" }
+    );
   };
 
   return (
@@ -66,6 +89,7 @@ const Header = () => {
               <span className="text-[#4ECCA3] ml-2 hidden md:inline">Hi, {user?.username || "Profile"}</span>
               <img src={arrowDown} className="h-3 ml-2" alt="Dropdown Icon" />
             </button>
+
             {dropDownOpen && (
               <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }} className="absolute right-0 mt-2 w-48 bg-[#112240] border border-[#4ECCA3] rounded-lg shadow-lg overflow-hidden">
                 <Link to="/profile" className="block px-4 py-2 text-[#E2E8F0] hover:bg-[#4ECCA3] hover:text-[#0A192F] transition">Profile</Link>
@@ -88,7 +112,7 @@ const Header = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <motion.div initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }} className="fixed right-0 w-full sm:w-full h-screen bg-[#11224097] p-6 flex flex-col items-center text-xl gap-6 shadow-lg z-50 top-20">
-          <button className="absolute top-4 right-4 text-[#4ECCA3]" onClick={() => setMenuOpen(false)}><X size={28} /></button>
+          <button className="absolute top-4 right-4 text-[#4ECCA3]" onClick={() => setMenuOpen(false)}></button>
           {['features', 'resources', 'about', 'pricing', 'brokerSupport'].map(item => (
             <Link key={item} to={`/${item}`} className="text-[#E2E8F0] tracking-wider hover:underline transition duration-300" onClick={() => setMenuOpen(false)}>
               {item.charAt(0).toUpperCase() + item.slice(1)}
