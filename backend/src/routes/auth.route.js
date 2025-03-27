@@ -1,5 +1,5 @@
 import express from 'express';
-import { registerUser, authUser, googleSignIn } from '../controllers/auth.controller.js';
+import { registerUser, authUser, googleSignIn, forgotPassword, resetPassword } from '../controllers/auth.controller.js';
 import { body } from 'express-validator';
 import cors from 'cors';
 
@@ -25,5 +25,7 @@ router.post(
 
 router.post('/signin', authUser);
 router.post('/google', googleSignIn);
+router.post('/forgot-password' , forgotPassword)
+router.post('/reset-password/:token' , resetPassword)
 
 export default router;
