@@ -11,21 +11,15 @@ export function TimelineDemo() {
         <div>
           <p
             className=" text-xs md:text-lg font-normal mb-8">
-            Creating your MarketMinds account is quick and easy. Just provide basic details like your name, email, and password to set up your profile. Once registered, you can customize your trading dashboard, set preferences, and tailor MarketMinds to your specific trading style.
+            Creating your <span className="font-bold">MarketMinds</span> account is quick and easy. Just provide basic details like your name, email, and password to set up your profile. Once registered, you can customize your trading dashboard, set preferences, and tailor MarketMinds to your specific trading style.
           </p>
           <div className="grid grid-cols-2 gap-4">
             <img
-              src="https://assets.aceternity.com/templates/startup-1.webp"
-              alt="startup template"
-              width={500}
-              height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-2xl" />
-            <img
-              src="https://assets.aceternity.com/templates/startup-2.webp"
-              alt="startup template"
-              width={500}
-              height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-2xl" />
+              src="/login-ss.png"
+              alt="login template"   
+              // width={500}
+              // height={500}
+              className="rounded-lg object-cover h-60 md:h-52 lg:h-72 w-full shadow-2xl" />
             
           </div>
         </div>
