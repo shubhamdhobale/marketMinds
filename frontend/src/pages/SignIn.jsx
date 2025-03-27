@@ -115,15 +115,21 @@ const SignIn = () => {
             type="password"
             name="password"
             className="border border-gray-300 rounded-lg p-2 outline-none w-72"
-            placeholder="Password"
+            placeholder="Password"   
             value={formData.password}
             onChange={handleChange}
             required
           />
 
+          <p className="">
+            <Link to="/forgot-password" className="text-blue-700 hover:underline ml-40 tracking-wider text-sm">
+                Forgot Password?
+            </Link>
+          </p>
+ 
           <button
             type="submit"
-            className="bg-[#0A192F] text-[#E2E8F0] py-2 px-4 rounded-md hover:bg-[#233554] transition-all duration-700 hover:scale-105 mt-4 w-72"
+            className="bg-[#0A192F] text-[#E2E8F0] py-2 px-4 rounded-md hover:bg-[#233554] transition-all duration-700 hover:scale-105 w-72"
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>
@@ -134,12 +140,6 @@ const SignIn = () => {
           <Link to="/signup" className="text-blue-700 hover:underline font-semibold">
             Sign Up
           </Link>
-          <p className="mt-2">
-            <Link to="/forgot-password" className="text-blue-700 hover:underline font-semibold">
-                Forgot Password?
-            </Link>
-          </p>
-
         </p>
 
         <div className="flex flex-col items-center justify-center gap-2 mt-4">
