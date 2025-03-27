@@ -79,24 +79,34 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     isAuthenticated: !!localStorage.getItem("token"),
-    user: null,
+    // user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null, // Fix here
+    token: localStorage.getItem("token") || null,
     trades: [],
     loading: false,
     tradeLoading: false,
     error: null,
     tradeError: null,
-  },
+  },  
   reducers: {
     login: (state, action) => {
       state.isAuthenticated = true;
-      state.user = action.payload;
+      state.user = action.payload.user;
+      state.token = action.payload.token;
+      localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
+    },
+       
+    setUser: (state, action) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
     },
     logout: (state) => {
       state.isAuthenticated = false;
       state.user = null;
       state.trades = [];
-      localStorage.removeItem("token"); 
-    },
+      state.token = null;  // Clear token
+      localStorage.removeItem("token");
+    },    
   },
   extraReducers: (builder) => {
     builder
@@ -136,5 +146,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { login , logout } = authSlice.actions;
+export const { login , logout , setUser} = authSlice.actions;
 export default authSlice.reducer;

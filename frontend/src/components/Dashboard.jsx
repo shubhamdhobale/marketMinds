@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserProfile, fetchUserTrades } from "../redux/authSlice.js";
@@ -8,16 +9,77 @@ import "react-datepicker/dist/react-datepicker.css";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import {toast} from "react-toastify";
-import { deleteTrade } from "../redux/tradeSlice.js";
+import { fetchMonthlyPnL } from "../redux/pnlSlice.js";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import {jwtDecode} from "jwt-decode";
+import { VITE_API_BASE_URL } from "./index.js";
+import axios from "axios";
+import { debounce } from "lodash";
 
 
-const Dashboard = () => {
+const Dashboard = React.memo(() => {
   const dispatch = useDispatch();
-  const { user, trades = [], loading, tradeLoading, error, tradeError } = useSelector((state) => state.auth);
+  const {  trades = [], loading, tradeLoading, error, tradeError } = useSelector((state) => state.auth);
+  const { monthlyPnL = 0} = useSelector((state) => state.pnl) || {};
+  const [selectedMonth, setSelectedMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
   const [filteredTrades, setFilteredTrades] = useState([]);
-  const token = useSelector((state) => state.auth?.user?.token);
+  const user = useSelector((state) => state.auth.user); // Get user info
+  const token = useSelector((state) => state.auth.token);
+  // console.log("User: ", user)
+  // const token = localStorage.getItem("token");
+  // console.log("Redux State:", { user, token });
+  // console.log("Redux Token:", token);
+  // const userId = user?.id || localStorage.getItem("userId"); 
+  // if (!userId) {
+  //     console.error("User ID is missing");
+  //     return;
+  // }
+
+  const decoded = jwtDecode(token);
+  // console.log(decoded);
+
+  const userId = decoded?.id;
+  // console.log("User ID:", userId);
   
+  const fetchData = debounce( async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("No token found");
+        return;
+      }
+
+      const year = new Date().getFullYear();
+      const month = new Date().getMonth() + 1;
+
+      const response = await axios.get(
+        `${VITE_API_BASE_URL}trade/pnl/monthly/${userId}/${year}/${month}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+        }
+      );
+
+      // console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error.response?.data || error.message);
+    }
+  } , 500);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const year = selectedMonth.getFullYear();
+    const month = selectedMonth.getMonth() + 1;
+    dispatch(fetchMonthlyPnL({ userId, year, month }));
+    // dispatch(fetchStreaks(userId));
+  }, [selectedMonth, dispatch, userId]);
+
   useEffect(() => {
     if (!user) dispatch(fetchUserProfile());
     if (trades.length === 0) dispatch(fetchUserTrades());
@@ -169,6 +231,28 @@ const Dashboard = () => {
         {/* Calendar with PnL Highlights */}
         <div className="mt-8">
           <h1 className="text-3xl font-bold mb-4">Trade Calendar</h1>
+
+          {/* Monthly PnL */}
+          <div className="mb-4 p-4 bg-white shadow rounded">
+                <h3 className="text-lg font-semibold">Monthly PnL</h3>
+                <DatePicker
+                    selected={selectedMonth}
+                    onChange={date => setSelectedMonth(date)}
+                    dateFormat="MM/yyyy"
+                    showMonthYearPicker
+                    className="border p-2 rounded"
+                />
+                <p className="mt-2">PnL: <span className={`font-bold ${monthlyPnL > 0 ? "text-green-500" : "text-red-500"}`}>
+                  ₹{monthlyPnL}</span> </p>
+            </div>
+
+            {/* Streaks */}
+            {/* <div className="p-4 bg-white shadow rounded mb-4">
+                <h3 className="text-lg font-semibold">Winning & Losing Streaks</h3>
+                <p>Longest Winning Streak: {longestWin} days</p>
+                <p>Longest Losing Streak: {longestLoss} days</p>
+            </div> */}
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-white p-4 shadow-md rounded-lg">
               <Calendar
@@ -350,6 +434,7 @@ const Dashboard = () => {
       </main>
     </div>  
   );
-};
+});
 
+Dashboard.displayName = "Dashboard";
 export default Dashboard;
