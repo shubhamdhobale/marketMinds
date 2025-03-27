@@ -81,7 +81,7 @@ const SignUp = () => {
               placeholder="Create Password"
               required
             />
-            <button type="submit" className="bg-[#0A192F] text-[#E2E8F0] py-2 px-4 rounded-md hover:bg-[#233554] transition-all duration-700 hover:scale-105 mt-4">
+            <button type="submit" className="bg-[#0A192F] text-[#E2E8F0] py-2 px-4 rounded-md hover:bg-[#233554] transition-all duration-700 hover:scale-105 mt-4 w-full">
               Sign Up
             </button>
           </form>

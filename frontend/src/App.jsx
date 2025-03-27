@@ -17,6 +17,8 @@ import TradeHistory from './components/TradeHistory.jsx';
 import TradeSummary from './components/TradeSummary.jsx';
 import EquityCurveChart from './components/EquityCurveChart.jsx';
 import { ToastContainer } from 'react-toastify';
+import ForgotPassword from './components/ForgotPassword.jsx';
+import ResetPassword from './components/ResetPassword.jsx';
 
 
 const router = createBrowserRouter(
@@ -34,6 +36,8 @@ const router = createBrowserRouter(
       <Route path='/equitychart' element={<EquityCurveChart/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='/signin' element={<SignIn/>}/>
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route path='/signup' element={<SignUp/>}/>
       <Route element={<PrivateRoute/>}>
         <Route path='/profile' element={<Profile/>}/>

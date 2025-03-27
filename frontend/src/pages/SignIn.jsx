@@ -12,14 +12,14 @@ const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, error, token } = useSelector((state) => state.auth);
-
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [showForgotPassword, setShowForgotPassword] = useState(false); 
   const [formData, setFormData] = useState({
     email: "",
     password: ""
   });
 
   useEffect(() => {
-    // If token exists, redirect to profile
     if (token) {
       navigate("/profile");
     }
@@ -71,6 +71,21 @@ const SignIn = () => {
     }
   };
 
+  const handleForgotPassword = async () => {
+    if (!forgotEmail) {
+      toast.error("Please enter your email.");
+      return;
+    }
+    try {
+      const response = await axios.post(`${VITE_API_BASE_URL}auth/forgot-password`, { email: forgotEmail });
+      toast.success(response.data.message || "Password reset link sent!");
+      setShowForgotPassword(false); // Close modal after request
+    } catch (error) {
+      console.error("Forgot Password Error:", error);
+      toast.error(error.response?.data?.message || "Failed to send reset link.");
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen mt-12">
       <div className="border border-black p-8 w-96 rounded-md shadow-2xl flex flex-col items-center justify-center">
@@ -119,6 +134,12 @@ const SignIn = () => {
           <Link to="/signup" className="text-blue-700 hover:underline font-semibold">
             Sign Up
           </Link>
+          <p className="mt-2">
+            <Link to="/forgot-password" className="text-blue-700 hover:underline font-semibold">
+                Forgot Password?
+            </Link>
+          </p>
+
         </p>
 
         <div className="flex flex-col items-center justify-center gap-2 mt-4">
@@ -134,6 +155,32 @@ const SignIn = () => {
           {error && <p className="text-red-500">{error}</p>}
         </div>
       </div>
+
+      {/* Forgot Password Modal */}
+      {showForgotPassword && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-xl font-semibold text-center">Reset Your Password</h2>
+            <p className="text-sm text-gray-600 text-center mt-2">Enter your email and we&apos;ll send you a reset link.</p>
+            <input
+              type="email"
+              className="border border-gray-300 rounded-lg p-2 outline-none w-full mt-4"
+              placeholder="Enter your email"
+              value={forgotEmail}
+              onChange={(e) => setForgotEmail(e.target.value)}
+              required
+            />
+            <div className="flex justify-between mt-4">
+              <button onClick={() => setShowForgotPassword(false)} className="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500">
+                Cancel
+              </button>
+              <button onClick={handleForgotPassword} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                Send Reset Link
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
