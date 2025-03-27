@@ -17,34 +17,71 @@ const TradeSummary = () => {
       setSidebarOpen(!sidebarOpen);
     };
     
+
+    useEffect(() => {
+      if (!user) dispatch(fetchUserProfile());
+    } , [dispatch, user,])
   
   useEffect(() => {
-    if (!user) dispatch(fetchUserProfile());
     if (trades.length === 0) dispatch(fetchUserTrades());
-  }, [dispatch, user, trades]);
+  }, [dispatch , trades.length]);
 
   // Calculate metrics
-  const totalTrades = trades.length;
+  const totalTrades = trades?.length || 0;
   const totalProfitLoss = trades.reduce((acc, trade) => acc + trade.pnl, 0);
   const winningTrades = trades.filter((trade) => trade.pnl > 0).length;
+  // const lossingTrades = trades.filter((trade) => trade.pnl < 0).length;
   const winRate = totalTrades > 0 ? ((winningTrades / totalTrades) * 100).toFixed(2) : 0;
-  const avgProfit = trades.filter(t => t.pnl > 0).reduce((acc, t) => acc + t.pnl, 0) / (winningTrades || 1);
-  const avgLoss = trades.filter(t => t.pnl < 0).reduce((acc, t) => acc + Math.abs(t.pnl), 0) / (totalTrades - winningTrades || 1);
+  const avgProfit = winningTrades > 0 
+  ? trades.filter(t => t.pnl > 0).reduce((acc, t) => acc + t.pnl, 0) / winningTrades
+  : 0;
+  const avgLoss = (totalTrades - winningTrades) > 0 
+    ? trades.filter(t => t.pnl < 0).reduce((acc, t) => acc + Math.abs(t.pnl), 0) / (totalTrades - winningTrades)
+    : 0;
   const riskToRewardRatio = avgLoss > 0 ? (avgProfit / avgLoss).toFixed(2) : "-";
+
   const tradesWithHoldingTime = trades.map(trade => {
-    if (!trade.entryTime || !trade.exitTime) return { ...trade, holdingTime: 0 };
+    if (!trade.entryTime || !trade.exitTime || !trade.date) return { ...trade, holdingTime: 0 };
   
-    return {
-      ...trade,
-      holdingTime: (new Date(trade.exitTime) - new Date(trade.entryTime)) / (1000 * 60) 
-    };
+    try {
+      const tradeDate = new Date(trade.date.split("T")[0]); 
+  
+      const [entryHour, entryMinute] = trade.entryTime.split(":").map(Number);
+      const [exitHour, exitMinute] = trade.exitTime.split(":").map(Number);
+  
+      const entryDateTime = new Date(tradeDate);
+      entryDateTime.setHours(entryHour, entryMinute, 0);
+  
+      const exitDateTime = new Date(tradeDate);
+      exitDateTime.setHours(exitHour, exitMinute, 0);
+  
+      if (exitDateTime < entryDateTime) {
+        exitDateTime.setDate(exitDateTime.getDate() + 1); 
+      }
+  
+      return {
+        ...trade,
+        holdingTime: (exitDateTime - entryDateTime) / (1000 * 60 * 60) 
+      };
+  
+    } catch (error) {
+      console.error("Error parsing trade times:", error);
+      return { ...trade, holdingTime: 0 };
+    }
   });
-
+  
+  // Sum up holding times
+  const totalHoldingTime = tradesWithHoldingTime.reduce((acc, trade) => acc + (trade.holdingTime || 0), 0);
+  
+  // Compute average
   const avgHoldingTime = tradesWithHoldingTime.length > 0
-  ? (tradesWithHoldingTime.reduce((acc, trade) => acc + trade.holdingTime, 0) / tradesWithHoldingTime.length).toFixed(2)
-  : "0";
-
-
+    ? (totalHoldingTime / tradesWithHoldingTime.length).toFixed(2)
+    : "0";
+  
+  console.log(tradesWithHoldingTime);
+  console.log("Total Holding Time:", totalHoldingTime);
+  console.log("Average Holding Time:", avgHoldingTime);
+  
 
   return (
     <div className="flex min-h-screen md:flex-row flex-col px-6 md:px-0">   
