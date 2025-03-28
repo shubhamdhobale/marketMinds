@@ -25,19 +25,19 @@ const Features = () => {
         initial={{ opacity: 0, y: 20 }} 
         animate={{ opacity: 1, y: 0 }} 
         transition={{ duration: 1, delay: 0.2 }}
-        className="text-lg text-gray-600 mt-4"
+        className="text-lg text-gray-600 mt-4 tracking-wider"
       >
         Everything you need to track, analyze, and grow your trading journey.
       </motion.p>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-12 cards">
         {features.map((feature, index) => (
           <motion.div 
             key={index} 
             initial={{ opacity: 0, scale: 0.9 }} 
             animate={{ opacity: 1, scale: 1 }} 
             transition={{ duration: 0.5, delay: index * 0.2 }}
-            className="p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 duration-700 transition-all"
+            className="p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:scale-110 duration-700 transition-all card"
           >
             <div className="flex justify-center mb-4">{feature.icon}</div>
             <h3 className="text-xl font-semibold text-gray-800">{feature.title}</h3>

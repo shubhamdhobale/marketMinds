@@ -150,7 +150,7 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0.9 }} 
             animate={{ opacity: 1, scale: 1 }} 
             transition={{ duration: 0.5, delay: index * 0.2 }} 
-            className="p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all flex flex-col items-center text-center">
+            className="p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all flex flex-col items-center text-center hover:scale-95 duration-500">
               <div className="mb-5" aria-hidden="true">{benefit.icon}</div>
               <h3 className="text-2xl font-bold text-gray-800">{benefit.title}</h3>
               <p className="text-gray-600 mt-3 text-lg leading-snug">{benefit.description}</p>

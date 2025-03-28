@@ -49,8 +49,8 @@ const EquityCurveChart = () => {
         setLineColor(lastBalance < 0 ? "#FF0000" : "#4CAF50"); 
 
       } catch (error) {
-        console.error("Error fetching equity curve data:", error);
-        setError("Failed to load equity curve. Please login again.");
+        // console.error("Error fetching equity curve data:", error);
+        setError("Only Premium Access" , error );
       }
     };
 
@@ -85,6 +85,7 @@ const EquityCurveChart = () => {
 
       <div className="w-full p-4 bg-white rounded-md shadow-md md:mt-32 mt-12 md:mx-4 my-4">
         <h2 className="text-lg font-semibold mb-3">Cumulative Profit/Loss (Equity Curve)</h2>
+
         {error ? (
           <p className="text-red-500">{error}</p>
         ) : (

@@ -138,7 +138,7 @@ export default function Resources() {
           <motion.div
             key={post.id}
             layout
-            className={`p-6 rounded-lg shadow-xl bg-white transition-transform hover:scale-95 duration-700 ${
+            className={`p-6 rounded-lg shadow-xl bg-white transition-transform hover:scale-95 duration-300 ${
               expandedPost === post.id ? "scale-105 z-10 col-span-1" : ""
             }`}
           >
