@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
 import { FaUsers, FaChartLine, FaTrophy } from "react-icons/fa";
+import ReactPlayer from "react-player";
+import Team from "../components/Team";
 
 const stats = [
   { icon: <FaUsers size={40} className="text-[#4ECCA3]" />, label: "Active Traders", value: 100 },
@@ -18,6 +20,11 @@ const timeline = [
 export default function AboutSection() {
   return (
     <div className="min-h-screen py-16 px-6 mt-24">
+       {/* Video Background */}
+       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 opacity-30">
+        <ReactPlayer url="https://youtu.be/LMzBfWpHRgc" playing loop muted width="100%" height="100%" className="object-cover" />
+      </div>
+
       <motion.h2
         className="text-5xl font-extrabold text-center mb-12 tracking-wider"
         initial={{ opacity: 0, y: -50 }}
@@ -32,6 +39,7 @@ export default function AboutSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
+        whileInView={{ y: [20, 0] }}
       >
         MarketMinds is a powerful AI-driven trading journal that helps traders log, analyze, and optimize their trades for maximum profitability. Designed for both beginners and experts, it empowers users with data-driven insights, risk management tools, and real-time performance tracking.
       </motion.p>
@@ -75,6 +83,36 @@ export default function AboutSection() {
           </motion.div>
         ))}
       </div>
+
+      {/* Interactive Team Section */}
+      {/* <div className="mt-40 py-10">
+        <motion.h3 className="text-5xl font-extrabold text-center mb-12" whileInView={{ opacity: 1, y: [50, 0] }}>Meet Our 
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff] "> Team</span> </motion.h3>
+        <div className="flex justify-center gap-8 flex-wrap">
+          {team.map((member, index) => (
+            <motion.div
+              key={index}
+              className="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg text-center w-72 cursor-pointer transition-all duration-300 hover:scale-95"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+            >
+              <img src={member.img} className="rounded-full w-20 mb-4"/>
+              <h4 className="text-xl font-bold text-gray-800">{member.name}</h4>
+              <p className="text-gray-600 mb-4">{member.role}</p>
+              <div className="flex justify-center gap-4">
+                <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                  <FaLinkedin size={24} className="text-[#0077B5] hover:text-[#005582]" />
+                </a>
+                <a href={member.github} target="_blank" rel="noopener noreferrer">
+                  <FaGithub size={24} className="text-black hover:text-gray-700" />
+                </a>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div> */}
+      <Team/>
     </div>
   );
 }
