@@ -72,7 +72,7 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <div className="text-center mt-36">
+      <div className="text-center md:mt-36 mt-28">
         <div className="max-w-3xl mx-auto px-12 relative z-10">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
@@ -163,13 +163,13 @@ export default function Home() {
 
       {/* Features Section */}
       <div className="max-w-7xl mt-24 relative">
-      <p className='text-[30vh] font-extrabold absolute bottom-3/5 left-10 opacity-10 text-transparent bg-clip-text bg-gradient-to-b from-[#00c3ff] to-[#4ecca23f]'>2</p>
+      {/* <p className='text-[30vh] font-extrabold absolute bottom-3/5 left-10 opacity-10 text-transparent bg-clip-text bg-gradient-to-b from-[#00c3ff] to-[#4ecca23f]'>2</p> */}
         <Features/>
       </div>
       
       {/* How it works  */}
       <div className="relative">
-      <p className='text-[28vh] font-extrabold absolute opacity-10 text-transparent bg-clip-text bg-gradient-to-b from-[#00c3ff] to-[#4ecca23f]'>3</p>
+      {/* <p className='text-[28vh] font-extrabold absolute opacity-10 text-transparent bg-clip-text bg-gradient-to-b from-[#00c3ff] to-[#4ecca23f]'>3</p> */}
         <TimelineDemo/>
       </div>
 
