@@ -124,13 +124,13 @@ export default function Home() {
 
       {/* Why MarketMinds  */}
       <div className="mt-24 max-w-7xl relative">
-        <p className='text-[30vh] font-extrabold absolute left-10 opacity-10 text-transparent bg-clip-text bg-gradient-to-b from-[#00c3ff] to-[#4ecca23f] font'>1</p>
+        {/* <p className='text-[30vh] font-extrabold absolute left-10 opacity-10 text-transparent bg-clip-text bg-gradient-to-b from-[#00c3ff] to-[#4ecca23f] font'>1</p> */}
         <div className="py-20 bg-gradient-to-b px-8 text-center">
         <motion.h2 
           initial={{ opacity: 0, y: -20 }} 
           animate={{ opacity: 1, y: 0 }} 
           transition={{ duration: 0.8 }}
-          className="text-5xl font-extrabold text-gray-900 tracking-widest"
+          className="text-4xl font-extrabold text-gray-900 tracking-widest"
         >
           Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff] tracking-widest pt-4">MarketMinds</span>?
         </motion.h2>

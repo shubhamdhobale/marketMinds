@@ -11,36 +11,37 @@ const features = [
 
 const Features = () => {
   return (
-    <div className="py-16 px-6 text-center">
+    <div className="py-16 px-4 sm:px-6 lg:px-16 text-center">
       <motion.h2 
         initial={{ opacity: 0, y: -20 }} 
         animate={{ opacity: 1, y: 0 }} 
         transition={{ duration: 0.8 }}
-        className="text-4xl font-extrabold text-gray-900 tracking-wider"
+        className="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-wider"
       >
-        Powerful Features to Elevate Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff] tracking-wider">Trading</span> 
+        Powerful Features to Elevate Your 
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff] tracking-wider"> Trading</span> 
       </motion.h2>
       
       <motion.p 
         initial={{ opacity: 0, y: 20 }} 
         animate={{ opacity: 1, y: 0 }} 
         transition={{ duration: 1, delay: 0.2 }}
-        className="text-lg text-gray-600 mt-4 tracking-wider"
+        className="text-lg sm:text-xl text-gray-600 mt-4 tracking-wider"
       >
         Everything you need to track, analyze, and grow your trading journey.
       </motion.p>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-12 cards">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 cards">
         {features.map((feature, index) => (
           <motion.div 
             key={index} 
             initial={{ opacity: 0, scale: 0.9 }} 
             animate={{ opacity: 1, scale: 1 }} 
             transition={{ duration: 0.5, delay: index * 0.2 }}
-            className="p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:scale-110 duration-700 transition-all card"
+            className="p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl hover:scale-105 duration-500 transition-all card max-w-sm mx-auto"
           >
             <div className="flex justify-center mb-4">{feature.icon}</div>
-            <h3 className="text-xl font-semibold text-gray-800">{feature.title}</h3>
+            <h3 className="text-xl sm:text-2xl font-semibold text-gray-800">{feature.title}</h3>
             <p className="text-gray-600 mt-2">{feature.description}</p>
           </motion.div>
         ))}
