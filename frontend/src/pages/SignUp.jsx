@@ -46,7 +46,7 @@ const SignUp = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen mt-16">
-      <div className="border border-black p-8 w-96 rounded-md shadow-2xl flex flex-col items-center justify-center">
+      <div className="border border-gray-300 p-8 w-96 rounded-md shadow-2xl flex flex-col items-center justify-center">
         <div className="text-center flex items-center justify-center flex-col">
           <img src={logo} alt="" className="h-40"/>
           <h1 className="text-2xl font-bold text-[#0A192F] tracking-wide">Welcome to MarketMinds</h1>
@@ -93,7 +93,7 @@ const SignUp = () => {
           <div>
             <p className="tracking-wider">OR</p>
           </div>
-          <button className="flex flex-row gap-3 items-center justify-center border border-black px-4 py-2 rounded-lg shadow-lg hover:scale-105 transition duration-700 cursor-pointer" onClick={handleGoogleSignIn}>
+          <button className="flex flex-row gap-3 items-center justify-center border border-black px-4 py-2 rounded-lg shadow-lg hover:scale-95 transition duration-700 cursor-pointer" onClick={handleGoogleSignIn}>
             <img src={GoogleLogo} alt="" className="h-6"/>
             <p className="text-md tracking-wider font-semibold">Continue with Google</p>
           </button>

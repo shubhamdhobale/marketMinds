@@ -88,7 +88,7 @@ const SignIn = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen mt-12">
-      <div className="border border-black p-8 w-96 rounded-md shadow-2xl flex flex-col items-center justify-center">
+      <div className="border border-gray-300 p-8 w-96 rounded-md shadow-2xl flex flex-col items-center justify-center">
         <div className="text-center flex items-center justify-center flex-col">
           <img src={logo} alt="Logo" className="h-40" />
           <h1 className="text-2xl font-bold text-[#0A192F] tracking-wide">
@@ -145,7 +145,7 @@ const SignIn = () => {
         <div className="flex flex-col items-center justify-center gap-2 mt-4">
           <p className="tracking-wider">OR</p>
           <button 
-            className="flex flex-row gap-3 items-center justify-center border border-black px-4 py-2 rounded-lg shadow-lg hover:scale-105 transition duration-700 cursor-pointer"
+            className="flex flex-row gap-3 items-center justify-center border border-black px-4 py-2 rounded-lg shadow-lg hover:scale-95 transition duration-700 cursor-pointer"
             onClick={handleGoogleSignIn}
           >
             <img src={GoogleLogo} alt="Google Logo" className="h-6" />
