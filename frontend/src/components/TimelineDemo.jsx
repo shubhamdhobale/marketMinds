@@ -13,7 +13,7 @@ export function TimelineDemo() {
             className=" text-xs md:text-lg font-normal mb-8">
             Creating your <span className="font-bold">MarketMinds</span> account is quick and easy. Just provide basic details like your name, email, and password to set up your profile. Once registered, you can customize your trading dashboard, set preferences, and tailor MarketMinds to your specific trading style.
           </p>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <img
               src="/login-ss.png"
               alt="login template"   
@@ -71,9 +71,9 @@ export function TimelineDemo() {
             Leverage AI-powered analytics to gain deep insights into your trading patterns. MarketMinds offers:
           </p>
           <div className="text-xs md:text-lg font-normal mb-4 tracking-wide">
-          🔹 Performance Reports – Track win rates, risk-reward ratios, and profitability over time. <br/>
-🔹 AI-Driven Insights – Identify trends, common mistakes, and areas for growth. <br/>
-🔹 Customizable Dashboards – Visualize trade history, success metrics, and trading psychology factors in an easy-to-understand format.<br/>
+          ✔ Performance Reports – Track win rates, risk-reward ratios, and profitability over time. <br/>
+          ✔ AI-Driven Insights – Identify trends, common mistakes, and areas for growth. <br/>
+          ✔ Customizable Dashboards – Visualize trade history, success metrics, and trading psychology factors in an easy-to-understand format.<br/>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <img

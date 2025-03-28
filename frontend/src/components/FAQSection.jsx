@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import { FaPlus, FaMinus } from "react-icons/fa";
 
 const faqs = [
-  { question: "What is MarketMinds?", answer: "MarketMinds is a trading journal platform that helps traders track and analyze their trades with AI insights." },
+  { question: "What is MarketMinds?", answer: `MarketMinds: A Comprehensive Trading Journal with AI Insights. MarketMinds is a trading journal platform designed to help traders systematically track, analyze, and improve their trading strategies. By integrating AI-driven insights, MarketMinds provides traders with actionable recommendations to optimize their performance in financial markets. It caters to both novice and experienced traders, enabling them to record their trades, identify patterns, and make informed decisions based on data-driven analysis.`},
+  { question: "Why MarketMinds?" , answer: "Trading is not just about making profits; it's about learning from past trades, refining strategies, and developing consistency. Many traders struggle with emotional decision-making and lack of structured trade analysis, leading to repeated mistakes. A trading journal like MarketMinds bridges this gap by offering a structured way to log trades and analyze performance."},
   { question: "How can I sign up?", answer: "You can sign up by clicking on the 'Get Started' button on the homepage and following the registration steps." },
   { question: "Is MarketMinds free to use?", answer: "We offer a free plan with basic features and premium plans for advanced analytics and AI-powered insights." },
   { question: "Can I access my data on multiple devices?", answer: "Yes, your data is securely stored in the cloud, allowing you to access it from anywhere." },
