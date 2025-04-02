@@ -1,21 +1,61 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import axios from "axios";
+import logo from '../assets/images/logo.png'
 
 const pricingPlans = {
   monthly: [
-    { name: "Free", price: "$0", features: ["Basic Trade Logging", "Limited Insights", "Community Access"] },
-    { name: "Pro", price: "$19", features: ["Advanced Trade Analytics", "AI-Powered Insights", "Export Reports"] },
-    { name: "Premium", price: "$49", features: ["Personalized Coaching", "Priority Support", "Full Data Access"] },
+    { name: "Free", price: "10", features: ["Basic Trade Logging", "Limited Insights", "Community Access"] },
+    { name: "Pro", price: "19", features: ["Advanced Trade Analytics", "AI-Powered Insights", "Export Reports"] },
+    { name: "Premium", price: "49", features: ["Personalized Coaching", "Priority Support", "Full Data Access"] },
   ],
   yearly: [
-    { name: "Free", price: "$0", features: ["Basic Trade Logging", "Limited Insights", "Community Access"] },
-    { name: "Pro", price: "$190", features: ["Advanced Trade Analytics", "AI-Powered Insights", "Export Reports"], savings: "Save $38!" },
-    { name: "Premium", price: "$490", features: ["Personalized Coaching", "Priority Support", "Full Data Access"], savings: "Save $98!" },
+    { name: "Free", price: "10", features: ["Basic Trade Logging", "Limited Insights", "Community Access"] },
+    { name: "Pro", price: "190", features: ["Advanced Trade Analytics", "AI-Powered Insights", "Export Reports"], savings: "Save $38!"},
+    { name: "Premium", price: "490", features: ["Personalized Coaching", "Priority Support", "Full Data Access"], savings: "Save $98!"},
   ],
 };
 
 export default function Pricing() {
   const [isYearly, setIsYearly] = useState(false);
+
+  const checkoutHandler = async (price) => {
+    try {
+      const {data:{key}} = await axios.get("http://localhost:5000/api/payment/getkey");
+      const amount = Number(price);
+      const { data:{order} } = await axios.post("http://localhost:5000/api/payment/checkout", {
+        amount,
+      });
+
+      const options = {
+        key, 
+        amount: order.amount, 
+        currency: "INR",
+        name: "MarketMinds",
+        description: "Test Transaction",
+        image: {logo},
+        order_id: order.id, 
+        callback_url: "http://localhost:5000/api/payment/paymentverification",
+        prefill: {
+            name: "Gaurav Kumar",
+            email: "gaurav.kumar@example.com",
+            contact: "9000090000"
+        },
+        notes: {
+            "address": "Razorpay Corporate Office"
+        },
+        theme: {
+            "color": "#4ECCA3"
+        }
+      };
+      const razor = new window.Razorpay(options);
+      razor.open();
+      // console.log(data);
+    } catch (error) {
+      console.error("Checkout error:", error);
+    }
+  };
+  
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center py-20 pt-30 px-6 bg-gray-100">
@@ -61,7 +101,7 @@ export default function Pricing() {
                 <li key={i} className="text-gray-700">✅ {feature}</li>
               ))}
             </ul>
-            <button className="mt-6 bg-[#00c3ff] text-white px-5 py-3 rounded-md shadow-md hover:bg-[#009ac7] transition-all duration-300">
+            <button className="mt-6 bg-[#00c3ff] text-white px-5 py-3 rounded-md shadow-md hover:bg-[#009ac7] transition-all duration-300" onClick={() => checkoutHandler(plan.price)}>
               Get Started
             </button>
           </motion.div>
