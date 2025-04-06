@@ -66,6 +66,24 @@ export default function AboutSection() {
 
       {/* Timeline Section */}
       <div className="relative max-w-4xl mx-auto mt-40">
+      <motion.h2
+        className=" font-extrabold text-center mb-16 tracking-wide leading-tight"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <span className="opacity-50 tracking-wider text-xl shadow-2xl">Our{" "}</span>
+        <span className="relative inline-block">
+        <span className="drop-shadow-2xl text-4xl sm:text-5xl md:text-6xl bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff] bg-clip-text text-transparent ">
+          Evolutionary
+        </span>
+        <span className="absolute left-0 bottom-0 md:w-84 sm:w-60 w-40 h-1 bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff] animate-pulse rounded-full" />
+      </span>
+
+        <br />
+        <span className=" text-4xl mr-36 drop-shadow-2xl tracking-widest opacity-50 font-extrabold font-sans">Timeline</span>
+      </motion.h2>
+
         <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-[#4ECCA3] rounded-lg"></div>
         {timeline.map((item, index) => (
           <motion.div
