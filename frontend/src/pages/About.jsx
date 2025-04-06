@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
 import { FaUsers, FaChartLine, FaTrophy } from "react-icons/fa";
-import ReactPlayer from "react-player";
+// import ReactPlayer from "react-player";
 import Team from "../components/Team";
+// import  logo from '../assets/images/logo.png'
 
 const stats = [
   { icon: <FaUsers size={40} className="text-[#4ECCA3]" />, label: "Active Traders", value: 100 },
@@ -19,11 +20,15 @@ const timeline = [
 
 export default function AboutSection() {
   return (
-    <div className="min-h-screen py-16 px-6 mt-24">
+    <div className="min-h-screen py-16 px-6 mt-24 relative z-0">
        {/* Video Background */}
-       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 opacity-30">
+       {/* <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 opacity-30">
         <ReactPlayer url="https://youtu.be/LMzBfWpHRgc" playing loop muted width="100%" height="100%" className="object-cover" />
-      </div>
+      </div> */}
+
+      {/* <div className="absolute w-80 left-2/5 top-20 -z-10">
+        <img src={logo} alt="" className=" w-full h-full opacity-30 z-0 drop-shadow-[0_0px_30px_rgba(200,0,0,0.5)]"/>
+      </div> */}
 
       <motion.h2
         className="text-5xl font-extrabold text-center mb-12 tracking-wider"
@@ -46,7 +51,7 @@ export default function AboutSection() {
 
 
       {/* Stats Section */}
-      <div className="grid md:grid-cols-3 gap-8 text-center mb-16 max-w-6xl mx-auto">
+      <div className="grid md:grid-cols-3 gap-8 text-center mb-16 max-w-6xl mx-auto relative z-10">
         {stats.map((stat, index) => (
           <motion.div
             key={index}
