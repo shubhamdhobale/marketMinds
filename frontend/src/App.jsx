@@ -20,8 +20,8 @@ import { ToastContainer } from 'react-toastify';
 import ForgotPassword from './components/ForgotPassword.jsx';
 import ResetPassword from './components/ResetPassword.jsx';
 import PrivacyPolicy from './pages/PrivacyPolicy.jsx';
-import TermsAndConditions from './pages/TermsAndConsitions.jsx';
 import PaymentSuccess from './components/PaymentSuccess.jsx';
+import TermsOfService from './pages/TermsOfService.jsx';
 
 
 const router = createBrowserRouter(
@@ -45,9 +45,9 @@ const router = createBrowserRouter(
       <Route element={<PrivateRoute/>}>
         <Route path='/profile' element={<Profile/>}/>
       </Route>
-      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-      <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
       <Route path="/paymentsuccess" element={<PaymentSuccess/>}/>
+      <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+      <Route path="/termsofservices" element={<TermsOfService />} />
     </Route>
   )
 );
