@@ -1,25 +1,32 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import logo from '../assets/images/logo.png'
 
 const pricingPlans = {
   monthly: [
-    { name: "Free", price: "10", features: ["Basic Trade Logging", "Limited Insights", "Community Access"] },
-    { name: "Pro", price: "19", features: ["Advanced Trade Analytics", "AI-Powered Insights", "Export Reports"] },
-    { name: "Premium", price: "49", features: ["Personalized Coaching", "Priority Support", "Full Data Access"] },
+    { name: "Free", symbol:"₹", price: "0", features: ["Basic Trade Logging", "Limited Insights", "Community Access"] },
+    { name: "Pro",symbol:"₹", price: "19", features: ["Advanced Trade Analytics", "AI-Powered Insights", "Export Reports"] },
+    { name: "Premium",symbol:"₹", price: "49", features: ["Personalized Coaching", "Priority Support", "Full Data Access"] },
   ],
   yearly: [
-    { name: "Free", price: "10", features: ["Basic Trade Logging", "Limited Insights", "Community Access"] },
-    { name: "Pro", price: "190", features: ["Advanced Trade Analytics", "AI-Powered Insights", "Export Reports"], savings: "Save $38!"},
-    { name: "Premium", price: "490", features: ["Personalized Coaching", "Priority Support", "Full Data Access"], savings: "Save $98!"},
+    { name: "Free",symbol:"₹", price: "0", features: ["Basic Trade Logging", "Limited Insights", "Community Access"] },
+    { name: "Pro",symbol:"₹", price: "190", features: ["Advanced Trade Analytics", "AI-Powered Insights", "Export Reports"], savings: "Save ₹38!"},
+    { name: "Premium",symbol:"₹", price: "490", features: ["Personalized Coaching", "Priority Support", "Full Data Access"], savings: "Save ₹98!"},
   ],
 };
 
 export default function Pricing() {
   const [isYearly, setIsYearly] = useState(false);
+  const navigate = useNavigate();
 
   const checkoutHandler = async (price) => {
+    const amount = Number(price);
+    if (amount === 0) {
+      navigate("/");
+      return;
+    }
     try {
       const {data:{key}} = await axios.get("http://localhost:5000/api/payment/getkey");
       const amount = Number(price);
@@ -92,7 +99,10 @@ export default function Pricing() {
             transition={{ duration: 0.5, delay: index * 0.2 }}
           >
             <h3 className="text-2xl font-bold text-gray-900">{plan.name}</h3>
-            <p className="text-4xl font-extrabold my-3 text-[#4ECCA3]">{plan.price}</p>
+            <div className="flex flex-row justify-center items-center gap-1">
+              <p className="text-4xl font-extrabold my-3 text-[#4ECCA3]">{plan.symbol}</p>
+              <p className="text-4xl font-extrabold my-3 text-[#4ECCA3]">{plan.price}</p>
+            </div>
             {plan.savings && (
               <p className="text-sm text-red-500 font-semibold">{plan.savings}</p>
             )}
