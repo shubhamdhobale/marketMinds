@@ -7,7 +7,7 @@ const router = express.Router();
 
 
 router.use(cors({
-  origin: "http://localhost:5173",
+  origin: "https://trade-mitra-tr3h.vercel.app",
   credentials: true
 }));
 
