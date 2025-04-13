@@ -43,20 +43,13 @@ export function TimelineDemo() {
             className="text-xs md:text-lg font-normal mb-8">
             By consistently logging trades, you gain clarity on your performance, helping you identify strengths and areas for improvement.
           </p>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <img
-              src="https://assets.aceternity.com/pro/hero-sections.png"
+              src="/log trades.png"
               alt="hero template"
-              width={500}
-              height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-2xl" />
-            <img
-              src="https://assets.aceternity.com/features-section.png"
-              alt="feature template"
-              width={500}
-              height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-2xl" />
-            
+              // width={500}
+              // height={500}
+              className="rounded-lg object-cover h-60 md:h-52 lg:h-72 w-full shadow-2xl" />
           </div>
         </div>
       ),
@@ -75,19 +68,19 @@ export function TimelineDemo() {
           ✔ AI-Driven Insights – Identify trends, common mistakes, and areas for growth. <br/>
           ✔ Customizable Dashboards – Visualize trade history, success metrics, and trading psychology factors in an easy-to-understand format.<br/>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
             <img
-              src="https://assets.aceternity.com/pro/hero-sections.png"
+              src="../../public/trade calender.png"
               alt="hero template"
-              width={500}
-              height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-2xl" />
+              // width={500}
+              // height={500}
+              className="rounded-lg object-cover h-60 md:h-52 lg:h-72 w-full shadow-2xl" />
             <img
-              src="https://assets.aceternity.com/features-section.png"
+              src="../../public/trade performance.png"
               alt="feature template"
-              width={500}
-              height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-2xl" />
+              // width={500}
+              // height={500}
+              className="rounded-lg object-cover h-60 md:h-52 lg:h-72 w-full shadow-2xl" />
             
           </div>
         </div>
@@ -108,19 +101,19 @@ export function TimelineDemo() {
 ✅ Reduce emotional trading and impulsive decisions 🤯<br/>
 ✅ Identify profitable setups and optimize risk management 📊<br/>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <img
-              src="https://assets.aceternity.com/pro/hero-sections.png"
+              src="../../public/trade history.png"
               alt="hero template"
-              width={500}
-              height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-2xl" />
+              // width={500}
+              // height={500}
+              className="rounded-lg object-cover h-60 md:h-52 lg:h-72 w-full shadow-2xl" />
             <img
-              src="https://assets.aceternity.com/features-section.png"
+              src="../../public/trade summary.png"
               alt="feature template"
-              width={500}
-              height={500}
-              className="rounded-lg object-cover h-20 md:h-44 lg:h-60 w-full shadow-2xl" />
+              // width={500}
+              // height={500}
+              className="rounded-lg object-cover h-60 md:h-52 lg:h-72 w-full shadow-2xl" />
            
           </div>
         </div>

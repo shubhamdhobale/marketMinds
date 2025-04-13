@@ -43,7 +43,7 @@ export default function Home() {
   
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
-      <div className='mt-28 flex'>
+      <div className='mt-20 flex'>
           <motion.img 
           src="https://www.trade-copier.com/images/oneui/brokers/tradingview_rectangle.png" 
           className='w-16 left-8 absolute top-60 glow-effect opacity-70 md:left-68' 
@@ -51,7 +51,7 @@ export default function Home() {
 
           <motion.img 
           src={binanceLogo}
-          className='w-20 md:left-80 left-4 absolute md:bottom-32 bottom-20 glow-effect opacity-70'
+          className='w-20 md:left-80 left-4 absolute md:bottom-32 bottom-0   glow-effect opacity-70'
           {...animationProps}/>
 
           <motion.img 

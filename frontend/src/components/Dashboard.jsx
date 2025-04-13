@@ -223,7 +223,7 @@ const Dashboard = React.memo(() => {
   if (error || tradeError) return <p className="text-red-500 text-center">Error loading data</p>; 
 
   return (
-    <div className="flex min-h-screen mt-20">
+    <div className="flex min-h-screen md:mt-20 mt-2">
       <main className="flex-1 p-6 md:w-full w-88">
         <h1 className="text-3xl font-bold mb-4 tracking-wider">Welcome, {user?.username}</h1>
         <p className="text-lg">Total PnL: <span className={totalPnL >= 0 ? "text-green-500 font-bold" : "text-red-500 font-bold"}>${totalPnL}</span></p>

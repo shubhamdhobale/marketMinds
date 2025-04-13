@@ -11,7 +11,8 @@ const Team = () => {
     <div className="mt-40 py-10">
       <motion.h3 className="text-5xl font-extrabold text-center mb-12" whileInView={{ opacity: 1, y: [50, 0] }}>Meet Our 
       <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff] "> Team</span> </motion.h3>
-      <div className="cards py-10 ">
+      <div className="cards py-10  flex flex-col gap-16">
+        
           <div className="card red relative shadow-2xl">
           <img src={founderImg} className="absolute bottom-30 w-40 drop-shadow-[0_5px_10px_rgba(0,0,0,0.45)] transition-transform duration-500 hover:scale-105 hover:drop-shadow-[0_8px_25px_rgba(0,0,0,0.45)] mask-image [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1),rgba(0,0,0,0))]"/>
           <div className=' relative top-12'>
@@ -30,7 +31,9 @@ const Team = () => {
           </div>
               </div>
           </div>
-          <div className="card blue relative shadow-2xl">
+
+
+          <div className="card blue relative shadow-2xl w-64 h-60">
           <img src={founderImg2} className="absolute bottom-30 w-48 drop-shadow-[0_5px_10px_rgba(0,0,0,0.45)] transition-transform duration-500 hover:scale-105 hover:drop-shadow-[0_8px_25px_rgba(0,0,0,0.45)] rounded-full mask-image [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1),rgba(0,0,0,0))]"/>
           <div className=' relative top-12'>
               <h4 className="text-xl font-bold text-gray-800">Omkar Bhagat</h4>
@@ -49,7 +52,9 @@ const Team = () => {
           </div>
             
           </div>
-          <div className="card green relative shadow-2xl">
+
+
+          <div className="card green relative shadow-2xl w-64 h-60">
           <img src={founderImg3} className="absolute bottom-30 w-44 drop-shadow-[0_5px_10px_rgba(0,0,0,0.45)] transition-transform duration-500 hover:scale-105 hover:drop-shadow-[0_8px_25px_rgba(0,0,0,0.45)] mask-image [mask-image:linear-gradient(to_bottom,rgba(0,0,0,1),rgba(0,0,0,0))]"/>
           <div className=' relative top-12'>
               <h4 className="text-xl font-bold text-gray-800">Rohan Khaire</h4>
