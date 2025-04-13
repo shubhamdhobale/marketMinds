@@ -381,16 +381,16 @@ const AddTradeEntry = () => {
             </SelectContent>
           </Select>
 
-          <div className="flex flex-row gap-4 justify-center">
+          <div className="flex flex-row flex-wrap gap-4 justify-center">
             <Button
               type="submit"
-              className="bg-[#4ECCA3] hover:bg-[#4ecca2e1] text-white w-full sm:w-auto cursor-pointer"
+              className="bg-[#4ECCA3] hover:bg-[#4ecca2e1] text-white sm:w-auto cursor-pointer"
             >
               Submit
             </Button>
             <Button
               type="button"
-              className="bg-gray-400 hover:bg-gray-500 text-white w-full sm:w-auto cursor-pointer"
+              className="bg-gray-400 hover:bg-gray-500 text-white sm:w-auto cursor-pointer"
               onClick={() => navigate("/profile")}
             >
               Cancel
