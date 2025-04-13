@@ -6,28 +6,29 @@ export function TimelineDemo() {
   const data = [
     {
       title: "Sign up and create your profile",
-      icon : <FaUserCheck size={50} className="text-[#4ECCA3]"/>,
+      icon : <FaUserCheck className="text-[#4ECCA3] size-8 md:size-16"/>,
       content: (
         <div>
           <p
             className=" text-xs md:text-lg font-normal mb-8">
-            Creating your <span className="font-bold">MarketMinds</span> account is quick and easy. Just provide basic details like your name, email, and password to set up your profile. Once registered, you can customize your trading dashboard, set preferences, and tailor MarketMinds to your specific trading style.
+            Creating your <span className="font-bold">MarketMinds</span> account is quick and easy. Just provide basic details like your name, email, and password to set up your profile. Once registered, you can customize your trading dashboard, set preferences, and discover MarketMinds to your specific trading style.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <img
+              src="/register-ss.png"
+              alt="register template"   
+              className="rounded-lg object-contain  w-full shadow-2xl hover:scale-90 duration-500" />
+            {/* <img
               src="/login-ss.png"
               alt="login template"   
-              // width={500}
-              // height={500}
-              className="rounded-lg object-cover h-60 md:h-52 lg:h-72 w-full shadow-2xl" />
-            
+              className="rounded-lg object-contain  w-full shadow-2xl hover:scale-90 duration-500" /> */}
           </div>
         </div>
       ),
     },
     {
       title: "Log Your Trades",
-      icon : <FaClipboardList size={40} className="text-[#00c3ff]"/>,
+      icon : <FaClipboardList className="text-[#00c3ff] size-8 md:size-12"/>,
       content: (
         <div>
           <p
@@ -47,16 +48,15 @@ export function TimelineDemo() {
             <img
               src="/log trades.png"
               alt="hero template"
-              // width={500}
-              // height={500}
-              className="rounded-lg object-cover h-60 md:h-52 lg:h-72 w-full shadow-2xl" />
+              className="rounded-lg object-contain h-60 md:h-52 lg:h-72 w-full " />
+              
           </div>
         </div>
       ),
     },
     {
       title: "Analyze and optimize your trading strategy",
-      icon : <FaChartLine size={60} className="text-[#4ECCA3]" />,
+      icon : <FaChartLine className="text-[#4ECCA3] size-8 md:size-16" />,
       content: (
         <div>
           <p
@@ -68,19 +68,15 @@ export function TimelineDemo() {
           ✔ AI-Driven Insights – Identify trends, common mistakes, and areas for growth. <br/>
           ✔ Customizable Dashboards – Visualize trade history, success metrics, and trading psychology factors in an easy-to-understand format.<br/>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2  gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
             <img
-              src="../../public/trade calender.png"
+              src="/trade calender.png"
               alt="hero template"
-              // width={500}
-              // height={500}
-              className="rounded-lg object-cover h-60 md:h-52 lg:h-72 w-full shadow-2xl" />
+              className="rounded-lg h-60 md:h-52 lg:h-72 object-contain w-full" />
             <img
-              src="../../public/trade performance.png"
+              src="/trade performance.png"
               alt="feature template"
-              // width={500}
-              // height={500}
-              className="rounded-lg object-cover h-60 md:h-52 lg:h-72 w-full shadow-2xl" />
+              className="rounded-lg object-contain  w-full" />
             
           </div>
         </div>
@@ -88,7 +84,7 @@ export function TimelineDemo() {
     },
     {
       title: "Improve consistency & grow profits",
-      icon : <FaRocket size={50} className="text-red-600" />,
+      icon : <FaRocket className="text-red-600 size-8 md:size-16" />,
       content: (
         <div>
           <p
@@ -101,19 +97,15 @@ export function TimelineDemo() {
 ✅ Reduce emotional trading and impulsive decisions 🤯<br/>
 ✅ Identify profitable setups and optimize risk management 📊<br/>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
             <img
-              src="../../public/trade history.png"
+              src="/trade history.png"
               alt="hero template"
-              // width={500}
-              // height={500}
-              className="rounded-lg object-cover h-60 md:h-52 lg:h-72 w-full shadow-2xl" />
+              className="rounded-lg object-contain w-full " />
             <img
-              src="../../public/trade summary.png"
+              src="/trade summary.png"
               alt="feature template"
-              // width={500}
-              // height={500}
-              className="rounded-lg object-cover h-60 md:h-52 lg:h-72 w-full shadow-2xl" />
+              className=" object-contain w-full " />
            
           </div>
         </div>
