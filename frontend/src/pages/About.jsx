@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
 import { FaUsers, FaChartLine, FaTrophy } from "react-icons/fa";
-// import ReactPlayer from "react-player";
-import Team from "../components/Team";
+// import Team from "../components/Team";
 // import  logo from '../assets/images/logo.png'
 
 const stats = [
@@ -21,11 +20,6 @@ const timeline = [
 export default function AboutSection() {
   return (
     <div className="min-h-screen py-16 px-6 mt-24 relative z-0">
-       {/* Video Background */}
-       {/* <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 opacity-30">
-        <ReactPlayer url="https://youtu.be/LMzBfWpHRgc" playing loop muted width="100%" height="100%" className="object-cover" />
-      </div> */}
-
       {/* <div className="absolute w-80 left-2/5 top-20 -z-10">
         <img src={logo} alt="" className=" w-full h-full opacity-30 z-0 drop-shadow-[0_0px_30px_rgba(200,0,0,0.5)]"/>
       </div> */}
@@ -107,35 +101,7 @@ export default function AboutSection() {
         ))}
       </div>
 
-      {/* Interactive Team Section */}
-      {/* <div className="mt-40 py-10">
-        <motion.h3 className="text-5xl font-extrabold text-center mb-12" whileInView={{ opacity: 1, y: [50, 0] }}>Meet Our 
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4ECCA3] to-[#00c3ff] "> Team</span> </motion.h3>
-        <div className="flex justify-center gap-8 flex-wrap">
-          {team.map((member, index) => (
-            <motion.div
-              key={index}
-              className="flex flex-col items-center p-6 bg-white rounded-lg shadow-lg text-center w-72 cursor-pointer transition-all duration-300 hover:scale-95"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-            >
-              <img src={member.img} className="rounded-full w-20 mb-4"/>
-              <h4 className="text-xl font-bold text-gray-800">{member.name}</h4>
-              <p className="text-gray-600 mb-4">{member.role}</p>
-              <div className="flex justify-center gap-4">
-                <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
-                  <FaLinkedin size={24} className="text-[#0077B5] hover:text-[#005582]" />
-                </a>
-                <a href={member.github} target="_blank" rel="noopener noreferrer">
-                  <FaGithub size={24} className="text-black hover:text-gray-700" />
-                </a>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div> */}
-      <Team/>
+      {/* <Team/> */}
     </div>
   );
 }
