@@ -19,7 +19,7 @@ const timeline = [
 
 export default function AboutSection() {
   return (
-    <div className="min-h-screen py-16 px-6 mt-24 relative z-0">
+    <div className="min-h-screen py-16 px-6 mt-24 relative z-0 mb-20">
       {/* <div className="absolute w-80 left-2/5 top-20 -z-10">
         <img src={logo} alt="" className=" w-full h-full opacity-30 z-0 drop-shadow-[0_0px_30px_rgba(200,0,0,0.5)]"/>
       </div> */}
