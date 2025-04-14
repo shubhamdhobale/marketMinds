@@ -84,7 +84,7 @@ const Header = () => {
       <div className="flex items-center gap-4 md:gap-6">
         {isAuthenticated ? (
           <div className="relative dropdown-container">
-            <button className="flex items-center border border-[#4ECCA3] px-4 py-2 md:px-6 md:py-2 rounded-xl hover:bg-[#4ecca220] transition-all shadow-lg transform hover:scale-105" onClick={toggleDropDown}>
+            <button className="flex items-center border border-[#4ECCA3] px-6 py-2 md:px-6 md:py-2 rounded-xl hover:bg-[#4ecca220] transition-all shadow-lg transform hover:scale-105 cursor-pointer" onClick={toggleDropDown}>
               <img src={userIcon} className="h-4" alt="User Icon" />
               <span className="text-[#4ECCA3] ml-2 hidden md:inline">Hi, {user?.username || "Profile"}</span>
               <img src={arrowDown} className="h-3 ml-2" alt="Dropdown Icon" />

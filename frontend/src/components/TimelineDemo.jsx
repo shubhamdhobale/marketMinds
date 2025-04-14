@@ -18,10 +18,10 @@ export function TimelineDemo() {
               src="/register-ss.png"
               alt="register template"   
               className="rounded-lg object-contain  w-full shadow-2xl hover:scale-90 duration-500" />
-            {/* <img
+            <img
               src="/login-ss.png"
               alt="login template"   
-              className="rounded-lg object-contain  w-full shadow-2xl hover:scale-90 duration-500" /> */}
+              className="rounded-lg object-contain  w-full shadow-2xl hover:scale-90 duration-500" />
           </div>
         </div>
       ),
