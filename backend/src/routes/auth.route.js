@@ -7,7 +7,7 @@ const router = express.Router();
 
 
 router.use(cors({
-  origin: "https://market-minds-seven.vercel.app/",
+  origin: "https://market-minds-seven.vercel.app",
   credentials: true
 }));
 

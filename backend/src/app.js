@@ -15,7 +15,7 @@ const app = express();
 // Security and utility middlewares
 app.use(helmet());
 app.use(cors({
-  origin: "https://market-minds-seven.vercel.app/",  
+  origin: "https://market-minds-seven.vercel.app",  
   credentials: true,
   methods: "GET,POST,PUT,DELETE",
   allowedHeaders: "Content-Type,Authorization"
