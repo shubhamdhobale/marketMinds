@@ -6,11 +6,13 @@ import SideBar from "../components/SideBar.jsx";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
+import Loader from "../components/Loader.jsx";
 
 
 const Profile = () => {
   const dispatch = useDispatch();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [load, setLoad] = useState(true);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -21,10 +23,27 @@ const Profile = () => {
   useEffect(() => {
     dispatch(fetchUserProfile());
     dispatch(fetchUserTrades()); 
+
+    const timer = setTimeout(() => {
+      setLoad(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+    
   }, [dispatch ]);
 
   if (loading) return <p>Loading user details...</p>;
   if (error) return <p>Error: {error}</p>;
+
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setLoad(false);
+  //   }, 2000);
+  //   return () => clearTimeout(timer);
+  // }, []);
+
+  if (load) {
+    return <Loader />;
+  }
 
   return (
     <div className="flex min-h-screen md:flex-row flex-col ">
