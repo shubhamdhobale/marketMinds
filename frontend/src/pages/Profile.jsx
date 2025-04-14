@@ -44,7 +44,7 @@ const Profile = () => {
             {sidebarOpen && (
               <motion.div initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }} className="fixed right-0 w-full sm:w-full h-screen bg-[#11224097] p-6 flex flex-col items-center text-xl gap-6 shadow-lg z-50 top-20">
                 <button className="absolute top-4 right-4 text-[#4ECCA3]" onClick={() => setSidebarOpen(false)}><X size={28} /></button>
-                {['New trade', 'Trade history', 'Trade summary', 'Equity chart', 'Log Out'].map(item => (
+                {['newtrade', 'tradehistory', 'tradesummary', 'equitychart', 'logout'].map(item => (
                   <Link key={item} to={`/${item}`} className="text-[#E2E8F0] tracking-wider hover:underline transition duration-300" onClick={() => setSidebarOpen(false)}>
                     {item.charAt(0).toUpperCase() + item.slice(1)}
                   </Link>
