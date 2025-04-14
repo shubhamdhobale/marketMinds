@@ -48,7 +48,7 @@ export const paymentVerification = asyncHandler(async (req , res) => {
       });
 
       res.redirect(
-        `http://localhost:5173/paymentsuccess?referance=${razorpay_payment_id}`
+        `${process.env.FRONTEND_URL}paymentsuccess?referance=${razorpay_payment_id}`
       );
     }
     else{
