@@ -17,6 +17,8 @@ const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.auth);
+  const [loadingLocal, setLoadingLocal] = useState(false);
+
 
 
   const handleGoogleSignIn = () => {
@@ -33,6 +35,7 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoadingLocal(true);
     try {
       const response = await axios.post(`${VITE_API_BASE_URL}auth/signup`, formData);
       console.log("User Registered -> ",response);
@@ -41,6 +44,8 @@ const SignUp = () => {
     } catch (error) {
       console.error("Signup Error:", error);
       toast.error("Signup Failed! Try again.");
+    } finally {
+      setLoadingLocal(false);
     }
   };
 
@@ -57,6 +62,7 @@ const SignUp = () => {
             <input 
               type="text" 
               name="username" 
+              autoFocus
               value={formData.username} 
               onChange={handleChange} 
               className="border border-black rounded-lg p-2 outline-none w-68" 
@@ -81,9 +87,16 @@ const SignUp = () => {
               placeholder="Create Password"
               required
             />
-            <button type="submit" className="bg-[#0A192F] text-[#E2E8F0] py-2 px-4 rounded-md hover:bg-[#233554] transition-all duration-700 hover:scale-105 mt-4 w-full">
-              Sign Up
+            <button
+              type="submit"
+              disabled={loadingLocal}
+              className={`${
+                loadingLocal ? "bg-gray-500 cursor-not-allowed" : "bg-[#0A192F] hover:bg-[#233554] hover:scale-105"
+              } text-[#E2E8F0] py-2 px-4 rounded-md transition-all duration-700 mt-4 w-full`}
+            >
+              {loadingLocal ? "Signing up..." : "Sign Up"}
             </button>
+
           </form>
         </div>
         <div>
