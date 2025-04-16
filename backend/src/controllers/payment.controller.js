@@ -35,7 +35,7 @@ export const paymentVerification = asyncHandler(async (req , res) => {
     .createHmac("sha256", process.env.RAZORPAY_API_SECRET)  
     .update(body)
     .digest("hex");
-    // console.log("Sig received: " , process.env.RAZORPAY_API_SECRET);
+    // console.log("Sig received: " ,  process.env.RAZORPAY_API_SECRET);
     // console.log("Sig generated: " , expectedSignature);
 
     const isAuthentic = expectedSignature === razorpay_signature;
@@ -48,7 +48,7 @@ export const paymentVerification = asyncHandler(async (req , res) => {
       });
 
       res.redirect(
-        `${process.env.FRONTEND_URL}paymentsuccess?referance=${razorpay_payment_id}`
+        `${process.env.FRONTEND_URL}/paymentsuccess?referance=${razorpay_payment_id}`
       );
     }
     else{
