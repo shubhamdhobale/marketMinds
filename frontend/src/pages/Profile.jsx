@@ -27,8 +27,9 @@ const Profile = () => {
 
   if (authLoading || !token ) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
+      <div className="flex flex-col gap-3 items-center justify-center min-h-screen text-white">
         <Loader />
+        <p className="font-bold text-2xl">Loading Dashboard...</p>
       </div>
     );
   }
