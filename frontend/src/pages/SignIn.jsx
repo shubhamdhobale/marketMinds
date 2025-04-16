@@ -11,8 +11,10 @@ import { VITE_API_BASE_URL } from "../components/index.js";
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, error, token } = useSelector((state) => state.auth);
+  const { error, token } = useSelector((state) => state.auth);
   const [forgotEmail, setForgotEmail] = useState("");
+  const [formLoading, setFormLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false); 
   const [formData, setFormData] = useState({
     email: "",
@@ -34,7 +36,7 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    setFormLoading(true);
     try {
       const response = await axios.post(
         `${VITE_API_BASE_URL}auth/signin`,
@@ -57,17 +59,28 @@ const SignIn = () => {
     } catch (error) {
       console.error("Signin Error:", error);
       toast.error(error.response?.data?.message || "Signin Failed. Try Again.");
+    } finally {
+      setFormLoading(false);
     }
+  
   };
   
 
   const handleGoogleSignIn = async () => {
+    setGoogleLoading(true);
     try {
-      dispatch(signInWithGoogle());
-      navigate('/profile');
+      const actionResult = dispatch(signInWithGoogle());
+      if (actionResult?.payload?.token) {
+        toast.success("Google Sign-In Successful");
+        navigate("/profile");
+      } else {
+        throw new Error("Google Sign-In failed");
+      }
     } catch (error) {
       console.error("Google Sign-in Error:", error);
       toast.error("Google Sign-in Failed.");
+    } finally {
+      setGoogleLoading(false);
     }
   };
 
@@ -129,10 +142,14 @@ const SignIn = () => {
  
           <button
             type="submit"
-            className="bg-[#0A192F] text-[#E2E8F0] py-2 px-4 rounded-md hover:bg-[#233554] transition-all duration-700 hover:scale-105 w-72"
+            disabled={formLoading}
+            className={`${
+              formLoading ? "bg-gray-500 cursor-not-allowed" : "bg-[#0A192F] hover:bg-[#233554] hover:scale-105"
+            } text-[#E2E8F0] py-2 px-4 rounded-md transition-all duration-700 w-72`}
           >
-            {loading ? "Signing in..." : "Sign In"}
+            {formLoading ? "Signing in..." : "Sign In"}
           </button>
+
         </form>
 
         <p className="mt-2">
@@ -145,13 +162,17 @@ const SignIn = () => {
         <div className="flex flex-col items-center justify-center gap-2 mt-4">
           <p className="tracking-wider">OR</p>
           <button 
-            className="flex flex-row gap-3 items-center justify-center border border-black px-4 py-2 rounded-lg shadow-lg hover:scale-95 transition duration-700 cursor-pointer"
+            className={`flex flex-row gap-3 items-center justify-center border border-black px-4 py-2 rounded-lg shadow-lg transition duration-700 cursor-pointer ${
+              googleLoading ? "opacity-50 cursor-not-allowed" : "hover:scale-95"
+            }`}
             onClick={handleGoogleSignIn}
+            disabled={googleLoading}
           >
             <img src={GoogleLogo} alt="Google Logo" className="h-6" />
-            <p className="text-md tracking-wider font-semibold">Continue with Google</p>
+            <p className="text-md tracking-wider font-semibold">
+              {googleLoading ? "Signing in..." : "Continue with Google"}
+            </p>
           </button>
-
           {error && <p className="text-red-500">{error}</p>}
         </div>
       </div>
