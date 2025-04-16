@@ -51,7 +51,7 @@ const Profile = () => {
 
 
   return (
-    <div className="flex min-h-screen md:flex-row flex-col ">
+    <motion.div className="flex min-h-screen md:flex-row flex-col " initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
       <button
         className="md:hidden p-2 bg-gray-800 text-white mt-24 rounded-lg px-4 cursor-pointer py-2 ml-6 md:ml-0 w-88"
         onClick={toggleSidebar}> 
@@ -75,7 +75,7 @@ const Profile = () => {
                 ))}
               </motion.div>
             )}
-    </div>
+    </motion.div>
   );
 };
 
