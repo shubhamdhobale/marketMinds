@@ -20,7 +20,7 @@ import { debounce } from "lodash";
 
 const Dashboard = React.memo(() => {
   const dispatch = useDispatch();
-  const {  trades = [], loading, tradeLoading, error, tradeError } = useSelector((state) => state.auth);
+  const {  trades = [], tradeLoading, error, tradeError } = useSelector((state) => state.auth);
   const { monthlyPnL = 0} = useSelector((state) => state.pnl) || {};
   const [selectedMonth, setSelectedMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
@@ -217,9 +217,9 @@ const Dashboard = React.memo(() => {
 
   const paginatedTrades = sortedTrades.slice((currentPage - 1) * tradesPerPage, currentPage * tradesPerPage);
 
-  if (loading) return <p>Loading...</p>;
+  // if (loading) return <p>Loading...</p>;
   if (!trades.length) return <p>No trades found</p>;
-  if (loading || tradeLoading) return <p className="text-center">Loading dashboard...</p>;
+  if (tradeLoading) return <p className="text-center">Loading Trades...</p>;
   if (error || tradeError) return <p className="text-red-500 text-center">Error loading data</p>; 
 
   return (

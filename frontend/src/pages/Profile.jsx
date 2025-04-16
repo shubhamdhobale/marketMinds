@@ -17,7 +17,7 @@ const Profile = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  const { authLoading , error , token } = useSelector((state) => state.auth);
+  const { authLoading , error } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(fetchUserProfile());
@@ -25,7 +25,7 @@ const Profile = () => {
     
   }, [dispatch ]);
 
-  if (authLoading || !token ) {
+  if (authLoading) {
     return (
       <div className="flex flex-col gap-3 items-center justify-center min-h-screen text-white">
         <Loader />
