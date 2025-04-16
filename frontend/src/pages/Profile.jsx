@@ -12,27 +12,26 @@ import Loader from "../components/Loader.jsx";
 const Profile = () => {
   const dispatch = useDispatch();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [load, setLoad] = useState(true);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  const { loading, error } = useSelector((state) => state.auth);
+  const { authLoading , error , token } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(fetchUserProfile());
     dispatch(fetchUserTrades()); 
-
-    const timer = setTimeout(() => {
-      setLoad(false);
-    }, 2000);
-    return () => clearTimeout(timer);
     
   }, [dispatch ]);
 
-  if (loading) return <p>Loading user details...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (authLoading || !token ) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
+        <Loader />
+      </div>
+    );
+  }
 
   // useEffect(() => {
   //   const timer = setTimeout(() => {
@@ -41,9 +40,14 @@ const Profile = () => {
   //   return () => clearTimeout(timer);
   // }, []);
 
-  if (load) {
-    return <Loader />;
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen text-red-500">
+        Error: {error}
+      </div>
+    );
   }
+
 
   return (
     <div className="flex min-h-screen md:flex-row flex-col ">
