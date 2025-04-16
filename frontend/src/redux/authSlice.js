@@ -85,7 +85,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     isAuthenticated: !!localStorage.getItem("token"),
-    user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
+    // user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
     token: localStorage.getItem("token") || null,
     trades: [],
     authLoading: false,
