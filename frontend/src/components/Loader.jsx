@@ -1,7 +1,7 @@
 
 const Loader = () => {
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen z-50 bg-white">
+    <div className="flex flex-col justify-center items-center min-h-screen z-50">
       {/* Animation Container */}
       <div className="flex gap-4 pt-10 pb-6">
         <div className="flex flex-col items-center animate-[bounce_1s_ease-in-out_infinite_0.1s]">
