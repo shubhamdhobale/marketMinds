@@ -11,7 +11,7 @@ import { VITE_API_BASE_URL } from "../components/index.js";
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { error, token } = useSelector((state) => state.auth);
+  const {  token } = useSelector((state) => state.auth);
   const [forgotEmail, setForgotEmail] = useState("");
   const [formLoading, setFormLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
@@ -173,7 +173,7 @@ const SignIn = () => {
               {googleLoading ? "Signing in..." : "Continue with Google"}
             </p>
           </button>
-          {error && <p className="text-red-500">{error}</p>}
+          {/* {error && <p className="text-red-500">{error}</p>} */}
         </div>
       </div>
 

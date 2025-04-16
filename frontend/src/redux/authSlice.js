@@ -48,26 +48,31 @@ export const fetchUserTrades = createAsyncThunk(`auth/fetchUserTrades`, async (_
 // Google Sign-in
 export const signInWithGoogle = createAsyncThunk(
   "auth/signInWithGoogle",
-  async (_, { rejectWithValue }) => {
+  async (_, { dispatch, rejectWithValue }) => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
 
-      // Send user info to backend for token
       const response = await axios.post(
         `${VITE_API_BASE_URL}auth/google`,
         {
           username: user.displayName,
           email: user.email,
-          photoURL : user.photoURL,
+          photoURL: user.photoURL,
           uid: user.uid,
         },
         {
-          headers: { "Content-Type": "application/json" }, 
+          headers: { "Content-Type": "application/json" },
         }
       );
 
-      localStorage.setItem("token", response.data.token);
+      const { token, user: backendUser } = response.data;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(backendUser));
+
+      dispatch(login({ token, user: backendUser }));
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Google Sign-in failed");
@@ -75,14 +80,15 @@ export const signInWithGoogle = createAsyncThunk(
   }
 );
 
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
     isAuthenticated: !!localStorage.getItem("token"),
-    // user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null, // Fix here
+    user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
     token: localStorage.getItem("token") || null,
     trades: [],
-    loading: false,
+    authLoading: false,
     tradeLoading: false,
     error: null,
     tradeError: null,
@@ -104,27 +110,32 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
       state.trades = [];
-      state.token = null;  // Clear token
+      state.token = null;  
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
     },    
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserProfile.pending, (state) => {
-        state.loading = true;
+        state.authLoading = true;
+        state.error = null;
       })
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isAuthenticated = true;
-        state.loading = false;
+        state.authLoading = false;
       })
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.error = action.payload;
         state.isAuthenticated = false;
-        state.loading = false;
+        state.authLoading = false;
       })
       // Fetch user trades
-      .addCase(fetchUserTrades.pending, (state) => { state.tradeLoading = true; })
+      .addCase(fetchUserTrades.pending, (state) => { 
+        state.tradeLoading = true; 
+        state.error = null;
+      })
       .addCase(fetchUserTrades.fulfilled, (state, action) => {
         state.tradeLoading = false;
         state.trades = action.payload;
@@ -134,13 +145,16 @@ const authSlice = createSlice({
         state.tradeError = action.payload;
       })
 
-      .addCase(signInWithGoogle.pending, (state) => { state.loading = true; })
+      .addCase(signInWithGoogle.pending, (state) => { 
+        state.authLoading = true; 
+        state.error = null;
+      })
       .addCase(signInWithGoogle.fulfilled, (state, action) => {
-        state.loading = false;
+        state.authLoading = false;
         state.user = action.payload;
       })
       .addCase(signInWithGoogle.rejected, (state, action) => {
-        state.loading = false;
+        state.authLoading = false;
         state.error = action.payload;
       })
   },

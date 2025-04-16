@@ -16,7 +16,7 @@ const SignUp = () => {
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.auth);
+  const { authLoading, error } = useSelector((state) => state.auth);
   const [loadingLocal, setLoadingLocal] = useState(false);
 
 
@@ -110,7 +110,7 @@ const SignUp = () => {
             <img src={GoogleLogo} alt="" className="h-6"/>
             <p className="text-md tracking-wider font-semibold">Continue with Google</p>
           </button>
-          {loading && <p>Signing in...</p>}
+          {authLoading && <p>Signing in...</p>}
           {error && <p className="text-red-500">{error}</p>}
         </div>
       </div>
