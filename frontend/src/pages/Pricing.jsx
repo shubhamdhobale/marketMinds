@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import logo from '../assets/images/logo.png'
+import { VITE_API_BASE_URL } from "../components";
 
 const pricingPlans = {
   monthly: [
@@ -28,9 +29,9 @@ export default function Pricing() {
       return;
     }
     try {
-      const {data:{key}} = await axios.get("http://localhost:5000/api/payment/getkey");
+      const {data:{key}} = await axios.get(`${VITE_API_BASE_URL}payment/getkey`);
       const amount = Number(price);
-      const { data:{order} } = await axios.post("http://localhost:5000/api/payment/checkout", {
+      const { data:{order} } = await axios.post(`${VITE_API_BASE_URL}payment/checkout`, {
         amount,
       });
 
@@ -42,7 +43,7 @@ export default function Pricing() {
         description: "Test Transaction",
         image: {logo},
         order_id: order.id, 
-        callback_url: "http://localhost:5000/api/payment/paymentverification",
+        callback_url: `${VITE_API_BASE_URL}payment/paymentverification`,
         prefill: {
             name: "Gaurav Kumar",
             email: "gaurav.kumar@example.com",
