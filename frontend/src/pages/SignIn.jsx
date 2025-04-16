@@ -11,7 +11,7 @@ import { VITE_API_BASE_URL } from "../components/index.js";
 const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {  token } = useSelector((state) => state.auth);
+  const { authLoading , token } = useSelector((state) => state.auth);
   const [forgotEmail, setForgotEmail] = useState("");
   const [formLoading, setFormLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
@@ -26,6 +26,18 @@ const SignIn = () => {
       navigate("/profile");
     }
   }, [token, navigate]);
+
+  useEffect(() => {
+    let timeout;
+    if (authLoading) {
+      timeout = setTimeout(() => {
+        toast("Still signing in…", { icon: "⏳" });
+      }, 3000);
+    }
+  
+    return () => clearTimeout(timeout);
+  }, [authLoading]);
+  
 
   const handleChange = (e) => {
     setFormData((prevData) => ({
