@@ -2,6 +2,9 @@ import asyncHandler from "express-async-handler";
 import { instance } from "../../server.js";
 import crypto from 'crypto'
 import Payment from "../models/payment.model.js";
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 export const checkout = asyncHandler(async (req , res) => {
   const { amount } = req.body;
