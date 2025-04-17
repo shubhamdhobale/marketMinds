@@ -74,9 +74,8 @@ const PaymentSuccess = () => {
   }, []);
 
   return (
-    <div className="relative flex flex-col items-center justify-center gap-4 h-screen bg-gray-50 text-center px-6">
+    <div className="relative flex flex-col items-center justify-center gap-4 h-screen bg-gray-50 text-center px-6 mt-10">
       <Confetti width={width} height={height} />
-
       <CheckCircle2 size={80} className="text-green-500 animate-bounce" />
       <h1 className="text-3xl font-bold text-green-600">Payment Successful!</h1>
       <p className="text-lg text-gray-800">
