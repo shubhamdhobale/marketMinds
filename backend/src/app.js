@@ -40,6 +40,11 @@ app.get("/", (req, res) => {
   res.send("MarketMinds API is running...");
 });
 
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "build", "index.html"));
+});
+
+
 app.get("/api/payment/getkey" , (req , res) => {
   res.status(200).json({ key: process.env.RAZORPAY_API_KEY})
 })
