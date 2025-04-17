@@ -20,12 +20,15 @@ const pricingPlans = {
 
 export default function Pricing() {
   const [isYearly, setIsYearly] = useState(false);
+  const [loadingIndex, setLoadingIndex] = useState(null);
   const navigate = useNavigate();
 
-  const checkoutHandler = async (price) => {
+  const checkoutHandler = async (price , index) => {
+    setLoadingIndex(index);
     const amount = Number(price);
     if (amount === 0) {
       navigate("/");
+      setLoadingIndex(null);
       return;
     }
     try {
@@ -59,6 +62,7 @@ export default function Pricing() {
       const razor = new window.Razorpay(options);
       razor.open();
       // console.log(data);
+      setLoadingIndex(null);
     } catch (error) {
       console.error("Checkout error:", error);
     }
@@ -94,7 +98,7 @@ export default function Pricing() {
         {pricingPlans[isYearly ? "yearly" : "monthly"].map((plan, index) => (
           <motion.div
             key={index}
-            className="bg-white rounded-lg shadow-2xl p-6 text-center hover:scale-105 transition-transform duration-300"
+            className="bg-white rounded-lg shadow-2xl p-6 text-center hover:scale-95 transition-transform duration-300"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
@@ -112,8 +116,12 @@ export default function Pricing() {
                 <li key={i} className="text-gray-700">✅ {feature}</li>
               ))}
             </ul>
-            <button className="mt-6 bg-[#00c3ff] text-white px-5 py-3 rounded-md shadow-md hover:bg-[#009ac7] transition-all duration-300" onClick={() => checkoutHandler(plan.price)}>
-              Get Started
+            <button
+              className="cursor-pointer mt-6 bg-[#00c3ff] text-white px-5 py-3 rounded-md shadow-md hover:bg-[#009ac7] transition-all duration-300 disabled:opacity-60"
+              disabled={loadingIndex === index}
+              onClick={() => checkoutHandler(plan.price, index)}
+            >
+              {loadingIndex === index ? "Processing..." : "Get Started"}
             </button>
           </motion.div>
         ))}
