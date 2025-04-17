@@ -16,8 +16,9 @@ export default defineConfig({
     },
   },
   server: {
+    historyApiFallback: true,
     proxy: {
-      "/api": "http://localhost:5000",
+      "/api": "https://marketminds-7v52.onrender.com",
     },
   },
 });
