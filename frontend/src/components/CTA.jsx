@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function CTA() {
   return (
-    <div className="relative flex items-center justify-center min-h-screen px-6 ">
+    <div className="relative flex items-center justify-center pb-40 px-6 pt-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

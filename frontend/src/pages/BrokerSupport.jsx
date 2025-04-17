@@ -71,6 +71,8 @@ const partners = [
   },
 ];
 
+
+
 export default function BrokerSupport() {
   const [selectedPartner, setSelectedPartner] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
