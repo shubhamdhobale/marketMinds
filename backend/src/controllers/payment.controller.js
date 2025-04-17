@@ -50,9 +50,11 @@ export const paymentVerification = asyncHandler(async (req , res) => {
         razorpay_signature,
       });
 
+      console.log("Redirecting to: ", `${process.env.FRONTEND_URL}/paymentsuccess?referance=${razorpay_payment_id}`);
+
       res.redirect(
         `https://market-minds-seven.vercel.app/paymentsuccess?referance=${razorpay_payment_id}`
-      );
+      );      
     }
     else{
       res.status(400).json({success : false})
