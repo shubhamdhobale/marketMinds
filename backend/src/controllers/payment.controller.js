@@ -51,7 +51,7 @@ export const paymentVerification = asyncHandler(async (req , res) => {
       });
 
       res.redirect(
-        `${process.env.FRONTEND_URL}/paymentsuccess?referance=${razorpay_payment_id}`
+        `https://market-minds-seven.vercel.app/paymentsuccess?referance=${razorpay_payment_id}`
       );
     }
     else{
