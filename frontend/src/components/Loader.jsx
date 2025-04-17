@@ -22,7 +22,6 @@ const Loader = () => {
           <div className="w-1 h-6 bg-green-500"></div>
         </div>
       </div>
-
       {/* Text Below Animation */}
       <p className="text-black text-2xl font-bold mt-2">Loading...</p>
     </div>
